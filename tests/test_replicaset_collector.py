@@ -22,7 +22,7 @@ def test_replicaset_collector():
 
     assert result.success is True
     assert result.collector == "ReplicaSetCollector"
-
+ 
     # must have metric
     metric_names = [m["metric"] for m in result.metrics]
 

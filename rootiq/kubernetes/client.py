@@ -31,6 +31,8 @@ class KubernetesClient:
         self.custom = None
         self.version = None
         self.rbac = None
+        self.autoscaling = None
+        self.policy = None
 
         self._connect()
 
@@ -66,6 +68,9 @@ class KubernetesClient:
             self.apps = client.AppsV1Api()
 
             self.batch = client.BatchV1Api()
+            self.autoscaling = (
+                client.AutoscalingV2Api()
+            )
 
             self.networking = (
                 client.NetworkingV1Api()
@@ -86,6 +91,10 @@ class KubernetesClient:
             self.rbac = (
                 client.RbacAuthorizationV1Api()
             )
+
+            self.policy = (
+                client.PolicyV1Api()
+            )   
 
         except KubernetesConnectionError:
             raise
@@ -271,3 +280,169 @@ class KubernetesClient:
             )
             .items
         )
+    
+# ==================================================
+# Horizontal Pod Autoscalers
+# ==================================================
+
+def hpas(self):
+
+    if self.target.cluster_wide:
+
+        return (
+            self.autoscaling
+            .list_horizontal_pod_autoscaler_for_all_namespaces()
+            .items
+        )
+
+    return (
+        self.autoscaling
+        .list_namespaced_horizontal_pod_autoscaler(
+            self.target.namespace
+        )
+        .items
+    )
+
+# ==================================================
+# ReplicaSets
+# ==================================================
+
+def replicasets(self):
+
+    if self.target.cluster_wide:
+
+        return (
+            self.apps
+            .list_replica_set_for_all_namespaces()
+            .items
+        )
+
+    return (
+        self.apps
+        .list_namespaced_replica_set(
+            self.target.namespace
+        )
+        .items
+    )
+
+# ==================================================
+# Events
+# ==================================================
+
+def events(self):
+
+    if self.target.cluster_wide:
+
+        return (
+            self.core
+            .list_event_for_all_namespaces()
+            .items
+        )
+
+    return (
+        self.core
+        .list_namespaced_event(
+            self.target.namespace
+        )
+        .items
+    )
+
+# ==================================================
+# Services
+# ==================================================
+
+def services(self):
+
+    if self.target.cluster_wide:
+
+        return (
+            self.core
+            .list_service_for_all_namespaces()
+            .items
+        )
+
+    return (
+        self.core
+        .list_namespaced_service(
+            self.target.namespace
+        )
+        .items
+    )
+
+# ==================================================
+# PersistentVolumeClaims
+# ==================================================
+
+def pvcs(self):
+
+    if self.target.cluster_wide:
+
+        return (
+            self.core
+            .list_persistent_volume_claim_for_all_namespaces()
+            .items
+        )
+
+    return (
+        self.core
+        .list_namespaced_persistent_volume_claim(
+            self.target.namespace
+        )
+        .items
+    )
+
+# ==================================================
+# PersistentVolumes
+# ==================================================
+
+def pvs(self):
+
+    return (
+        self.core
+        .list_persistent_volume()
+        .items
+    )
+
+# ==================================================
+# Ingress
+# ==================================================
+
+def ingresses(self):
+
+    if self.target.cluster_wide:
+
+        return (
+            self.networking
+            .list_ingress_for_all_namespaces()
+            .items
+        )
+
+    return (
+        self.networking
+        .list_namespaced_ingress(
+            self.target.namespace
+        )
+        .items
+    )
+
+# ==================================================
+# Network Policies
+# ==================================================
+
+def networkpolicies(self):
+
+    if self.target.cluster_wide:
+
+        return (
+            self.networking
+            .list_network_policy_for_all_namespaces()
+            .items
+        )
+
+    return (
+        self.networking
+        .list_namespaced_network_policy(
+            self.target.namespace
+        )
+        .items
+    )

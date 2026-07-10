@@ -1,0 +1,40 @@
+from enum import Enum
+
+
+class Category(str, Enum):
+
+    POD = "POD"
+
+    NODE = "NODE"
+
+    DEPLOYMENT = "DEPLOYMENT"
+
+    REPLICASET = "REPLICASET"
+
+    STATEFULSET = "STATEFULSET"
+
+    DAEMONSET = "DAEMONSET"
+
+    SERVICE = "SERVICE"
+
+    INGRESS = "INGRESS"
+
+    PVC = "PVC"
+
+    PV = "PV"
+
+    STORAGECLASS = "STORAGECLASS"
+
+    CONFIGMAP = "CONFIGMAP"
+
+    SECRET = "SECRET"
+
+    NETWORK = "NETWORK"
+
+    SECURITY = "SECURITY"
+
+    RESOURCE = "RESOURCE"
+
+    STORAGE = "STORAGE"
+
+    CLUSTER = "CLUSTER"

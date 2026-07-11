@@ -1,5 +1,3 @@
-# rootiq/collectors/ingress.py
-
 from kubernetes.client.rest import ApiException
 
 from rootiq.collectors.base import BaseCollector
@@ -12,23 +10,13 @@ class IngressCollector(BaseCollector):
 
     def collect(self, k8s):
 
-        result = CollectResult(collector=self.name)
+        result = CollectResult(
+            collector=self.name
+        )
 
         try:
 
-            if k8s.target.cluster_wide:
-
-                ingresses = (
-                    k8s.networking.list_ingress_for_all_namespaces().items
-                )
-
-            else:
-
-                ingresses = (
-                    k8s.networking.list_namespaced_ingress(
-                        namespace=k8s.target.namespace
-                    ).items
-                )
+            ingresses = k8s.ingresses()
 
         except ApiException as e:
 
@@ -37,17 +25,35 @@ class IngressCollector(BaseCollector):
 
             return result
 
+        ingress_count = len(ingresses)
+
         total_rules = 0
+        total_paths = 0
         total_tls = 0
+
+        ingress_with_tls = 0
+        ingress_without_tls = 0
+
+        ingress_with_address = 0
+        ingress_without_address = 0
+
+        nginx_class = 0
+        custom_class = 0
 
         for ingress in ingresses:
 
+            spec = ingress.spec
+            status = ingress.status
+
+            #
+            # Rules
+            #
+
             rules = []
-            tls = []
 
-            if ingress.spec.rules:
+            if spec.rules:
 
-                for rule in ingress.spec.rules:
+                for rule in spec.rules:
 
                     paths = []
 
@@ -58,20 +64,33 @@ class IngressCollector(BaseCollector):
 
                         for path in rule.http.paths:
 
+                            backend = {}
+
+                            if path.backend.service:
+
+                                backend = {
+                                    "service": {
+                                        "name": (
+                                            path.backend
+                                            .service
+                                            .name
+                                        ),
+                                        "port": (
+                                            path.backend
+                                            .service
+                                            .port.number
+                                            or path.backend
+                                            .service
+                                            .port.name
+                                        ),
+                                    }
+                                }
+
                             paths.append(
                                 {
                                     "path": path.path,
                                     "path_type": path.path_type,
-                                    "service": (
-                                        path.backend.service.name
-                                        if path.backend.service
-                                        else None
-                                    ),
-                                    "service_port": (
-                                        path.backend.service.port.number
-                                        if path.backend.service
-                                        else None
-                                    ),
+                                    "backend": backend,
                                 }
                             )
 
@@ -82,54 +101,155 @@ class IngressCollector(BaseCollector):
                         }
                     )
 
-                total_rules += len(rules)
+                    total_paths += len(paths)
 
-            if ingress.spec.tls:
+            total_rules += len(rules)
 
-                for item in ingress.spec.tls:
+            #
+            # TLS
+            #
+
+            tls = []
+
+            if spec.tls:
+
+                ingress_with_tls += 1
+
+                for item in spec.tls:
 
                     tls.append(
                         {
-                            "hosts": item.hosts,
-                            "secret": item.secret_name,
+                            "secret_name": (
+                                item.secret_name
+                            ),
+                            "hosts": (
+                                item.hosts or []
+                            ),
                         }
                     )
 
                 total_tls += len(tls)
 
-            addresses = []
+            else:
+
+                ingress_without_tls += 1
+
+            #
+            # Default Backend
+            #
+
+            default_backend = None
 
             if (
-                ingress.status.load_balancer
-                and ingress.status.load_balancer.ingress
+                spec.default_backend
+                and spec.default_backend.service
             ):
 
-                for addr in ingress.status.load_balancer.ingress:
+                default_backend = {
+                    "service": {
+                        "name": (
+                            spec.default_backend
+                            .service.name
+                        ),
+                        "port": (
+                            spec.default_backend
+                            .service.port.number
+                            or spec.default_backend
+                            .service.port.name
+                        ),
+                    }
+                }
 
-                    addresses.append(
+            #
+            # LoadBalancer
+            #
+
+            load_balancer = []
+
+            if (
+                status.load_balancer
+                and status.load_balancer.ingress
+            ):
+
+                ingress_with_address += 1
+
+                for lb in (
+                    status.load_balancer.ingress
+                ):
+
+                    load_balancer.append(
                         {
-                            "ip": getattr(addr, "ip", None),
-                            "hostname": getattr(addr, "hostname", None),
+                            "ip": getattr(
+                                lb,
+                                "ip",
+                                None,
+                            ),
+                            "hostname": getattr(
+                                lb,
+                                "hostname",
+                                None,
+                            ),
                         }
                     )
+
+            else:
+
+                ingress_without_address += 1
+                            #
+            # Ingress Class
+            #
+
+            ingress_class = (
+                spec.ingress_class_name
+            )
+
+            if ingress_class:
+
+                if (
+                    ingress_class.lower()
+                    == "nginx"
+                ):
+
+                    nginx_class += 1
+
+                else:
+
+                    custom_class += 1
+
+            #
+            # Resource
+            #
 
             result.resources.append(
                 {
                     "name": ingress.metadata.name,
                     "namespace": ingress.metadata.namespace,
                     "uid": ingress.metadata.uid,
-                    "ingress_class": ingress.spec.ingress_class_name,
+
+                    "ingress_class": ingress_class,
+
                     "default_backend": (
-                        ingress.spec.default_backend.service.name
-                        if ingress.spec.default_backend
-                        and ingress.spec.default_backend.service
-                        else None
+                        default_backend
                     ),
+
                     "rules": rules,
+
                     "tls": tls,
-                    "addresses": addresses,
-                    "labels": ingress.metadata.labels or {},
-                    "annotations": ingress.metadata.annotations or {},
+
+                    "load_balancer": (
+                        load_balancer
+                    ),
+
+                    "labels": (
+                        ingress.metadata.labels
+                        or {}
+                    ),
+
+                    "annotations": (
+                        ingress.metadata.annotations
+                        or {}
+                    ),
+
                     "creation_timestamp": (
                         ingress.metadata.creation_timestamp.isoformat()
                         if ingress.metadata.creation_timestamp
@@ -138,6 +258,10 @@ class IngressCollector(BaseCollector):
                 }
             )
 
+            #
+            # Collector Warnings
+            #
+
             if not rules:
 
                 result.issues.append(
@@ -145,34 +269,68 @@ class IngressCollector(BaseCollector):
                         "severity": "warning",
                         "resource": ingress.metadata.name,
                         "namespace": ingress.metadata.namespace,
-                        "message": "Ingress has no routing rules.",
+                        "message": (
+                            "Ingress has no routing rules."
+                        ),
                     }
                 )
 
-            if not addresses:
+            if not load_balancer:
 
                 result.logs.append(
                     {
                         "level": "warning",
                         "message": (
-                            f"{ingress.metadata.name} has no external address."
+                            f"{ingress.metadata.name} has no external LoadBalancer address."
                         ),
                     }
                 )
+
+        #
+        # Metrics
+        #
 
         result.metrics.extend(
             [
                 {
                     "metric": "ingress_count",
-                    "value": len(ingresses),
+                    "value": ingress_count,
                 },
                 {
                     "metric": "rule_count",
                     "value": total_rules,
                 },
                 {
+                    "metric": "path_count",
+                    "value": total_paths,
+                },
+                {
                     "metric": "tls_entries",
                     "value": total_tls,
+                },
+                {
+                    "metric": "tls_enabled_ingresses",
+                    "value": ingress_with_tls,
+                },
+                {
+                    "metric": "tls_disabled_ingresses",
+                    "value": ingress_without_tls,
+                },
+                {
+                    "metric": "ingresses_with_loadbalancer",
+                    "value": ingress_with_address,
+                },
+                {
+                    "metric": "ingresses_without_loadbalancer",
+                    "value": ingress_without_address,
+                },
+                {
+                    "metric": "nginx_ingress_class",
+                    "value": nginx_class,
+                },
+                {
+                    "metric": "custom_ingress_class",
+                    "value": custom_class,
                 },
             ]
         )

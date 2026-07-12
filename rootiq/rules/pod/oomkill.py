@@ -12,6 +12,8 @@ class OOMKillRule(BaseRule):
 
     description = "Detect containers terminated because of Out Of Memory."
 
+    resource_type = "pod"
+    
     severity = "critical"
 
     category = "pod"

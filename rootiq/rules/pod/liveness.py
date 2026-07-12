@@ -12,6 +12,8 @@ class LivenessRule(BaseRule):
 
     description = "Detect containers failing liveness probes."
 
+    resource_type = "pod"
+    
     severity = "critical"
 
     category = "pod"

@@ -12,6 +12,8 @@ class ImagePullRule(BaseRule):
 
     description = "Detect container image pull failures."
 
+    resource_type = "pod"
+    
     severity = "critical"
 
     category = "pod"

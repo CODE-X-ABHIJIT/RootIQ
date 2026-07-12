@@ -12,6 +12,8 @@ class ResourcesRule(BaseRule):
 
     description = "Detect resource request and limit misconfigurations."
 
+    resource_type = "pod"
+    
     severity = "medium"
 
     category = "pod"

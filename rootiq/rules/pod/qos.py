@@ -12,6 +12,8 @@ class QoSRule(BaseRule):
 
     description = "Detect pods using non-optimal QoS classes."
 
+    resource_type = "pod"
+    
     severity = "medium"
 
     category = "pod"

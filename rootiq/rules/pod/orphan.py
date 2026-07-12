@@ -12,6 +12,8 @@ class OrphanRule(BaseRule):
 
     description = "Detect pods without a valid workload owner."
 
+    resource_type = "pod"
+    
     severity = "medium"
 
     category = "pod"

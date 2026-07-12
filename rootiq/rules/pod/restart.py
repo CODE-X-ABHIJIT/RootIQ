@@ -12,6 +12,8 @@ class RestartRule(BaseRule):
 
     description = "Detect containers restarting frequently."
 
+    resource_type = "pod"
+    
     severity = "high"
 
     category = "pod"

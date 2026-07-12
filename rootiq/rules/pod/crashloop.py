@@ -12,6 +12,8 @@ class CrashLoopRule(BaseRule):
 
     description = "Detect pods repeatedly crashing."
 
+    resource_type = "pod"
+
     severity = "critical"
 
     category = "pod"

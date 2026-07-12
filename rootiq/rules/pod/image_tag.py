@@ -12,6 +12,8 @@ class ImageTagRule(BaseRule):
 
     description = "Detect unsafe or mutable container image tags."
 
+    resource_type = "pod"
+    
     severity = "medium"
 
     category = "pod"

@@ -12,6 +12,8 @@ class ReadinessRule(BaseRule):
 
     description = "Detect pods failing readiness checks."
 
+    resource_type = "pod"
+    
     severity = "high"
 
     category = "pod"

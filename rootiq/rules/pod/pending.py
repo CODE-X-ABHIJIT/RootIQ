@@ -12,6 +12,8 @@ class PendingRule(BaseRule):
 
     description = "Detect pods stuck in Pending state."
 
+    resource_type = "pod"
+    
     severity = "high"
 
     category = "pod"

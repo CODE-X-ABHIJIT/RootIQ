@@ -5,8 +5,9 @@ from rootiq.collectors.result import CollectResult
 
 
 class IngressCollector(BaseCollector):
-
+    enabled = True
     name = "IngressCollector"
+    resource_type = "ingress"
 
     def collect(self, k8s):
 

@@ -7,7 +7,8 @@ from rootiq.collectors.result import CollectResult
 class ServiceCollector(BaseCollector):
 
     name = "ServiceCollector"
-
+    resource_type = "service"
+    
     def collect(self, k8s):
 
         result = CollectResult(

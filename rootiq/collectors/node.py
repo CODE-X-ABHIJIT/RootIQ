@@ -5,8 +5,9 @@ from rootiq.collectors.result import CollectResult
 
 
 class NodeCollector(BaseCollector):
-
+    enabled = True
     name = "NodeCollector"
+    resource_type = "node"
 
     def collect(self, k8s):
 

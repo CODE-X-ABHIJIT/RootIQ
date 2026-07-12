@@ -6,11 +6,15 @@ from rootiq.engine.registry import registry
 
 class RuleEngine:
     """
-    Executes all registered rules against
-    collector resources.
+    Executes registered rules against
+    collected Kubernetes resources.
     """
 
     name = "RuleEngine"
+
+    # ==================================================
+    # Run Rules
+    # ==================================================
 
     def run(
         self,
@@ -23,6 +27,10 @@ class RuleEngine:
         result = EngineResult(
             engine=self.name
         )
+
+        #
+        # Fetch rules
+        #
 
         rules = registry.get_rules(
             resource_type
@@ -38,12 +46,27 @@ class RuleEngine:
                 ),
             )
 
+            result.summary.update(
+                {
+                    "resource_type": resource_type,
+                    "rules_executed": 0,
+                    "resources_scanned": len(
+                        resources
+                    ),
+                    "issues_found": 0,
+                }
+            )
+
             result.execution_time = (
                 time.perf_counter()
                 - start
             )
 
             return result
+
+        #
+        # Summary
+        #
 
         result.summary.update(
             {
@@ -52,6 +75,10 @@ class RuleEngine:
                 "resources_scanned": len(resources),
             }
         )
+
+        #
+        # Execute Rules
+        #
 
         for rule in rules:
 
@@ -76,7 +103,7 @@ class RuleEngine:
                 continue
 
             #
-            # Merge Issues
+            # Issues
             #
 
             if hasattr(
@@ -89,7 +116,7 @@ class RuleEngine:
                 )
 
             #
-            # Merge Logs
+            # Logs
             #
 
             if hasattr(
@@ -100,8 +127,9 @@ class RuleEngine:
                 result.logs.extend(
                     rule_result.logs
                 )
-                            #
-            # Merge Metadata
+
+            #
+            # Metadata
             #
 
             if hasattr(
@@ -118,11 +146,11 @@ class RuleEngine:
         #
 
         severity_summary = {
-            "Critical": 0,
-            "High": 0,
-            "Medium": 0,
-            "Low": 0,
-            "Info": 0,
+            "CRITICAL": 0,
+            "HIGH": 0,
+            "MEDIUM": 0,
+            "LOW": 0,
+            "INFO": 0,
         }
 
         for issue in result.issues:
@@ -133,14 +161,25 @@ class RuleEngine:
                 None,
             )
 
-            if severity in severity_summary:
+            if hasattr(
+                severity,
+                "value",
+            ):
 
-                severity_summary[
-                    severity
-                ] += 1
+                severity = severity.value
+
+            if severity:
+
+                severity = severity.upper()
+
+                if severity in severity_summary:
+
+                    severity_summary[
+                        severity
+                    ] += 1
 
         #
-        # Update Summary
+        # Final Summary
         #
 
         result.summary.update(
@@ -152,18 +191,10 @@ class RuleEngine:
             }
         )
 
-        #
-        # Execution Time
-        #
-
         result.execution_time = (
             time.perf_counter()
             - start
         )
-
-        #
-        # Success
-        #
 
         result.success = True
 

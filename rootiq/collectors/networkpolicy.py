@@ -5,8 +5,9 @@ from rootiq.collectors.result import CollectResult
 
 
 class NetworkPolicyCollector(BaseCollector):
-
+    enabled = True
     name = "NetworkPolicyCollector"
+    resource_type = "networkpolicy"
 
     def collect(self, k8s):
 

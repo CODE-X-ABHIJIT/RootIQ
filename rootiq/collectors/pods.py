@@ -3,8 +3,9 @@ from rootiq.collectors.result import CollectResult
 
 
 class PodCollector(BaseCollector):
-
+    enabled = True
     name = "PodCollector"
+    resource_type = "pod"
 
     def collect(self, k8s):
 

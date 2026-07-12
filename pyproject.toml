@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rootiq"
+version = "0.1.0"
+description = "RootIQ - Kubernetes Inspection Framework"
+requires-python = ">=3.10"
+
+[project.scripts]
+rootiq = "rootiq.cli.main:main"
+
+[tool.setuptools.packages.find]
+include = ["rootiq*"]
+exclude = [
+    "tests*",
+    "logs*",
+    "output*",
+    "templates*",
+    "rules*",
+    "incidents*"
+]

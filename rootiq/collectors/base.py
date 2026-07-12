@@ -11,8 +11,9 @@ class BaseCollector(ABC):
     """
     Base class for every RootIQ collector.
     """
-
+    enabled = False
     name = "BaseCollector"
+    resource_type = None
 
     def run(self, k8s):
 

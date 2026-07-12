@@ -5,8 +5,9 @@ from rootiq.collectors.result import CollectResult
 
 
 class DeploymentCollector(BaseCollector):
-
+    enabled = True
     name = "DeploymentCollector"
+    resource_type = "deployment"
 
     def collect(self, k8s):
 
@@ -398,32 +399,26 @@ class DeploymentCollector(BaseCollector):
             )
 
             #
-            # Health
+            # Health Classification
             #
 
-            if (
-                ready_replicas == desired_replicas
-                and desired_replicas > 0
-            ):
+            if desired_replicas == 0:
 
-                healthy += 1
-                available += 1
+                partial += 1
 
-            elif ready_replicas == 0:
+            elif unavailable_replicas > 0:
 
                 unhealthy += 1
                 failed_rollouts += 1
 
+            elif ready_replicas == desired_replicas:
+
+                healthy += 1
+                available += 1
+
             else:
 
                 partial += 1
-
-            if (
-                unavailable_replicas
-                and unavailable_replicas > 0
-            ):
-
-                unhealthy += 1
 
         #
         # Metrics

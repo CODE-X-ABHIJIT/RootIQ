@@ -8,7 +8,7 @@ from rootiq.engine.rule_engine import RuleEngine
 
 from rootiq.incident.target import ClusterTarget
 from rootiq.kubernetes.client import KubernetesClient
-from rules import registry
+from rootiq.engine.registry import registry
 
 
 class InspectOrchestrator:

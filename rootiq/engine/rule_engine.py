@@ -2,6 +2,7 @@ import time
 
 from rootiq.engine.result import EngineResult
 from rootiq.engine.registry import registry
+from rootiq.engine.rule_context import RuleContext
 
 
 class RuleEngine:
@@ -63,7 +64,44 @@ class RuleEngine:
             )
 
             return result
+        context = RuleContext(
+            resources=resources,
+        )
 
+        for rule in rules:
+
+            try:
+
+                rule_result = rule.evaluate(context)
+
+            except Exception as e:
+
+                result.success = False
+
+                result.add_log(
+                    "error",
+                    f"{rule.__class__.__name__}: {e}",
+                )
+
+                continue
+
+        if rule_result is not None:
+            pass
+        #
+        # Merge everything produced by rules
+        #
+
+        result.issues.extend(
+            context.issues
+        )
+
+        result.logs.extend(
+            context.logs
+        )
+
+        result.metadata.update(
+            context.metadata
+        )
         #
         # Summary
         #
@@ -73,74 +111,11 @@ class RuleEngine:
                 "resource_type": resource_type,
                 "rules_executed": len(rules),
                 "resources_scanned": len(resources),
+                "issues_found": len(context.issues),
             }
         )
 
-        #
-        # Execute Rules
-        #
-
-        for rule in rules:
-
-            try:
-
-                rule_result = rule.evaluate(
-                    resources
-                )
-
-            except Exception as e:
-
-                result.success = False
-
-                result.add_log(
-                    "error",
-                    (
-                        f"{rule.__class__.__name__}: "
-                        f"{e}"
-                    ),
-                )
-
-                continue
-
-            #
-            # Issues
-            #
-
-            if hasattr(
-                rule_result,
-                "issues",
-            ):
-
-                result.issues.extend(
-                    rule_result.issues
-                )
-
-            #
-            # Logs
-            #
-
-            if hasattr(
-                rule_result,
-                "logs",
-            ):
-
-                result.logs.extend(
-                    rule_result.logs
-                )
-
-            #
-            # Metadata
-            #
-
-            if hasattr(
-                rule_result,
-                "metadata",
-            ):
-
-                result.metadata.update(
-                    rule_result.metadata
-                )
-
+       
         #
         # Severity Summary
         #

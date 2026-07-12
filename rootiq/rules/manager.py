@@ -48,10 +48,7 @@ class RuleManager:
                     inspect.isclass,
                 ):
 
-                    if not issubclass(
-                        obj,
-                        BaseRule,
-                    ):
+                    if not issubclass(obj, BaseRule):
                         continue
 
                     if obj is BaseRule:
@@ -62,7 +59,19 @@ class RuleManager:
 
                     rule = obj()
 
+                    resource_type = (
+                        getattr(rule, "resource_type", None)
+                        or getattr(rule, "category", None)
+                    )
+
+                    if resource_type is None:
+                        print(
+                            f"Skipping {rule.__class__.__name__}: "
+                            "resource_type/category not defined."
+                        )
+                        continue
+
                     registry.register(
-                        rule.resource_type,
+                        resource_type,
                         rule,
                     )

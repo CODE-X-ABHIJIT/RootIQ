@@ -212,4 +212,6 @@ class InspectOrchestrator:
             4,
         )
 
+        result.success = True
+
         return result

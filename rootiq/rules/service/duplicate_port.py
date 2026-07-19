@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class ServiceDuplicatePortRule(BaseRule):
@@ -8,12 +7,14 @@ class ServiceDuplicatePortRule(BaseRule):
     id = "SERVICE-008"
 
     name = "ServiceDuplicatePort"
+    
+    resource_type = "service"
 
-    def evaluate(self, resources):
+    def evaluate(self, ctx: RuleContext):
 
-        result = RuleResult(rule=self.name)
+        
 
-        for service in resources:
+        for service in ctx.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -45,8 +46,9 @@ class ServiceDuplicatePortRule(BaseRule):
 
                 if key in seen:
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+
+                            rule=self,
                             id=self.id,
                             severity="High",
                             resource_type="Service",
@@ -65,7 +67,7 @@ class ServiceDuplicatePortRule(BaseRule):
                                 "Remove duplicate Service port definitions."
                             ),
                         )
-                    )
+                    
 
                 else:
 
@@ -89,8 +91,9 @@ class ServiceDuplicatePortRule(BaseRule):
 
             if duplicates:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Service",
@@ -109,7 +112,7 @@ class ServiceDuplicatePortRule(BaseRule):
                             "Ensure every Service port has a unique name."
                         ),
                     )
-                )
+                
 
             #
             # Duplicate Target Ports
@@ -129,8 +132,9 @@ class ServiceDuplicatePortRule(BaseRule):
 
             if duplicate_targets:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                         rule=self,
+                    
                         id=self.id,
                         severity="Low",
                         resource_type="Service",
@@ -149,6 +153,6 @@ class ServiceDuplicatePortRule(BaseRule):
                             "Verify that duplicate targetPorts are intentional."
                         ),
                     )
-                )
+                
 
-        return result
+        

@@ -1,8 +1,7 @@
 from collections import defaultdict
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class IngressDuplicateHostRule(BaseRule):
@@ -11,9 +10,11 @@ class IngressDuplicateHostRule(BaseRule):
 
     name = "IngressDuplicateHost"
 
-    def evaluate(self, resources):
+    resource_type = "ingress"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
+
+        
 
         host_map = defaultdict(list)
 
@@ -21,7 +22,7 @@ class IngressDuplicateHostRule(BaseRule):
         # Build host index
         #
 
-        for ingress in resources:
+        for ingress in context.resources:
 
             namespace = ingress.get("namespace")
             name = ingress.get("name")
@@ -52,8 +53,8 @@ class IngressDuplicateHostRule(BaseRule):
             if len(ingresses) <= 1:
                 continue
 
-            result.issues.append(
-                Issue(
+            context.report(
+                
                     id=self.id,
                     severity="High",
                     resource_type="Ingress",
@@ -61,7 +62,7 @@ class IngressDuplicateHostRule(BaseRule):
                     namespace="Cluster",
                     title="Duplicate Ingress host detected",
                     description=(
-                        "The same hostname is configured in multiple Ingress resources."
+                        "The same hostname is configured in multiple Ingress context.resources."
                     ),
                     evidence={
                         "host": host,
@@ -71,6 +72,6 @@ class IngressDuplicateHostRule(BaseRule):
                         "Ensure only one Ingress owns a hostname or intentionally merge the routing rules."
                     ),
                 )
-            )
+            
 
-        return result
+        

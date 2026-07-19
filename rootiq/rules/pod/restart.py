@@ -1,5 +1,6 @@
 # rootiq/rules/pod/restart.py
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
 from rootiq.incident.issue import Issue
 
@@ -20,9 +21,9 @@ class RestartRule(BaseRule):
 
     RESTART_THRESHOLD = 5
 
-    def evaluate(self, result):
+    def evaluate(self, context: RuleContext):
 
-        for pod in result.resources:
+        for pod in context.resources:
 
             pod_name = pod["name"]
             namespace = pod["namespace"]
@@ -48,8 +49,8 @@ class RestartRule(BaseRule):
                 if restart_count >= 20:
                     severity = "critical"
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         rule_id=self.id,
                         severity=severity,
                         title="Container restarting frequently",
@@ -66,6 +67,6 @@ class RestartRule(BaseRule):
                             "image": container.get("image"),
                         },
                     )
-                )
+            
 
-        return result
+        

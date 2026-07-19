@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.result import RuleResult
-from rootiq.rules.issue import Issue
 
 
 class DeploymentResourcesRule(BaseRule):
@@ -9,21 +8,23 @@ class DeploymentResourcesRule(BaseRule):
 
     name = "DeploymentResources"
 
-    def evaluate(self, resources):
+    resource_type = "deployment"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for deployment in resources:
+        
+
+        for deployment in context.resources:
 
             namespace = deployment.get("namespace")
             deployment_name = deployment.get("name")
 
             for container in deployment.get("containers", []):
 
-                resources = container.get("resources", {})
+                context.resources = container.get("context.resources", {})
 
-                requests = resources.get("requests", {})
-                limits = resources.get("limits", {})
+                requests = context.resources.get("requests", {})
+                limits = context.resources.get("limits", {})
 
                 #
                 # Missing Requests
@@ -31,8 +32,8 @@ class DeploymentResourcesRule(BaseRule):
 
                 if not requests:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Deployment",
@@ -50,7 +51,7 @@ class DeploymentResourcesRule(BaseRule):
                                 "Configure CPU and memory requests for proper scheduling."
                             ),
                         )
-                    )
+                
 
                 #
                 # Missing Limits
@@ -58,8 +59,8 @@ class DeploymentResourcesRule(BaseRule):
 
                 if not limits:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Deployment",
@@ -77,7 +78,7 @@ class DeploymentResourcesRule(BaseRule):
                                 "Configure CPU and memory limits to prevent resource exhaustion."
                             ),
                         )
-                    )
+                
 
                 #
                 # CPU request > limit
@@ -92,8 +93,8 @@ class DeploymentResourcesRule(BaseRule):
                     and cpu_request > cpu_limit
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="High",
                             resource_type="Deployment",
@@ -112,7 +113,7 @@ class DeploymentResourcesRule(BaseRule):
                                 "Ensure CPU request is less than or equal to the CPU limit."
                             ),
                         )
-                    )
+                
 
                 #
                 # Memory request > limit
@@ -127,8 +128,8 @@ class DeploymentResourcesRule(BaseRule):
                     and memory_request > memory_limit
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="High",
                             resource_type="Deployment",
@@ -147,7 +148,7 @@ class DeploymentResourcesRule(BaseRule):
                                 "Ensure memory request is less than or equal to the memory limit."
                             ),
                         )
-                    )
+                
 
                 #
                 # Missing CPU request
@@ -155,8 +156,8 @@ class DeploymentResourcesRule(BaseRule):
 
                 if "cpu" not in requests:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Low",
                             resource_type="Deployment",
@@ -173,7 +174,7 @@ class DeploymentResourcesRule(BaseRule):
                                 "Configure CPU request."
                             ),
                         )
-                    )
+                
 
                 #
                 # Missing Memory request
@@ -181,8 +182,8 @@ class DeploymentResourcesRule(BaseRule):
 
                 if "memory" not in requests:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Low",
                             resource_type="Deployment",
@@ -199,7 +200,7 @@ class DeploymentResourcesRule(BaseRule):
                                 "Configure memory request."
                             ),
                         )
-                    )
+                
 
                 #
                 # Missing CPU limit
@@ -207,8 +208,8 @@ class DeploymentResourcesRule(BaseRule):
 
                 if "cpu" not in limits:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Low",
                             resource_type="Deployment",
@@ -225,7 +226,7 @@ class DeploymentResourcesRule(BaseRule):
                                 "Configure CPU limit."
                             ),
                         )
-                    )
+                
 
                 #
                 # Missing Memory limit
@@ -233,8 +234,8 @@ class DeploymentResourcesRule(BaseRule):
 
                 if "memory" not in limits:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Low",
                             resource_type="Deployment",
@@ -251,6 +252,6 @@ class DeploymentResourcesRule(BaseRule):
                                 "Configure memory limit."
                             ),
                         )
-                    )
+                
 
-        return result
+        

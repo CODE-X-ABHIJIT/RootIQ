@@ -1,5 +1,6 @@
 # rootiq/rules/pod/liveness.py
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
 from rootiq.incident.issue import Issue
 
@@ -18,9 +19,9 @@ class LivenessRule(BaseRule):
 
     category = "pod"
 
-    def evaluate(self, result):
+    def evaluate(self, context: RuleContext):
 
-        for pod in result.resources:
+        for pod in context.resources:
 
             pod_name = pod["name"]
             namespace = pod["namespace"]
@@ -40,8 +41,8 @@ class LivenessRule(BaseRule):
                     )
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity=self.severity,
                             title="Liveness probe failure detected",
@@ -61,7 +62,7 @@ class LivenessRule(BaseRule):
                                 "reason": condition.get("reason"),
                             },
                         )
-                    )
+                    
 
             #
             # Frequent restart may indicate liveness failures
@@ -75,8 +76,8 @@ class LivenessRule(BaseRule):
                 if restart_count < 5:
                     continue
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         rule_id=self.id,
                         severity="high",
                         title="Possible liveness probe restart",
@@ -97,6 +98,6 @@ class LivenessRule(BaseRule):
                             "image": container.get("image"),
                         },
                     )
-                )
+                
 
-        return result
+        

@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class NetworkPolicyPortValidationRule(BaseRule):
@@ -9,17 +8,19 @@ class NetworkPolicyPortValidationRule(BaseRule):
 
     name = "NetworkPolicyPortValidation"
 
+    resource_type = "networkpolicy"
+
     VALID_PROTOCOLS = {
         "TCP",
         "UDP",
         "SCTP",
     }
 
-    def evaluate(self, resources):
+    def evaluate(self, ctx: RuleContext):
 
-        result = RuleResult(rule=self.name)
+        
 
-        for policy in resources:
+        for policy in ctx.resources:
 
             namespace = policy.get("namespace")
             name = policy.get("name")
@@ -63,8 +64,9 @@ class NetworkPolicyPortValidationRule(BaseRule):
                             not in self.VALID_PROTOCOLS
                         ):
 
-                            result.issues.append(
-                                Issue(
+                            ctx.report(
+                                    rule=self,
+                                
                                     id=self.id,
                                     severity="High",
                                     resource_type="NetworkPolicy",
@@ -83,7 +85,7 @@ class NetworkPolicyPortValidationRule(BaseRule):
                                         "Use TCP, UDP or SCTP."
                                     ),
                                 )
-                            )
+                            
 
                         #
                         # Port validation
@@ -99,8 +101,9 @@ class NetworkPolicyPortValidationRule(BaseRule):
                                 or port_value > 65535
                             ):
 
-                                result.issues.append(
-                                    Issue(
+                                ctx.report(
+                                        rule=self,
+                                    
                                         id=self.id,
                                         severity="High",
                                         resource_type="NetworkPolicy",
@@ -117,7 +120,7 @@ class NetworkPolicyPortValidationRule(BaseRule):
                                             "Use ports between 1 and 65535."
                                         ),
                                     )
-                                )
+                                
 
                         elif isinstance(
                             port_value,
@@ -129,8 +132,9 @@ class NetworkPolicyPortValidationRule(BaseRule):
                                 or " " in port_value
                             ):
 
-                                result.issues.append(
-                                    Issue(
+                                ctx.report(
+                                        rule=self,
+                                    
                                         id=self.id,
                                         severity="Medium",
                                         resource_type="NetworkPolicy",
@@ -147,12 +151,13 @@ class NetworkPolicyPortValidationRule(BaseRule):
                                             "Use a valid Kubernetes named port."
                                         ),
                                     )
-                                )
+                                
 
                         elif port_value is not None:
 
-                            result.issues.append(
-                                Issue(
+                            ctx.report(
+                                    rule=self,
+                                
                                     id=self.id,
                                     severity="Medium",
                                     resource_type="NetworkPolicy",
@@ -169,7 +174,7 @@ class NetworkPolicyPortValidationRule(BaseRule):
                                         "Specify a valid port number or named port."
                                     ),
                                 )
-                            )
+                            
 
                         #
                         # Duplicate port
@@ -182,8 +187,9 @@ class NetworkPolicyPortValidationRule(BaseRule):
 
                         if key in seen:
 
-                            result.issues.append(
-                                Issue(
+                            ctx.report(
+                                    rule=self,
+                                
                                     id=self.id,
                                     severity="Low",
                                     resource_type="NetworkPolicy",
@@ -201,8 +207,8 @@ class NetworkPolicyPortValidationRule(BaseRule):
                                         "Remove duplicate port entries."
                                     ),
                                 )
-                            )
+                            
 
                         seen.add(key)
 
-        return result
+        

@@ -1,5 +1,6 @@
 # rootiq/rules/pod/pending.py
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
 from rootiq.incident.issue import Issue
 
@@ -18,9 +19,9 @@ class PendingRule(BaseRule):
 
     category = "pod"
 
-    def evaluate(self, result):
+    def evaluate(self, context: RuleContext):
 
-        for pod in result.resources:
+        for pod in context.resources:
 
             if pod.get("phase") != "Pending":
                 continue
@@ -122,8 +123,8 @@ class PendingRule(BaseRule):
                     "Review node resources and scheduling constraints."
                 )
 
-            result.issues.append(
-                Issue(
+            context.report(
+                
                     rule_id=self.id,
                     severity=self.severity,
                     title="Pod is Pending",
@@ -136,6 +137,6 @@ class PendingRule(BaseRule):
                         "phase": pod["phase"],
                     },
                 )
-            )
+            
 
-        return result
+        

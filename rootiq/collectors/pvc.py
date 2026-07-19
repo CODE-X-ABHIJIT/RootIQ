@@ -34,7 +34,7 @@ class PVCCollector(BaseCollector):
 
             result.success = False
             result.error = str(e)
-            return result
+            
 
         bound = 0
         pending = 0
@@ -91,7 +91,7 @@ class PVCCollector(BaseCollector):
 
             if phase == "Pending":
 
-                result.issues.append(
+                context.report(
                     {
                         "severity": "critical",
                         "resource": pvc.metadata.name,
@@ -102,7 +102,7 @@ class PVCCollector(BaseCollector):
 
             if phase == "Lost":
 
-                result.issues.append(
+                context.report(
                     {
                         "severity": "critical",
                         "resource": pvc.metadata.name,
@@ -143,4 +143,4 @@ class PVCCollector(BaseCollector):
             ]
         )
 
-        return result
+        

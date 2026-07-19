@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.result import RuleResult
-from rootiq.rules.issue import Issue
 
 
 class DeploymentReplicaMismatchRule(BaseRule):
@@ -9,11 +8,13 @@ class DeploymentReplicaMismatchRule(BaseRule):
 
     name = "DeploymentReplicaMismatch"
 
-    def evaluate(self, resources):
+    resource_type = "deployment"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for deployment in resources:
+        
+
+        for deployment in context.resources:
 
             namespace = deployment.get("namespace")
             name = deployment.get("name")
@@ -30,8 +31,8 @@ class DeploymentReplicaMismatchRule(BaseRule):
 
             if desired != ready:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Deployment",
@@ -53,6 +54,6 @@ class DeploymentReplicaMismatchRule(BaseRule):
                             "container failures and readiness probes."
                         ),
                     )
-                )
+            
 
-        return result
+        

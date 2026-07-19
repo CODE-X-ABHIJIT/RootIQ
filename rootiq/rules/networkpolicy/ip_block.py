@@ -1,8 +1,7 @@
 import ipaddress
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class NetworkPolicyIPBlockRule(BaseRule):
@@ -11,11 +10,13 @@ class NetworkPolicyIPBlockRule(BaseRule):
 
     name = "NetworkPolicyIPBlock"
 
-    def evaluate(self, resources):
+    resource_type = "networkpolicy"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for policy in resources:
+        
+
+        for policy in ctx.resources:
 
             namespace = policy.get("namespace")
             name = policy.get("name")
@@ -69,8 +70,9 @@ class NetworkPolicyIPBlockRule(BaseRule):
 
                         if not cidr:
 
-                            result.issues.append(
-                                Issue(
+                            ctx.report(
+                                        rule=self,
+                                
                                     id=self.id,
                                     severity="High",
                                     resource_type="NetworkPolicy",
@@ -89,7 +91,7 @@ class NetworkPolicyIPBlockRule(BaseRule):
                                         "Specify a valid CIDR."
                                     ),
                                 )
-                            )
+                        
 
                             continue
 
@@ -99,8 +101,9 @@ class NetworkPolicyIPBlockRule(BaseRule):
 
                         if cidr in cidrs:
 
-                            result.issues.append(
-                                Issue(
+                            ctx.report(
+                                        rule=self,
+                                
                                     id=self.id,
                                     severity="Low",
                                     resource_type="NetworkPolicy",
@@ -117,7 +120,7 @@ class NetworkPolicyIPBlockRule(BaseRule):
                                         "Remove duplicate CIDR entries."
                                     ),
                                 )
-                            )
+                        
 
                         cidrs.add(cidr)
 
@@ -136,8 +139,9 @@ class NetworkPolicyIPBlockRule(BaseRule):
 
                         except ValueError:
 
-                            result.issues.append(
-                                Issue(
+                            ctx.report(
+                                        rule=self,
+                                
                                     id=self.id,
                                     severity="High",
                                     resource_type="NetworkPolicy",
@@ -154,7 +158,7 @@ class NetworkPolicyIPBlockRule(BaseRule):
                                         "Use a valid IPv4 or IPv6 CIDR."
                                     ),
                                 )
-                            )
+                        
 
                             continue
 
@@ -167,8 +171,9 @@ class NetworkPolicyIPBlockRule(BaseRule):
                             "::/0",
                         ):
 
-                            result.issues.append(
-                                Issue(
+                            ctx.report(
+                                        rule=self,
+                                
                                     id=self.id,
                                     severity="High",
                                     resource_type="NetworkPolicy",
@@ -185,7 +190,7 @@ class NetworkPolicyIPBlockRule(BaseRule):
                                         "Restrict the CIDR to trusted networks."
                                     ),
                                 )
-                            )
+                        
 
                         #
                         # Validate except list
@@ -204,8 +209,9 @@ class NetworkPolicyIPBlockRule(BaseRule):
 
                             except ValueError:
 
-                                result.issues.append(
-                                    Issue(
+                                ctx.report(
+                                        rule=self,
+                                    
                                         id=self.id,
                                         severity="Medium",
                                         resource_type="NetworkPolicy",
@@ -222,14 +228,15 @@ class NetworkPolicyIPBlockRule(BaseRule):
                                             "Correct or remove the invalid CIDR."
                                         ),
                                     )
-                                )
+                            
 
                                 continue
 
                             if not excluded_net.subnet_of(network):
 
-                                result.issues.append(
-                                    Issue(
+                                ctx.report(
+                                        rule=self,
+                                    
                                         id=self.id,
                                         severity="Medium",
                                         resource_type="NetworkPolicy",
@@ -247,6 +254,6 @@ class NetworkPolicyIPBlockRule(BaseRule):
                                             "Ensure exception CIDRs are subsets of the main CIDR."
                                         ),
                                     )
-                                )
+                            
 
-        return result
+        

@@ -26,7 +26,7 @@ class DeploymentCollector(BaseCollector):
 
             result.success = False
             result.error = str(e)
-            return result
+            
 
         healthy = 0
         unhealthy = 0

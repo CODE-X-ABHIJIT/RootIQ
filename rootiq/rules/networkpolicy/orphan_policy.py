@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class NetworkPolicyOrphanRule(BaseRule):
@@ -9,11 +8,13 @@ class NetworkPolicyOrphanRule(BaseRule):
 
     name = "NetworkPolicyOrphan"
 
-    def evaluate(self, resources):
+    resource_type = "networkpolicy"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for policy in resources:
+        
+
+        for policy in ctx.resources:
 
             namespace = policy.get(
                 "namespace"
@@ -57,8 +58,9 @@ class NetworkPolicyOrphanRule(BaseRule):
 
             if len(matched_pods) == 0:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="NetworkPolicy",
@@ -75,6 +77,6 @@ class NetworkPolicyOrphanRule(BaseRule):
                             "Verify the selector labels or remove the unused NetworkPolicy."
                         ),
                     )
-                )
+                
 
-        return result
+        

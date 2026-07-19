@@ -1,5 +1,6 @@
 # rootiq/rules/pod/resources.py
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
 from rootiq.incident.issue import Issue
 
@@ -18,9 +19,9 @@ class ResourcesRule(BaseRule):
 
     category = "pod"
 
-    def evaluate(self, result):
+    def evaluate(self, context: RuleContext):
 
-        for pod in result.resources:
+        for pod in context.resources:
 
             pod_name = pod["name"]
             namespace = pod["namespace"]
@@ -32,8 +33,8 @@ class ResourcesRule(BaseRule):
             #
             if qos == "BestEffort":
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         rule_id=self.id,
                         severity="medium",
                         title="BestEffort QoS",
@@ -49,15 +50,15 @@ class ResourcesRule(BaseRule):
                             "qos": qos,
                         },
                     )
-                )
+                
 
             #
             # Burstable Pods
             #
             elif qos == "Burstable":
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         rule_id=self.id,
                         severity="low",
                         title="Burstable QoS",
@@ -74,7 +75,7 @@ class ResourcesRule(BaseRule):
                             "qos": qos,
                         },
                     )
-                )
+                
 
             #
             # Container-level validation
@@ -91,8 +92,8 @@ class ResourcesRule(BaseRule):
                 #
                 if "cpu" not in requests:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity="medium",
                             title="CPU request missing",
@@ -109,15 +110,15 @@ class ResourcesRule(BaseRule):
                                 "container": container["name"]
                             },
                         )
-                    )
+                    
 
                 #
                 # Missing Memory Request
                 #
                 if "memory" not in requests:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity="medium",
                             title="Memory request missing",
@@ -134,15 +135,15 @@ class ResourcesRule(BaseRule):
                                 "container": container["name"]
                             },
                         )
-                    )
+                    
 
                 #
                 # Missing CPU Limit
                 #
                 if "cpu" not in limits:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity="low",
                             title="CPU limit missing",
@@ -159,15 +160,15 @@ class ResourcesRule(BaseRule):
                                 "container": container["name"]
                             },
                         )
-                    )
+                    
 
                 #
                 # Missing Memory Limit
                 #
                 if "memory" not in limits:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity="high",
                             title="Memory limit missing",
@@ -184,6 +185,6 @@ class ResourcesRule(BaseRule):
                                 "container": container["name"]
                             },
                         )
-                    )
+                    
 
-        return result
+        

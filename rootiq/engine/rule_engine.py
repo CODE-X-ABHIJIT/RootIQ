@@ -62,8 +62,9 @@ class RuleEngine:
                 time.perf_counter()
                 - start
             )
-
             return result
+
+            
         context = RuleContext(
             resources=resources,
         )
@@ -72,7 +73,7 @@ class RuleEngine:
 
             try:
 
-                rule_result = rule.evaluate(context)
+                rule.evaluate(context)
 
             except Exception as e:
 
@@ -85,8 +86,6 @@ class RuleEngine:
 
                 continue
 
-        if rule_result is not None:
-            pass
         #
         # Merge everything produced by rules
         #
@@ -172,5 +171,5 @@ class RuleEngine:
         )
 
         result.success = True
-
         return result
+        

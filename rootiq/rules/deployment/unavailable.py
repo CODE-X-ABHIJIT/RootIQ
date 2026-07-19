@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.result import RuleResult
-from rootiq.rules.issue import Issue
 
 
 class DeploymentUnavailableRule(BaseRule):
@@ -9,11 +8,13 @@ class DeploymentUnavailableRule(BaseRule):
 
     name = "DeploymentUnavailable"
 
-    def evaluate(self, resources):
+    resource_type = "deployment"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for deployment in resources:
+        
+
+        for deployment in context.resources:
 
             desired = deployment.get("desired_replicas", 0)
             available = deployment.get("available_replicas", 0)
@@ -28,8 +29,8 @@ class DeploymentUnavailableRule(BaseRule):
 
                 unavailable = desired - available
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Deployment",
@@ -46,9 +47,9 @@ class DeploymentUnavailableRule(BaseRule):
                         },
                         recommendation=(
                             "Inspect deployment rollout, pods, events, "
-                            "readiness probes and node resources."
+                            "readiness probes and node context.resources."
                         ),
                     )
-                )
+                
 
-        return result
+        

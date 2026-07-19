@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.result import RuleResult
-from rootiq.rules.issue import Issue
 
 
 class DeploymentStrategyRule(BaseRule):
@@ -9,11 +8,13 @@ class DeploymentStrategyRule(BaseRule):
 
     name = "DeploymentStrategy"
 
-    def evaluate(self, resources):
+    resource_type = "deployment"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for deployment in resources:
+        
+
+        for deployment in context.resources:
 
             namespace = deployment.get("namespace")
             deployment_name = deployment.get("name")
@@ -32,8 +33,8 @@ class DeploymentStrategyRule(BaseRule):
 
             if strategy_type == "Recreate":
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Deployment",
@@ -50,7 +51,7 @@ class DeploymentStrategyRule(BaseRule):
                             "Use RollingUpdate unless downtime is intentional."
                         ),
                     )
-                )
+                
 
             #
             # RollingUpdate without configuration
@@ -60,8 +61,8 @@ class DeploymentStrategyRule(BaseRule):
 
                 if max_surge is None or max_unavailable is None:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Low",
                             resource_type="Deployment",
@@ -79,7 +80,7 @@ class DeploymentStrategyRule(BaseRule):
                                 "Configure both maxSurge and maxUnavailable."
                             ),
                         )
-                    )
+                
 
             #
             # Invalid maxUnavailable
@@ -87,8 +88,8 @@ class DeploymentStrategyRule(BaseRule):
 
             if max_unavailable == "100%" or max_unavailable == 100:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Deployment",
@@ -105,7 +106,7 @@ class DeploymentStrategyRule(BaseRule):
                             "Reduce maxUnavailable to avoid service interruption."
                         ),
                     )
-                )
+            
 
             #
             # No surge during rollout
@@ -113,8 +114,8 @@ class DeploymentStrategyRule(BaseRule):
 
             if max_surge == 0 or max_surge == "0%":
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Low",
                         resource_type="Deployment",
@@ -131,6 +132,6 @@ class DeploymentStrategyRule(BaseRule):
                             "Allow a small maxSurge (for example 25%) for smoother updates."
                         ),
                     )
-                )
+            
 
-        return result
+        

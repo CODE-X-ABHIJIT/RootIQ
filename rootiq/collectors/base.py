@@ -40,8 +40,9 @@ class BaseCollector(ABC):
             result.execution_time = (
                 perf_counter() - start
             )
-
             return result
+
+            
 
     @abstractmethod
     def collect(self, k8s):
@@ -51,3 +52,4 @@ class BaseCollector(ABC):
         """
 
         raise NotImplementedError
+    

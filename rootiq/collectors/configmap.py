@@ -25,7 +25,7 @@ class ConfigMapCollector(BaseCollector):
 
             result.success = False
             result.error = str(e)
-            return result
+            
 
         total_keys = 0
 
@@ -65,4 +65,4 @@ class ConfigMapCollector(BaseCollector):
             ]
         )
 
-        return result
+        

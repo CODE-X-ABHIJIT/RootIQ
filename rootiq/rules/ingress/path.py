@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class IngressPathRule(BaseRule):
@@ -9,11 +8,13 @@ class IngressPathRule(BaseRule):
 
     name = "IngressPath"
 
-    def evaluate(self, resources):
+    resource_type = "ingress"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for ingress in resources:
+        
+
+        for ingress in context.resources:
 
             namespace = ingress.get("namespace")
             name = ingress.get("name")
@@ -43,8 +44,8 @@ class IngressPathRule(BaseRule):
 
                     if not path_value:
 
-                        result.issues.append(
-                            Issue(
+                        context.report(
+                            
                                 id=self.id,
                                 severity="High",
                                 resource_type="Ingress",
@@ -61,7 +62,7 @@ class IngressPathRule(BaseRule):
                                     "Specify a valid path."
                                 ),
                             )
-                        )
+                    
 
                         continue
 
@@ -71,8 +72,8 @@ class IngressPathRule(BaseRule):
 
                     if path_value in seen_paths:
 
-                        result.issues.append(
-                            Issue(
+                        context.report(
+                            
                                 id=self.id,
                                 severity="Medium",
                                 resource_type="Ingress",
@@ -90,7 +91,7 @@ class IngressPathRule(BaseRule):
                                     "Remove duplicate path definitions."
                                 ),
                             )
-                        )
+                    
 
                     else:
 
@@ -102,8 +103,8 @@ class IngressPathRule(BaseRule):
 
                     if not path_value.startswith("/"):
 
-                        result.issues.append(
-                            Issue(
+                        context.report(
+                            
                                 id=self.id,
                                 severity="High",
                                 resource_type="Ingress",
@@ -121,7 +122,7 @@ class IngressPathRule(BaseRule):
                                     "Ingress paths should begin with '/'."
                                 ),
                             )
-                        )
+                    
 
                     #
                     # Invalid pathType
@@ -133,8 +134,8 @@ class IngressPathRule(BaseRule):
                         "ImplementationSpecific",
                     ):
 
-                        result.issues.append(
-                            Issue(
+                        context.report(
+                            
                                 id=self.id,
                                 severity="Medium",
                                 resource_type="Ingress",
@@ -153,7 +154,7 @@ class IngressPathRule(BaseRule):
                                     "Use Exact, Prefix or ImplementationSpecific."
                                 ),
                             )
-                        )
+                    
 
                     #
                     # Suspicious double slash
@@ -161,8 +162,8 @@ class IngressPathRule(BaseRule):
 
                     if "//" in path_value:
 
-                        result.issues.append(
-                            Issue(
+                        context.report(
+                            
                                 id=self.id,
                                 severity="Low",
                                 resource_type="Ingress",
@@ -179,7 +180,7 @@ class IngressPathRule(BaseRule):
                                     "Remove duplicate '/' characters."
                                 ),
                             )
-                        )
+                    
 
                     #
                     # Catch-all path
@@ -187,8 +188,8 @@ class IngressPathRule(BaseRule):
 
                     if path_value == "/":
 
-                        result.issues.append(
-                            Issue(
+                        context.report(
+                            
                                 id=self.id,
                                 severity="Info",
                                 resource_type="Ingress",
@@ -205,6 +206,6 @@ class IngressPathRule(BaseRule):
                                     "Ensure this does not unintentionally shadow more specific routes."
                                 ),
                             )
-                        )
+                    
 
-        return result
+        

@@ -1,6 +1,7 @@
+from abc import abstractmethod
+
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class IngressTLSRule(BaseRule):
@@ -9,11 +10,14 @@ class IngressTLSRule(BaseRule):
 
     name = "IngressTLS"
 
-    def evaluate(self, resources):
+    resource_type = "ingress"
 
-        result = RuleResult(rule=self.name)
+    @abstractmethod
+    def evaluate(self, context: RuleContext):
 
-        for ingress in resources:
+        
+
+        for ingress in context.resources:
 
             namespace = ingress.get("namespace")
             name = ingress.get("name")
@@ -27,8 +31,8 @@ class IngressTLSRule(BaseRule):
 
             if not tls:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Ingress",
@@ -43,7 +47,7 @@ class IngressTLSRule(BaseRule):
                             "Configure TLS to secure HTTP traffic."
                         ),
                     )
-                )
+            
 
                 continue
 
@@ -70,8 +74,8 @@ class IngressTLSRule(BaseRule):
 
                 if not secret:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="High",
                             resource_type="Ingress",
@@ -88,7 +92,7 @@ class IngressTLSRule(BaseRule):
                                 "Specify a valid TLS Secret."
                             ),
                         )
-                    )
+                
 
                 #
                 # Missing Hosts
@@ -96,8 +100,8 @@ class IngressTLSRule(BaseRule):
 
                 if not hosts:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Ingress",
@@ -114,7 +118,7 @@ class IngressTLSRule(BaseRule):
                                 "Specify one or more TLS hosts."
                             ),
                         )
-                    )
+                
 
                 tls_hosts.update(hosts)
 
@@ -126,8 +130,8 @@ class IngressTLSRule(BaseRule):
 
             if missing_tls:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Ingress",
@@ -146,7 +150,7 @@ class IngressTLSRule(BaseRule):
                             "Add every exposed host to the TLS configuration."
                         ),
                     )
-                )
+            
 
             #
             # Duplicate Hosts
@@ -171,8 +175,8 @@ class IngressTLSRule(BaseRule):
 
             if duplicates:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Low",
                         resource_type="Ingress",
@@ -191,6 +195,6 @@ class IngressTLSRule(BaseRule):
                             "Remove duplicate TLS host definitions."
                         ),
                     )
-                )
+            
 
-        return result
+        

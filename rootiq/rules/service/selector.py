@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class ServiceSelectorRule(BaseRule):
@@ -9,11 +8,13 @@ class ServiceSelectorRule(BaseRule):
 
     name = "ServiceSelector"
 
-    def evaluate(self, resources):
+    resource_type = "service"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for service in resources:
+        
+
+        for service in ctx.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -34,8 +35,9 @@ class ServiceSelectorRule(BaseRule):
 
             if not selector:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Service",
@@ -53,7 +55,7 @@ class ServiceSelectorRule(BaseRule):
                             "Configure a valid selector that matches the target Pods."
                         ),
                     )
-                )
+                
 
                 continue
 
@@ -69,8 +71,9 @@ class ServiceSelectorRule(BaseRule):
 
             if empty:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Service",
@@ -88,6 +91,6 @@ class ServiceSelectorRule(BaseRule):
                             "Ensure every selector label has a valid value."
                         ),
                     )
-                )
+                
 
-        return result
+        

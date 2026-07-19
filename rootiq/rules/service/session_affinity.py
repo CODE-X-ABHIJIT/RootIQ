@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class ServiceSessionAffinityRule(BaseRule):
@@ -9,11 +8,13 @@ class ServiceSessionAffinityRule(BaseRule):
 
     name = "ServiceSessionAffinity"
 
-    def evaluate(self, resources):
+    resource_type = "service"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for service in resources:
+        
+
+        for service in ctx.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -37,8 +38,9 @@ class ServiceSessionAffinityRule(BaseRule):
                 "ClientIP",
             ):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Service",
@@ -55,7 +57,7 @@ class ServiceSessionAffinityRule(BaseRule):
                             "Use None or ClientIP."
                         ),
                     )
-                )
+                
 
             #
             # ClientIP without timeout
@@ -69,8 +71,9 @@ class ServiceSessionAffinityRule(BaseRule):
 
                 if timeout is None:
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="Low",
                             resource_type="Service",
@@ -85,12 +88,13 @@ class ServiceSessionAffinityRule(BaseRule):
                                 "Configure timeoutSeconds if sticky sessions are required."
                             ),
                         )
-                    )
+                    
 
                 elif timeout < 1 or timeout > 86400:
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Service",
@@ -107,12 +111,13 @@ class ServiceSessionAffinityRule(BaseRule):
                                 "Use a timeout between 1 and 86400 seconds."
                             ),
                         )
-                    )
+                    
 
                 elif timeout > 10800:
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="Info",
                             resource_type="Service",
@@ -129,6 +134,6 @@ class ServiceSessionAffinityRule(BaseRule):
                                 "Reduce timeout unless long-lived sessions are required."
                             ),
                         )
-                    )
+                    
 
-        return result
+        

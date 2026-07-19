@@ -1,5 +1,6 @@
 # rootiq/rules/pod/qos.py
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
 from rootiq.incident.issue import Issue
 
@@ -18,9 +19,9 @@ class QoSRule(BaseRule):
 
     category = "pod"
 
-    def evaluate(self, result):
+    def evaluate(self, context: RuleContext):
 
-        for pod in result.resources:
+        for pod in context.resources:
 
             qos = pod.get("qos_class", "Unknown")
             pod_name = pod["name"]
@@ -31,8 +32,8 @@ class QoSRule(BaseRule):
             #
             if qos == "BestEffort":
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         rule_id=self.id,
                         severity="high",
                         title="BestEffort Pod",
@@ -49,15 +50,15 @@ class QoSRule(BaseRule):
                             "qos": qos,
                         },
                     )
-                )
+                
 
             #
             # Burstable
             #
             elif qos == "Burstable":
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         rule_id=self.id,
                         severity="low",
                         title="Burstable Pod",
@@ -74,7 +75,7 @@ class QoSRule(BaseRule):
                             "qos": qos,
                         },
                     )
-                )
+                
 
             #
             # Guaranteed
@@ -88,8 +89,8 @@ class QoSRule(BaseRule):
             #
             else:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         rule_id=self.id,
                         severity="medium",
                         title="Unknown QoS Class",
@@ -105,6 +106,6 @@ class QoSRule(BaseRule):
                             "qos": qos,
                         },
                     )
-                )
+                
 
-        return result
+        

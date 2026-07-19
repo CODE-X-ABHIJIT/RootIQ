@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.result import RuleResult
-from rootiq.rules.issue import Issue
 
 
 class DeploymentOrphanRule(BaseRule):
@@ -9,11 +8,13 @@ class DeploymentOrphanRule(BaseRule):
 
     name = "DeploymentOrphan"
 
-    def evaluate(self, resources):
+    resource_type = "deployment"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for deployment in resources:
+        
+
+        for deployment in context.resources:
 
             namespace = deployment.get("namespace")
             deployment_name = deployment.get("name")
@@ -29,8 +30,8 @@ class DeploymentOrphanRule(BaseRule):
 
             if desired > 0 and not replicasets:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Deployment",
@@ -48,7 +49,7 @@ class DeploymentOrphanRule(BaseRule):
                             "Verify Deployment controller and rollout status."
                         ),
                     )
-                )
+            
 
             #
             # No Pod Selector
@@ -56,8 +57,8 @@ class DeploymentOrphanRule(BaseRule):
 
             if not selector:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Deployment",
@@ -74,7 +75,7 @@ class DeploymentOrphanRule(BaseRule):
                             "Configure a valid matchLabels selector."
                         ),
                     )
-                )
+            
 
             #
             # No Containers
@@ -82,8 +83,8 @@ class DeploymentOrphanRule(BaseRule):
 
             if not containers:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Critical",
                         resource_type="Deployment",
@@ -100,6 +101,6 @@ class DeploymentOrphanRule(BaseRule):
                             "Define at least one application container."
                         ),
                     )
-                )
+            
 
-        return result
+        

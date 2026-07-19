@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class NetworkPolicyPodSelectorRule(BaseRule):
@@ -9,11 +8,13 @@ class NetworkPolicyPodSelectorRule(BaseRule):
 
     name = "NetworkPolicyPodSelector"
 
-    def evaluate(self, resources):
+    resource_type = "networkpolicy"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for policy in resources:
+        
+
+        for policy in ctx.resources:
 
             namespace = policy.get("namespace")
             name = policy.get("name")
@@ -29,8 +30,9 @@ class NetworkPolicyPodSelectorRule(BaseRule):
 
             if selector == {}:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Info",
                         resource_type="NetworkPolicy",
@@ -45,7 +47,7 @@ class NetworkPolicyPodSelectorRule(BaseRule):
                             "Verify this broad scope is intentional."
                         ),
                     )
-                )
+                
 
             #
             # Invalid selector
@@ -53,8 +55,9 @@ class NetworkPolicyPodSelectorRule(BaseRule):
 
             elif not isinstance(selector, dict):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="High",
                         resource_type="NetworkPolicy",
@@ -71,6 +74,6 @@ class NetworkPolicyPodSelectorRule(BaseRule):
                             "Configure podSelector using valid label key/value pairs."
                         ),
                     )
-                )
+                
 
-        return result
+        

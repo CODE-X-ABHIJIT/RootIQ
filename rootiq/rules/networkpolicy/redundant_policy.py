@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class NetworkPolicyRedundantRule(BaseRule):
@@ -9,17 +8,19 @@ class NetworkPolicyRedundantRule(BaseRule):
 
     name = "NetworkPolicyRedundant"
 
-    def evaluate(self, resources):
+    resource_type = "networkpolicy"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for i in range(len(resources)):
+        
 
-            left = resources[i]
+        for i in range(len(ctx.resources)):
 
-            for j in range(i + 1, len(resources)):
+            left = ctx.resources[i]
 
-                right = resources[j]
+            for j in range(i + 1, len(ctx.resources)):
+
+                right = ctx.resources[j]
 
                 #
                 # Compare only within the same namespace
@@ -76,8 +77,9 @@ class NetworkPolicyRedundantRule(BaseRule):
                 # Duplicate policy detected
                 #
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Low",
                         resource_type="NetworkPolicy",
@@ -94,6 +96,6 @@ class NetworkPolicyRedundantRule(BaseRule):
                             "Merge or remove one of the duplicate NetworkPolicies."
                         ),
                     )
-                )
+                
 
-        return result
+        

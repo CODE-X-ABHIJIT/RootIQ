@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class ServiceExternalIPRule(BaseRule):
@@ -9,11 +8,13 @@ class ServiceExternalIPRule(BaseRule):
 
     name = "ServiceExternalIP"
 
-    def evaluate(self, resources):
+    resource_type = "service"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for service in resources:
+        
+
+        for service in ctx.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -32,8 +33,9 @@ class ServiceExternalIPRule(BaseRule):
 
                 if not external_name:
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="High",
                             resource_type="Service",
@@ -50,7 +52,7 @@ class ServiceExternalIPRule(BaseRule):
                                 "Configure spec.externalName."
                             ),
                         )
-                    )
+                    
 
                 continue
 
@@ -60,8 +62,9 @@ class ServiceExternalIPRule(BaseRule):
 
             if len(external_ips) != len(set(external_ips)):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                            rule=self,
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Service",
@@ -78,7 +81,7 @@ class ServiceExternalIPRule(BaseRule):
                             "Remove duplicate external IP addresses."
                         ),
                     )
-                )
+                
 
             #
             # Invalid External IPs
@@ -88,8 +91,9 @@ class ServiceExternalIPRule(BaseRule):
 
                 if not isinstance(ip, str):
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Service",
@@ -106,6 +110,6 @@ class ServiceExternalIPRule(BaseRule):
                                 "Configure valid IPv4 or IPv6 addresses."
                             ),
                         )
-                    )
+                    
 
-        return result
+        

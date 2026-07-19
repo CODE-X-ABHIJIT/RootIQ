@@ -1,5 +1,6 @@
 # rootiq/rules/pod/readiness.py
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
 from rootiq.incident.issue import Issue
 
@@ -18,9 +19,9 @@ class ReadinessRule(BaseRule):
 
     category = "pod"
 
-    def evaluate(self, result):
+    def evaluate(self, context: RuleContext):
 
-        for pod in result.resources:
+        for pod in context.resources:
 
             pod_name = pod["name"]
             namespace = pod["namespace"]
@@ -35,8 +36,8 @@ class ReadinessRule(BaseRule):
                     and condition.get("status") != "True"
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity=self.severity,
                             title="Pod is not Ready",
@@ -55,15 +56,15 @@ class ReadinessRule(BaseRule):
                                 "condition": "Ready",
                             },
                         )
-                    )
+                    
 
                 if (
                     condition.get("type") == "ContainersReady"
                     and condition.get("status") != "True"
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity=self.severity,
                             title="Containers are not Ready",
@@ -82,7 +83,7 @@ class ReadinessRule(BaseRule):
                                 "condition": "ContainersReady",
                             },
                         )
-                    )
+                    
 
             #
             # Container readiness
@@ -92,8 +93,8 @@ class ReadinessRule(BaseRule):
                 if container.get("ready", True):
                     continue
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         rule_id=self.id,
                         severity=self.severity,
                         title="Container is not Ready",
@@ -115,6 +116,6 @@ class ReadinessRule(BaseRule):
                             "image": container.get("image"),
                         },
                     )
-                )
+                
 
-        return result
+        

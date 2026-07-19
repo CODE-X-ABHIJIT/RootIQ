@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class NetworkPolicyNamespaceSelectorRule(BaseRule):
@@ -9,11 +8,13 @@ class NetworkPolicyNamespaceSelectorRule(BaseRule):
 
     name = "NetworkPolicyNamespaceSelector"
 
-    def evaluate(self, resources):
+    resource_type = "networkpolicy"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for policy in resources:
+        
+
+        for policy in ctx.resources:
 
             namespace = policy.get("namespace")
             name = policy.get("name")
@@ -57,8 +58,9 @@ class NetworkPolicyNamespaceSelectorRule(BaseRule):
 
                         if selector == {}:
 
-                            result.issues.append(
-                                Issue(
+                            ctx.report(
+                                    rule=self,
+                                
                                     id=self.id,
                                     severity="Info",
                                     resource_type="NetworkPolicy",
@@ -77,7 +79,7 @@ class NetworkPolicyNamespaceSelectorRule(BaseRule):
                                         "Verify that allowing all namespaces is intentional."
                                     ),
                                 )
-                            )
+                            
 
                         #
                         # Invalid selector type
@@ -88,8 +90,9 @@ class NetworkPolicyNamespaceSelectorRule(BaseRule):
                             dict,
                         ):
 
-                            result.issues.append(
-                                Issue(
+                            ctx.report(
+                                    rule=self,
+                                
                                     id=self.id,
                                     severity="High",
                                     resource_type="NetworkPolicy",
@@ -109,6 +112,6 @@ class NetworkPolicyNamespaceSelectorRule(BaseRule):
                                         "Use valid Kubernetes label selectors."
                                     ),
                                 )
-                            )
+                            
 
-        return result
+        

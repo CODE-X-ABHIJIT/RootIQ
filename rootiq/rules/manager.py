@@ -67,6 +67,8 @@ class RuleManager:
                     if resource_type is None:
                         print(
                             f"Skipping {rule.__class__.__name__}: "
+                            f"resource_type={getattr(rule,'resource_type',None)}, "
+                            f"category={getattr(rule,'category',None)}"
                             "resource_type/category not defined."
                         )
                         continue

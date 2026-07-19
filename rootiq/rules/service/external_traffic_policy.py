@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class ServiceExternalTrafficPolicyRule(BaseRule):
@@ -9,11 +8,13 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
 
     name = "ServiceExternalTrafficPolicy"
 
-    def evaluate(self, resources):
+    resource_type = "service"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for service in resources:
+        
+
+        for service in ctx.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -53,8 +54,9 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
                 "Local",
             ):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Service",
@@ -71,7 +73,7 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
                             "Use either Cluster or Local."
                         ),
                     )
-                )
+                
 
                 continue
 
@@ -84,8 +86,9 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
                 and not endpoints
             ):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Service",
@@ -103,7 +106,7 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
                             "Ensure Pods are running on nodes receiving external traffic."
                         ),
                     )
-                )
+                
 
             #
             # HealthCheckNodePort missing
@@ -115,8 +118,9 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
                 and not health_port
             ):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Low",
                         resource_type="Service",
@@ -133,7 +137,7 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
                             "Verify the cloud provider or load balancer controller configuration."
                         ),
                     )
-                )
+                
 
             #
             # Invalid HealthCheckNodePort
@@ -147,8 +151,9 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
                 )
             ):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Service",
@@ -165,6 +170,6 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
                             "Use a value between 30000 and 32767 unless your cluster is configured differently."
                         ),
                     )
-                )
+                
 
-        return result
+        

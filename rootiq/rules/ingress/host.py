@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class IngressHostRule(BaseRule):
@@ -9,11 +8,13 @@ class IngressHostRule(BaseRule):
 
     name = "IngressHost"
 
-    def evaluate(self, resources):
+    resource_type = "ingress"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for ingress in resources:
+        
+
+        for ingress in context.resources:
 
             namespace = ingress.get("namespace")
             name = ingress.get("name")
@@ -36,8 +37,8 @@ class IngressHostRule(BaseRule):
 
                 if not host:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Ingress",
@@ -54,7 +55,7 @@ class IngressHostRule(BaseRule):
                                 "Specify a hostname unless a catch-all rule is intended."
                             ),
                         )
-                    )
+                    
 
                     continue
 
@@ -64,8 +65,8 @@ class IngressHostRule(BaseRule):
 
                 if host in seen_hosts:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Ingress",
@@ -82,8 +83,7 @@ class IngressHostRule(BaseRule):
                                 "Merge duplicate host rules."
                             ),
                         )
-                    )
-
+                    
                 else:
 
                     seen_hosts.add(host)
@@ -94,8 +94,8 @@ class IngressHostRule(BaseRule):
 
                 if host.startswith("*."):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Info",
                             resource_type="Ingress",
@@ -112,7 +112,7 @@ class IngressHostRule(BaseRule):
                                 "Verify wildcard routing is intentional."
                             ),
                         )
-                    )
+                    
 
                 #
                 # Invalid hostname
@@ -125,8 +125,8 @@ class IngressHostRule(BaseRule):
                     or ".." in host
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="High",
                             resource_type="Ingress",
@@ -143,7 +143,7 @@ class IngressHostRule(BaseRule):
                                 "Use a valid RFC-compliant DNS hostname."
                             ),
                         )
-                    )
+                    
 
                 #
                 # localhost usage
@@ -151,8 +151,8 @@ class IngressHostRule(BaseRule):
 
                 if host.lower() == "localhost":
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Low",
                             resource_type="Ingress",
@@ -169,6 +169,6 @@ class IngressHostRule(BaseRule):
                                 "Avoid localhost in production environments."
                             ),
                         )
-                    )
+                    
 
-        return result
+        

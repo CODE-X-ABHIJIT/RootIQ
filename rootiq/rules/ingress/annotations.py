@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class IngressAnnotationsRule(BaseRule):
@@ -9,11 +8,13 @@ class IngressAnnotationsRule(BaseRule):
 
     name = "IngressAnnotations"
 
-    def evaluate(self, resources):
+    resource_type = "ingress"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for ingress in resources:
+        
+
+        for ingress in context.resources:
 
             namespace = ingress.get("namespace")
             name = ingress.get("name")
@@ -25,8 +26,8 @@ class IngressAnnotationsRule(BaseRule):
 
             if not annotations:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Info",
                         resource_type="Ingress",
@@ -41,7 +42,7 @@ class IngressAnnotationsRule(BaseRule):
                             "Configure annotations if required by the Ingress controller."
                         ),
                     )
-                )
+            
 
                 continue
 
@@ -64,8 +65,8 @@ class IngressAnnotationsRule(BaseRule):
                 )
             ):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Ingress",
@@ -82,7 +83,7 @@ class IngressAnnotationsRule(BaseRule):
                             "Use true or false."
                         ),
                     )
-                )
+            
 
             #
             # Rewrite Target
@@ -96,8 +97,8 @@ class IngressAnnotationsRule(BaseRule):
 
             if rewrite and not rewrite.startswith("/"):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Ingress",
@@ -114,7 +115,7 @@ class IngressAnnotationsRule(BaseRule):
                             "Configure a valid rewrite path."
                         ),
                     )
-                )
+            
 
             #
             # Proxy Body Size
@@ -128,8 +129,8 @@ class IngressAnnotationsRule(BaseRule):
 
             if body_size == "0":
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Low",
                         resource_type="Ingress",
@@ -146,7 +147,7 @@ class IngressAnnotationsRule(BaseRule):
                             "Limit upload size if not required."
                         ),
                     )
-                )
+            
 
             #
             # Backend Protocol
@@ -171,8 +172,8 @@ class IngressAnnotationsRule(BaseRule):
                 )
             ):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Ingress",
@@ -189,7 +190,7 @@ class IngressAnnotationsRule(BaseRule):
                             "Use one of the supported backend protocols."
                         ),
                     )
-                )
+            
 
             #
             # Permanent Redirect
@@ -208,8 +209,8 @@ class IngressAnnotationsRule(BaseRule):
                     or redirect.startswith("https://")
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Ingress",
@@ -226,6 +227,6 @@ class IngressAnnotationsRule(BaseRule):
                                 "Use a valid HTTP or HTTPS URL."
                             ),
                         )
-                    )
+                
 
-        return result
+        

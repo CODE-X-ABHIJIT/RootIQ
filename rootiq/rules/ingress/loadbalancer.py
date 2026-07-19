@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class IngressLoadBalancerRule(BaseRule):
@@ -9,11 +8,13 @@ class IngressLoadBalancerRule(BaseRule):
 
     name = "IngressLoadBalancer"
 
-    def evaluate(self, resources):
+    resource_type = "ingress"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for ingress in resources:
+        
+
+        for ingress in context.resources:
 
             namespace = ingress.get("namespace")
             name = ingress.get("name")
@@ -29,8 +30,8 @@ class IngressLoadBalancerRule(BaseRule):
 
             if not lb:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Ingress",
@@ -45,7 +46,7 @@ class IngressLoadBalancerRule(BaseRule):
                             "Verify the Ingress Controller is running and the cloud provider or LoadBalancer implementation is functioning correctly."
                         ),
                     )
-                )
+            
 
                 continue
 
@@ -62,8 +63,8 @@ class IngressLoadBalancerRule(BaseRule):
 
                 if not ip and not hostname:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Low",
                             resource_type="Ingress",
@@ -80,7 +81,7 @@ class IngressLoadBalancerRule(BaseRule):
                                 "Verify the LoadBalancer status."
                             ),
                         )
-                    )
+                
 
                 #
                 # Duplicate address
@@ -92,8 +93,8 @@ class IngressLoadBalancerRule(BaseRule):
 
                     if key in seen:
 
-                        result.issues.append(
-                            Issue(
+                        context.report(
+                            
                                 id=self.id,
                                 severity="Low",
                                 resource_type="Ingress",
@@ -110,7 +111,7 @@ class IngressLoadBalancerRule(BaseRule):
                                     "Remove duplicate status entries."
                                 ),
                             )
-                        )
+                    
 
                     else:
 
@@ -125,8 +126,8 @@ class IngressLoadBalancerRule(BaseRule):
                     "0.0.0.0",
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="High",
                             resource_type="Ingress",
@@ -143,7 +144,7 @@ class IngressLoadBalancerRule(BaseRule):
                                 "Assign a valid external IP."
                             ),
                         )
-                    )
+                
 
                 #
                 # localhost hostname
@@ -155,8 +156,8 @@ class IngressLoadBalancerRule(BaseRule):
                     == "localhost"
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="High",
                             resource_type="Ingress",
@@ -173,6 +174,6 @@ class IngressLoadBalancerRule(BaseRule):
                                 "Use a publicly resolvable hostname."
                             ),
                         )
-                    )
+                
 
-        return result
+        

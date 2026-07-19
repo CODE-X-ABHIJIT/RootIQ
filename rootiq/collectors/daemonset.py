@@ -34,7 +34,7 @@ class DaemonSetCollector(BaseCollector):
 
             result.success = False
             result.error = str(e)
-            return result
+            
 
         total_desired = 0
         total_ready = 0
@@ -117,7 +117,7 @@ class DaemonSetCollector(BaseCollector):
 
             if ready < desired:
 
-                result.issues.append(
+                context.report(
                     {
                         "severity": "warning",
                         "resource": ds.metadata.name,
@@ -128,7 +128,7 @@ class DaemonSetCollector(BaseCollector):
 
             if unavailable > 0:
 
-                result.issues.append(
+                context.report(
                     {
                         "severity": "warning",
                         "resource": ds.metadata.name,
@@ -169,4 +169,4 @@ class DaemonSetCollector(BaseCollector):
             ]
         )
 
-        return result
+        

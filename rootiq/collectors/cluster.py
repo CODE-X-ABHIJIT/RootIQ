@@ -42,7 +42,7 @@ class ClusterCollector(BaseCollector):
             result.success = False
             result.error = str(e)
 
-            return result
+            
 
         # ==========================================
         # Nodes
@@ -120,4 +120,4 @@ class ClusterCollector(BaseCollector):
                 }
             )
 
-        return result
+        

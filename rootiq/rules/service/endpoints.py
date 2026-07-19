@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class ServiceEndpointsRule(BaseRule):
@@ -9,11 +8,13 @@ class ServiceEndpointsRule(BaseRule):
 
     name = "ServiceEndpoints"
 
-    def evaluate(self, resources):
+    resource_type = "service"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for service in resources:
+        
+
+        for service in ctx.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -35,8 +36,9 @@ class ServiceEndpointsRule(BaseRule):
 
             if len(endpoints) == 0:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Critical",
                         resource_type="Service",
@@ -53,7 +55,7 @@ class ServiceEndpointsRule(BaseRule):
                             "Verify the Service selector, Pod labels, and Pod readiness."
                         ),
                     )
-                )
+                
 
                 continue
 
@@ -69,8 +71,9 @@ class ServiceEndpointsRule(BaseRule):
 
             if not_ready:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Service",
@@ -89,7 +92,7 @@ class ServiceEndpointsRule(BaseRule):
                             "Investigate Pod readiness probes and application health."
                         ),
                     )
-                )
+                
 
             #
             # Duplicate endpoint IPs
@@ -103,8 +106,9 @@ class ServiceEndpointsRule(BaseRule):
 
             if len(ips) != len(set(ips)):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Low",
                         resource_type="Service",
@@ -121,6 +125,6 @@ class ServiceEndpointsRule(BaseRule):
                             "Verify EndpointSlice and Service configuration."
                         ),
                     )
-                )
+                
 
-        return result
+        

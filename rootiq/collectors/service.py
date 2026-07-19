@@ -40,7 +40,7 @@ class ServiceCollector(BaseCollector):
             result.success = False
             result.error = str(e)
 
-            return result
+            
 
         cluster_ip = 0
         node_port = 0
@@ -336,7 +336,7 @@ class ServiceCollector(BaseCollector):
                 and not svc.spec.selector
             ):
 
-                result.issues.append({
+                context.report({
 
                     "severity": "warning",
 

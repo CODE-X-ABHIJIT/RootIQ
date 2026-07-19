@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.result import RuleResult
-from rootiq.rules.issue import Issue
 
 
 class DeploymentHPAConflictRule(BaseRule):
@@ -9,11 +8,13 @@ class DeploymentHPAConflictRule(BaseRule):
 
     name = "DeploymentHPAConflict"
 
-    def evaluate(self, resources):
+    resource_type = "deployment"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for deployment in resources:
+        
+
+        for deployment in context.resources:
 
             namespace = deployment.get("namespace")
             deployment_name = deployment.get("name")
@@ -41,8 +42,8 @@ class DeploymentHPAConflictRule(BaseRule):
                 and replicas < min_replicas
             ):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Deployment",
@@ -61,15 +62,14 @@ class DeploymentHPAConflictRule(BaseRule):
                             "Verify HPA configuration and deployment replica count."
                         ),
                     )
-                )
 
             if (
                 max_replicas is not None
                 and replicas > max_replicas
             ):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Deployment",
@@ -88,7 +88,6 @@ class DeploymentHPAConflictRule(BaseRule):
                             "Verify HPA configuration or reduce the deployment replica count."
                         ),
                     )
-                )
 
             #
             # Invalid HPA configuration
@@ -100,8 +99,8 @@ class DeploymentHPAConflictRule(BaseRule):
                 and min_replicas > max_replicas
             ):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Deployment",
@@ -119,6 +118,5 @@ class DeploymentHPAConflictRule(BaseRule):
                             "Correct the HPA configuration so that minReplicas is less than or equal to maxReplicas."
                         ),
                     )
-                )
 
-        return result
+        

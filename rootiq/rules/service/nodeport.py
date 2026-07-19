@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class ServiceNodePortRule(BaseRule):
@@ -9,13 +8,15 @@ class ServiceNodePortRule(BaseRule):
 
     name = "ServiceNodePort"
 
-    def evaluate(self, resources):
+    resource_type = "service"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
+
+        
 
         used_node_ports = {}
 
-        for service in resources:
+        for service in ctx.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -34,8 +35,9 @@ class ServiceNodePortRule(BaseRule):
 
             if not ports:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                            rule=self,
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Service",
@@ -50,7 +52,7 @@ class ServiceNodePortRule(BaseRule):
                             "Configure at least one Service port."
                         ),
                     )
-                )
+                
 
                 continue
 
@@ -64,8 +66,9 @@ class ServiceNodePortRule(BaseRule):
 
                 if node_port is None:
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Service",
@@ -82,7 +85,7 @@ class ServiceNodePortRule(BaseRule):
                                 "Allow Kubernetes to allocate a nodePort or specify one."
                             ),
                         )
-                    )
+                    
 
                     continue
 
@@ -95,8 +98,9 @@ class ServiceNodePortRule(BaseRule):
                     or node_port > 32767
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="High",
                             resource_type="Service",
@@ -114,7 +118,7 @@ class ServiceNodePortRule(BaseRule):
                                 "unless your cluster is configured differently."
                             ),
                         )
-                    )
+                    
 
                 #
                 # Duplicate NodePort
@@ -124,8 +128,9 @@ class ServiceNodePortRule(BaseRule):
 
                     previous = used_node_ports[node_port]
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="Critical",
                             resource_type="Service",
@@ -143,7 +148,7 @@ class ServiceNodePortRule(BaseRule):
                                 "Assign unique NodePorts to avoid conflicts."
                             ),
                         )
-                    )
+                    
 
                 else:
 
@@ -151,4 +156,4 @@ class ServiceNodePortRule(BaseRule):
                         f"{namespace}/{name}"
                     )
 
-        return result
+        

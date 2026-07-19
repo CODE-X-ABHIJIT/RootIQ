@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class NetworkPolicyTypeRule(BaseRule):
@@ -9,16 +8,18 @@ class NetworkPolicyTypeRule(BaseRule):
 
     name = "NetworkPolicyType"
 
-    def evaluate(self, resources):
+    resource_type = "networkpolicy"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
+
+        
 
         valid_types = {
             "Ingress",
             "Egress",
         }
 
-        for policy in resources:
+        for policy in ctx.resources:
 
             namespace = policy.get("namespace")
             name = policy.get("name")
@@ -34,8 +35,9 @@ class NetworkPolicyTypeRule(BaseRule):
 
             if not policy_types:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="NetworkPolicy",
@@ -50,7 +52,7 @@ class NetworkPolicyTypeRule(BaseRule):
                             "Explicitly configure Ingress and/or Egress policy types."
                         ),
                     )
-                )
+            
 
                 continue
 
@@ -60,8 +62,9 @@ class NetworkPolicyTypeRule(BaseRule):
 
             if len(policy_types) != len(set(policy_types)):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Low",
                         resource_type="NetworkPolicy",
@@ -78,8 +81,7 @@ class NetworkPolicyTypeRule(BaseRule):
                             "Remove duplicate policy types."
                         ),
                     )
-                )
-
+                
             #
             # Invalid policyTypes
             #
@@ -88,8 +90,9 @@ class NetworkPolicyTypeRule(BaseRule):
 
                 if policy_type not in valid_types:
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="High",
                             resource_type="NetworkPolicy",
@@ -106,6 +109,6 @@ class NetworkPolicyTypeRule(BaseRule):
                                 "Use only 'Ingress' and/or 'Egress'."
                             ),
                         ),
-                    )
+                
 
-        return result
+        

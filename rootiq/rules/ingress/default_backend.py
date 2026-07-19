@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class IngressDefaultBackendRule(BaseRule):
@@ -9,11 +8,13 @@ class IngressDefaultBackendRule(BaseRule):
 
     name = "IngressDefaultBackend"
 
-    def evaluate(self, resources):
+    resource_type = "ingress"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for ingress in resources:
+        
+
+        for ingress in context.resources:
 
             namespace = ingress.get("namespace")
             name = ingress.get("name")
@@ -28,8 +29,8 @@ class IngressDefaultBackendRule(BaseRule):
 
             if not backend:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Info",
                         resource_type="Ingress",
@@ -44,7 +45,7 @@ class IngressDefaultBackendRule(BaseRule):
                             "Configure a default backend if unmatched requests should be handled."
                         ),
                     )
-                )
+            
 
                 continue
 
@@ -67,8 +68,8 @@ class IngressDefaultBackendRule(BaseRule):
 
             if not service_name:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Ingress",
@@ -85,7 +86,7 @@ class IngressDefaultBackendRule(BaseRule):
                             "Specify a backend Service."
                         ),
                     )
-                )
+            
 
             #
             # Missing Port
@@ -93,8 +94,8 @@ class IngressDefaultBackendRule(BaseRule):
 
             if service_port is None:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Ingress",
@@ -111,7 +112,7 @@ class IngressDefaultBackendRule(BaseRule):
                             "Specify a Service port."
                         ),
                     )
-                )
+            
 
             #
             # Invalid Port
@@ -125,8 +126,8 @@ class IngressDefaultBackendRule(BaseRule):
                 )
             ):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Ingress",
@@ -143,7 +144,7 @@ class IngressDefaultBackendRule(BaseRule):
                             "Use a port between 1 and 65535."
                         ),
                     )
-                )
+            
 
             #
             # Suspicious Port
@@ -154,8 +155,8 @@ class IngressDefaultBackendRule(BaseRule):
                 and service_port > 1024
             ):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Info",
                         resource_type="Ingress",
@@ -172,6 +173,6 @@ class IngressDefaultBackendRule(BaseRule):
                             "Verify the configured Service port is intentional."
                         ),
                     )
-                )
+            
 
-        return result
+        

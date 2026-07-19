@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.result import RuleResult
-from rootiq.rules.issue import Issue
 
 
 class DeploymentProgressDeadlineRule(BaseRule):
@@ -9,11 +8,13 @@ class DeploymentProgressDeadlineRule(BaseRule):
 
     name = "DeploymentProgressDeadline"
 
-    def evaluate(self, resources):
+    resource_type = "deployment"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for deployment in resources:
+        
+
+        for deployment in context.resources:
 
             namespace = deployment.get("namespace")
             name = deployment.get("name")
@@ -28,8 +29,8 @@ class DeploymentProgressDeadlineRule(BaseRule):
                     and condition.get("reason") == "ProgressDeadlineExceeded"
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Critical",
                             resource_type="Deployment",
@@ -48,6 +49,6 @@ class DeploymentProgressDeadlineRule(BaseRule):
                                 "and application startup logs."
                             ),
                         )
-                    )
+                
 
-        return result
+        

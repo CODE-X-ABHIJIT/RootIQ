@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class IngressBackendRule(BaseRule):
@@ -9,11 +8,13 @@ class IngressBackendRule(BaseRule):
 
     name = "IngressBackend"
 
-    def evaluate(self, resources):
+    resource_type = "ingress"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for ingress in resources:
+        
+
+        for ingress in context.resources:
 
             namespace = ingress.get("namespace")
             name = ingress.get("name")
@@ -30,8 +31,8 @@ class IngressBackendRule(BaseRule):
 
             if not rules and not default_backend:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Critical",
                         resource_type="Ingress",
@@ -46,7 +47,7 @@ class IngressBackendRule(BaseRule):
                             "Configure at least one backend Service."
                         ),
                     )
-                )
+            
 
                 continue
 
@@ -74,8 +75,8 @@ class IngressBackendRule(BaseRule):
 
                     if not service:
 
-                        result.issues.append(
-                            Issue(
+                        context.report(
+                            
                                 id=self.id,
                                 severity="High",
                                 resource_type="Ingress",
@@ -95,7 +96,7 @@ class IngressBackendRule(BaseRule):
                                     "Configure a backend Service."
                                 ),
                             )
-                        )
+                    
 
                         continue
 
@@ -113,8 +114,8 @@ class IngressBackendRule(BaseRule):
 
                     if not service_name:
 
-                        result.issues.append(
-                            Issue(
+                        context.report(
+                            
                                 id=self.id,
                                 severity="High",
                                 resource_type="Ingress",
@@ -135,7 +136,7 @@ class IngressBackendRule(BaseRule):
                                     "Specify a valid Service name."
                                 ),
                             )
-                        )
+                    
 
                     #
                     # Missing port
@@ -143,8 +144,8 @@ class IngressBackendRule(BaseRule):
 
                     if not port:
 
-                        result.issues.append(
-                            Issue(
+                        context.report(
+                            
                                 id=self.id,
                                 severity="High",
                                 resource_type="Ingress",
@@ -165,7 +166,7 @@ class IngressBackendRule(BaseRule):
                                     "Specify a Service port."
                                 ),
                             )
-                        )
+                    
 
             #
             # Validate default backend
@@ -180,8 +181,8 @@ class IngressBackendRule(BaseRule):
 
                 if not service.get("name"):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Ingress",
@@ -198,12 +199,12 @@ class IngressBackendRule(BaseRule):
                                 "Configure a valid default backend."
                             ),
                         )
-                    )
+                
 
                 if not service.get("port"):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Ingress",
@@ -220,5 +221,5 @@ class IngressBackendRule(BaseRule):
                                 "Specify the backend Service port."
                             ),
                         )
-                    )
-        return result
+                
+        

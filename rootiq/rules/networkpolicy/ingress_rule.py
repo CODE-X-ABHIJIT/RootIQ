@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class NetworkPolicyIngressRule(BaseRule):
@@ -9,11 +8,13 @@ class NetworkPolicyIngressRule(BaseRule):
 
     name = "NetworkPolicyIngress"
 
-    def evaluate(self, resources):
+    resource_type = "networkpolicy"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for policy in resources:
+        
+
+        for policy in ctx.resources:
 
             namespace = policy.get("namespace")
             name = policy.get("name")
@@ -37,8 +38,9 @@ class NetworkPolicyIngressRule(BaseRule):
                 and not ingress
             ):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                            rule=self,
+                    
                         id=self.id,
                         severity="Info",
                         resource_type="NetworkPolicy",
@@ -54,7 +56,7 @@ class NetworkPolicyIngressRule(BaseRule):
                             "Verify that a default deny policy is intended."
                         ),
                     )
-                )
+            
 
             #
             # Validate ingress rules
@@ -78,8 +80,9 @@ class NetworkPolicyIngressRule(BaseRule):
 
                 if not peers:
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="Low",
                             resource_type="NetworkPolicy",
@@ -96,7 +99,7 @@ class NetworkPolicyIngressRule(BaseRule):
                                 "Restrict the allowed sources where possible."
                             ),
                         )
-                    )
+                
 
                 #
                 # Rule allows all ports
@@ -104,8 +107,9 @@ class NetworkPolicyIngressRule(BaseRule):
 
                 if not ports:
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="Low",
                             resource_type="NetworkPolicy",
@@ -122,6 +126,6 @@ class NetworkPolicyIngressRule(BaseRule):
                                 "Specify only the required ports."
                             ),
                         )
-                    )
+                
 
-        return result
+        

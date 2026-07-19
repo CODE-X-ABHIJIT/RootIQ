@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.result import RuleResult
-from rootiq.rules.issue import Issue
 
 
 class DeploymentImageTagRule(BaseRule):
@@ -9,11 +8,13 @@ class DeploymentImageTagRule(BaseRule):
 
     name = "DeploymentImageTag"
 
-    def evaluate(self, resources):
+    resource_type = "deployment"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for deployment in resources:
+        
+
+        for deployment in context.resources:
 
             namespace = deployment.get("namespace")
             deployment_name = deployment.get("name")
@@ -28,8 +29,8 @@ class DeploymentImageTagRule(BaseRule):
 
                 if ":" not in image:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Deployment",
@@ -47,7 +48,7 @@ class DeploymentImageTagRule(BaseRule):
                                 "Specify an immutable image tag instead of relying on the registry default."
                             ),
                         )
-                    )
+                
 
                     continue
 
@@ -59,8 +60,8 @@ class DeploymentImageTagRule(BaseRule):
 
                 if tag.lower() == "latest":
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Deployment",
@@ -79,6 +80,6 @@ class DeploymentImageTagRule(BaseRule):
                                 "Use a fixed version tag (for example v1.4.2) to ensure reproducible deployments."
                             ),
                         )
-                    )
+                
 
-        return result
+        

@@ -1,5 +1,6 @@
 # rootiq/rules/pod/crashloop.py
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
 from rootiq.incident.issue import Issue
 
@@ -18,9 +19,9 @@ class CrashLoopRule(BaseRule):
 
     category = "pod"
 
-    def evaluate(self, result):
+    def evaluate(self, context: RuleContext):
 
-        for pod in result.resources:
+        for pod in context.resources:
 
             pod_name = pod["name"]
             namespace = pod["namespace"]
@@ -38,8 +39,8 @@ class CrashLoopRule(BaseRule):
                     and waiting.get("reason") == "CrashLoopBackOff"
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity=self.severity,
                             title="Pod is in CrashLoopBackOff",
@@ -61,7 +62,7 @@ class CrashLoopRule(BaseRule):
                                 "message": waiting.get("message"),
                             },
                         )
-                    )
+                
 
                 #
                 # Waiting message contains Back-off
@@ -72,8 +73,8 @@ class CrashLoopRule(BaseRule):
                     and "Back-off" in waiting["message"]
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity=self.severity,
                             title="Container restart back-off detected",
@@ -88,15 +89,15 @@ class CrashLoopRule(BaseRule):
                                 "container": container["name"]
                             },
                         )
-                    )
+                
 
                 #
                 # Restart count unusually high
                 #
                 elif container.get("restart_count", 0) >= 5:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity="high",
                             title="Container restarting frequently",
@@ -117,6 +118,4 @@ class CrashLoopRule(BaseRule):
                                 ],
                             },
                         )
-                    )
-
-        return result
+                

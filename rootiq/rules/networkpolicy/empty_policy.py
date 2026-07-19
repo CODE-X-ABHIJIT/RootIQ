@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class NetworkPolicyEmptyRule(BaseRule):
@@ -9,11 +8,13 @@ class NetworkPolicyEmptyRule(BaseRule):
 
     name = "NetworkPolicyEmpty"
 
-    def evaluate(self, resources):
+    resource_type = "networkpolicy"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for policy in resources:
+        
+
+        for policy in ctx.resources:
 
             namespace = policy.get("namespace")
             name = policy.get("name")
@@ -43,8 +44,9 @@ class NetworkPolicyEmptyRule(BaseRule):
                 and not policy_types
             ):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="High",
                         resource_type="NetworkPolicy",
@@ -59,7 +61,7 @@ class NetworkPolicyEmptyRule(BaseRule):
                             "Configure at least one policy type and the required ingress or egress rules."
                         ),
                     )
-                )
+            
 
             #
             # PolicyTypes present but no rules
@@ -70,8 +72,9 @@ class NetworkPolicyEmptyRule(BaseRule):
                 and not egress
             ):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Info",
                         resource_type="NetworkPolicy",
@@ -88,6 +91,6 @@ class NetworkPolicyEmptyRule(BaseRule):
                             "Verify that a default deny policy is intentional."
                         ),
                     )
-                )
+            
 
-        return result
+        

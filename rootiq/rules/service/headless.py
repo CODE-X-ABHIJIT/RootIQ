@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class ServiceHeadlessRule(BaseRule):
@@ -9,11 +8,13 @@ class ServiceHeadlessRule(BaseRule):
 
     name = "ServiceHeadless"
 
-    def evaluate(self, resources):
+    resource_type = "service"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for service in resources:
+        
+
+        for service in ctx.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -35,8 +36,9 @@ class ServiceHeadlessRule(BaseRule):
 
             if not endpoints:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Service",
@@ -54,7 +56,7 @@ class ServiceHeadlessRule(BaseRule):
                             "Verify Pod labels and Service selector."
                         ),
                     )
-                )
+                
 
             #
             # Missing selector
@@ -62,8 +64,9 @@ class ServiceHeadlessRule(BaseRule):
 
             if not selector:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Service",
@@ -80,7 +83,7 @@ class ServiceHeadlessRule(BaseRule):
                             "Configure a selector or manage Endpoints manually."
                         ),
                     )
-                )
+                
 
             #
             # Duplicate endpoint IPs
@@ -94,8 +97,9 @@ class ServiceHeadlessRule(BaseRule):
 
             if len(ips) != len(set(ips)):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Low",
                         resource_type="Service",
@@ -112,6 +116,6 @@ class ServiceHeadlessRule(BaseRule):
                             "Verify EndpointSlice or manually managed Endpoints."
                         ),
                     )
-                )
+                
 
-        return result
+        

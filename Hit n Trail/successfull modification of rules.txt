@@ -1,0 +1,4675 @@
+}
+(.venv) abhijit@ABHIJIT:/mnt/c/DEVOPS/RootIQ$ rootiq inspect
+TOTAL RULES: 49
+RULE TYPES: ['deployment', 'ingress', 'networkpolicy', 'pod', 'service']
+{
+    "engine": "InspectOrchestrator",
+    "success": true,
+    "execution_time": 1.1144,
+    "issues": [
+        {
+            "id": "DEPLOYMENT-005",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "java-app",
+            "namespace": "backend",
+            "title": "Container image has no explicit tag",
+            "description": "Container 'java-app' uses image 'springio/gs-spring-boot-docker' without a tag.",
+            "evidence": {
+                "container": "java-app",
+                "image": "springio/gs-spring-boot-docker"
+            },
+            "recommendation": "Specify an immutable image tag instead of relying on the registry default."
+        },
+        {
+            "id": "DEPLOYMENT-005",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "redis",
+            "namespace": "backend",
+            "title": "Container image has no explicit tag",
+            "description": "Container 'redis' uses image 'redis' without a tag.",
+            "evidence": {
+                "container": "redis",
+                "image": "redis"
+            },
+            "recommendation": "Specify an immutable image tag instead of relying on the registry default."
+        },
+        {
+            "id": "DEPLOYMENT-005",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "nginx",
+            "namespace": "frontend",
+            "title": "Container image has no explicit tag",
+            "description": "Container 'nginx' uses image 'nginx' without a tag.",
+            "evidence": {
+                "container": "nginx",
+                "image": "nginx"
+            },
+            "recommendation": "Specify an immutable image tag instead of relying on the registry default."
+        },
+        {
+            "id": "DEPLOYMENT-005",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "stress-generator",
+            "namespace": "loadtest",
+            "title": "Container image has no explicit tag",
+            "description": "Container 'stress' uses image 'polinux/stress' without a tag.",
+            "evidence": {
+                "container": "stress",
+                "image": "polinux/stress"
+            },
+            "recommendation": "Specify an immutable image tag instead of relying on the registry default."
+        },
+        {
+            "id": "DEPLOYMENT-003",
+            "severity": "Critical",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "Deployment exceeded progress deadline",
+            "description": "Deployment rollout has exceeded the configured progress deadline.",
+            "evidence": {
+                "condition": {
+                    "type": "Progressing",
+                    "status": "False",
+                    "reason": "ProgressDeadlineExceeded",
+                    "message": "ReplicaSet \"opencost-8b9688c47\" has timed out progressing.",
+                    "last_update_time": "2026-07-12T05:25:05+00:00",
+                    "last_transition_time": "2026-07-12T05:25:05+00:00"
+                }
+            },
+            "recommendation": "Inspect deployment rollout, ReplicaSets, Pods, Events, image pull status, readiness probes and application startup logs."
+        },
+        {
+            "id": "DEPLOYMENT-004",
+            "severity": "High",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "Deployment replica mismatch",
+            "description": "Ready replicas do not match desired replicas.",
+            "evidence": {
+                "desired_replicas": 1,
+                "ready_replicas": 0,
+                "available_replicas": 0,
+                "updated_replicas": 1,
+                "unavailable_replicas": 1
+            },
+            "recommendation": "Inspect Pods, ReplicaSets, Events, scheduling, container failures and readiness probes."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "java-app",
+            "namespace": "backend",
+            "title": "Container has no resource requests",
+            "description": "Container 'java-app' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "java-app",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "java-app",
+            "namespace": "backend",
+            "title": "Container has no resource limits",
+            "description": "Container 'java-app' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "java-app",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "java-app",
+            "namespace": "backend",
+            "title": "CPU request not configured",
+            "description": "Container 'java-app' does not define CPU request.",
+            "evidence": {
+                "container": "java-app"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "java-app",
+            "namespace": "backend",
+            "title": "Memory request not configured",
+            "description": "Container 'java-app' does not define memory request.",
+            "evidence": {
+                "container": "java-app"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "java-app",
+            "namespace": "backend",
+            "title": "CPU limit not configured",
+            "description": "Container 'java-app' does not define CPU limit.",
+            "evidence": {
+                "container": "java-app"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "java-app",
+            "namespace": "backend",
+            "title": "Memory limit not configured",
+            "description": "Container 'java-app' does not define memory limit.",
+            "evidence": {
+                "container": "java-app"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "redis",
+            "namespace": "backend",
+            "title": "Container has no resource requests",
+            "description": "Container 'redis' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "redis",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "redis",
+            "namespace": "backend",
+            "title": "Container has no resource limits",
+            "description": "Container 'redis' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "redis",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "redis",
+            "namespace": "backend",
+            "title": "CPU request not configured",
+            "description": "Container 'redis' does not define CPU request.",
+            "evidence": {
+                "container": "redis"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "redis",
+            "namespace": "backend",
+            "title": "Memory request not configured",
+            "description": "Container 'redis' does not define memory request.",
+            "evidence": {
+                "container": "redis"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "redis",
+            "namespace": "backend",
+            "title": "CPU limit not configured",
+            "description": "Container 'redis' does not define CPU limit.",
+            "evidence": {
+                "container": "redis"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "redis",
+            "namespace": "backend",
+            "title": "Memory limit not configured",
+            "description": "Container 'redis' does not define memory limit.",
+            "evidence": {
+                "container": "redis"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "mysql",
+            "namespace": "database",
+            "title": "Container has no resource requests",
+            "description": "Container 'mysql' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "mysql",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "mysql",
+            "namespace": "database",
+            "title": "Container has no resource limits",
+            "description": "Container 'mysql' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "mysql",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "mysql",
+            "namespace": "database",
+            "title": "CPU request not configured",
+            "description": "Container 'mysql' does not define CPU request.",
+            "evidence": {
+                "container": "mysql"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "mysql",
+            "namespace": "database",
+            "title": "Memory request not configured",
+            "description": "Container 'mysql' does not define memory request.",
+            "evidence": {
+                "container": "mysql"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "mysql",
+            "namespace": "database",
+            "title": "CPU limit not configured",
+            "description": "Container 'mysql' does not define CPU limit.",
+            "evidence": {
+                "container": "mysql"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "mysql",
+            "namespace": "database",
+            "title": "Memory limit not configured",
+            "description": "Container 'mysql' does not define memory limit.",
+            "evidence": {
+                "container": "mysql"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "nginx",
+            "namespace": "frontend",
+            "title": "Container has no resource requests",
+            "description": "Container 'nginx' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "nginx",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "nginx",
+            "namespace": "frontend",
+            "title": "Container has no resource limits",
+            "description": "Container 'nginx' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "nginx",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "nginx",
+            "namespace": "frontend",
+            "title": "CPU request not configured",
+            "description": "Container 'nginx' does not define CPU request.",
+            "evidence": {
+                "container": "nginx"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "nginx",
+            "namespace": "frontend",
+            "title": "Memory request not configured",
+            "description": "Container 'nginx' does not define memory request.",
+            "evidence": {
+                "container": "nginx"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "nginx",
+            "namespace": "frontend",
+            "title": "CPU limit not configured",
+            "description": "Container 'nginx' does not define CPU limit.",
+            "evidence": {
+                "container": "nginx"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "nginx",
+            "namespace": "frontend",
+            "title": "Memory limit not configured",
+            "description": "Container 'nginx' does not define memory limit.",
+            "evidence": {
+                "container": "nginx"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "coredns",
+            "namespace": "kube-system",
+            "title": "Container has no resource requests",
+            "description": "Container 'coredns' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "coredns",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "coredns",
+            "namespace": "kube-system",
+            "title": "Container has no resource limits",
+            "description": "Container 'coredns' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "coredns",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "coredns",
+            "namespace": "kube-system",
+            "title": "CPU request not configured",
+            "description": "Container 'coredns' does not define CPU request.",
+            "evidence": {
+                "container": "coredns"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "coredns",
+            "namespace": "kube-system",
+            "title": "Memory request not configured",
+            "description": "Container 'coredns' does not define memory request.",
+            "evidence": {
+                "container": "coredns"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "coredns",
+            "namespace": "kube-system",
+            "title": "CPU limit not configured",
+            "description": "Container 'coredns' does not define CPU limit.",
+            "evidence": {
+                "container": "coredns"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "coredns",
+            "namespace": "kube-system",
+            "title": "Memory limit not configured",
+            "description": "Container 'coredns' does not define memory limit.",
+            "evidence": {
+                "container": "coredns"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "metrics-server",
+            "namespace": "kube-system",
+            "title": "Container has no resource requests",
+            "description": "Container 'metrics-server' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "metrics-server",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "metrics-server",
+            "namespace": "kube-system",
+            "title": "Container has no resource limits",
+            "description": "Container 'metrics-server' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "metrics-server",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "metrics-server",
+            "namespace": "kube-system",
+            "title": "CPU request not configured",
+            "description": "Container 'metrics-server' does not define CPU request.",
+            "evidence": {
+                "container": "metrics-server"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "metrics-server",
+            "namespace": "kube-system",
+            "title": "Memory request not configured",
+            "description": "Container 'metrics-server' does not define memory request.",
+            "evidence": {
+                "container": "metrics-server"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "metrics-server",
+            "namespace": "kube-system",
+            "title": "CPU limit not configured",
+            "description": "Container 'metrics-server' does not define CPU limit.",
+            "evidence": {
+                "container": "metrics-server"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "metrics-server",
+            "namespace": "kube-system",
+            "title": "Memory limit not configured",
+            "description": "Container 'metrics-server' does not define memory limit.",
+            "evidence": {
+                "container": "metrics-server"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "stress-generator",
+            "namespace": "loadtest",
+            "title": "Container has no resource requests",
+            "description": "Container 'stress' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "stress",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "stress-generator",
+            "namespace": "loadtest",
+            "title": "Container has no resource limits",
+            "description": "Container 'stress' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "stress",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "stress-generator",
+            "namespace": "loadtest",
+            "title": "CPU request not configured",
+            "description": "Container 'stress' does not define CPU request.",
+            "evidence": {
+                "container": "stress"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "stress-generator",
+            "namespace": "loadtest",
+            "title": "Memory request not configured",
+            "description": "Container 'stress' does not define memory request.",
+            "evidence": {
+                "container": "stress"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "stress-generator",
+            "namespace": "loadtest",
+            "title": "CPU limit not configured",
+            "description": "Container 'stress' does not define CPU limit.",
+            "evidence": {
+                "container": "stress"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "stress-generator",
+            "namespace": "loadtest",
+            "title": "Memory limit not configured",
+            "description": "Container 'stress' does not define memory limit.",
+            "evidence": {
+                "container": "stress"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "local-path-provisioner",
+            "namespace": "local-path-storage",
+            "title": "Container has no resource requests",
+            "description": "Container 'local-path-provisioner' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "local-path-provisioner",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "local-path-provisioner",
+            "namespace": "local-path-storage",
+            "title": "Container has no resource limits",
+            "description": "Container 'local-path-provisioner' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "local-path-provisioner",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "local-path-provisioner",
+            "namespace": "local-path-storage",
+            "title": "CPU request not configured",
+            "description": "Container 'local-path-provisioner' does not define CPU request.",
+            "evidence": {
+                "container": "local-path-provisioner"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "local-path-provisioner",
+            "namespace": "local-path-storage",
+            "title": "Memory request not configured",
+            "description": "Container 'local-path-provisioner' does not define memory request.",
+            "evidence": {
+                "container": "local-path-provisioner"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "local-path-provisioner",
+            "namespace": "local-path-storage",
+            "title": "CPU limit not configured",
+            "description": "Container 'local-path-provisioner' does not define CPU limit.",
+            "evidence": {
+                "container": "local-path-provisioner"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "local-path-provisioner",
+            "namespace": "local-path-storage",
+            "title": "Memory limit not configured",
+            "description": "Container 'local-path-provisioner' does not define memory limit.",
+            "evidence": {
+                "container": "local-path-provisioner"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "Container has no resource requests",
+            "description": "Container 'opencost' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "opencost",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "Container has no resource limits",
+            "description": "Container 'opencost' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "opencost",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "CPU request not configured",
+            "description": "Container 'opencost' does not define CPU request.",
+            "evidence": {
+                "container": "opencost"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "Memory request not configured",
+            "description": "Container 'opencost' does not define memory request.",
+            "evidence": {
+                "container": "opencost"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "CPU limit not configured",
+            "description": "Container 'opencost' does not define CPU limit.",
+            "evidence": {
+                "container": "opencost"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "Memory limit not configured",
+            "description": "Container 'opencost' does not define memory limit.",
+            "evidence": {
+                "container": "opencost"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "Container has no resource requests",
+            "description": "Container 'opencost-ui' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "opencost-ui",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "Container has no resource limits",
+            "description": "Container 'opencost-ui' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "opencost-ui",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "CPU request not configured",
+            "description": "Container 'opencost-ui' does not define CPU request.",
+            "evidence": {
+                "container": "opencost-ui"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "Memory request not configured",
+            "description": "Container 'opencost-ui' does not define memory request.",
+            "evidence": {
+                "container": "opencost-ui"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "CPU limit not configured",
+            "description": "Container 'opencost-ui' does not define CPU limit.",
+            "evidence": {
+                "container": "opencost-ui"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "opencost",
+            "namespace": "monitoring",
+            "title": "Memory limit not configured",
+            "description": "Container 'opencost-ui' does not define memory limit.",
+            "evidence": {
+                "container": "opencost-ui"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-kube-state-metrics",
+            "namespace": "monitoring",
+            "title": "Container has no resource requests",
+            "description": "Container 'kube-state-metrics' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "kube-state-metrics",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-kube-state-metrics",
+            "namespace": "monitoring",
+            "title": "Container has no resource limits",
+            "description": "Container 'kube-state-metrics' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "kube-state-metrics",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-kube-state-metrics",
+            "namespace": "monitoring",
+            "title": "CPU request not configured",
+            "description": "Container 'kube-state-metrics' does not define CPU request.",
+            "evidence": {
+                "container": "kube-state-metrics"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-kube-state-metrics",
+            "namespace": "monitoring",
+            "title": "Memory request not configured",
+            "description": "Container 'kube-state-metrics' does not define memory request.",
+            "evidence": {
+                "container": "kube-state-metrics"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-kube-state-metrics",
+            "namespace": "monitoring",
+            "title": "CPU limit not configured",
+            "description": "Container 'kube-state-metrics' does not define CPU limit.",
+            "evidence": {
+                "container": "kube-state-metrics"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-kube-state-metrics",
+            "namespace": "monitoring",
+            "title": "Memory limit not configured",
+            "description": "Container 'kube-state-metrics' does not define memory limit.",
+            "evidence": {
+                "container": "kube-state-metrics"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-prometheus-pushgateway",
+            "namespace": "monitoring",
+            "title": "Container has no resource requests",
+            "description": "Container 'pushgateway' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "pushgateway",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-prometheus-pushgateway",
+            "namespace": "monitoring",
+            "title": "Container has no resource limits",
+            "description": "Container 'pushgateway' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "pushgateway",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-prometheus-pushgateway",
+            "namespace": "monitoring",
+            "title": "CPU request not configured",
+            "description": "Container 'pushgateway' does not define CPU request.",
+            "evidence": {
+                "container": "pushgateway"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-prometheus-pushgateway",
+            "namespace": "monitoring",
+            "title": "Memory request not configured",
+            "description": "Container 'pushgateway' does not define memory request.",
+            "evidence": {
+                "container": "pushgateway"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-prometheus-pushgateway",
+            "namespace": "monitoring",
+            "title": "CPU limit not configured",
+            "description": "Container 'pushgateway' does not define CPU limit.",
+            "evidence": {
+                "container": "pushgateway"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-prometheus-pushgateway",
+            "namespace": "monitoring",
+            "title": "Memory limit not configured",
+            "description": "Container 'pushgateway' does not define memory limit.",
+            "evidence": {
+                "container": "pushgateway"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-server",
+            "namespace": "monitoring",
+            "title": "Container has no resource requests",
+            "description": "Container 'prometheus-server-configmap-reload' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "prometheus-server-configmap-reload",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-server",
+            "namespace": "monitoring",
+            "title": "Container has no resource limits",
+            "description": "Container 'prometheus-server-configmap-reload' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "prometheus-server-configmap-reload",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-server",
+            "namespace": "monitoring",
+            "title": "CPU request not configured",
+            "description": "Container 'prometheus-server-configmap-reload' does not define CPU request.",
+            "evidence": {
+                "container": "prometheus-server-configmap-reload"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-server",
+            "namespace": "monitoring",
+            "title": "Memory request not configured",
+            "description": "Container 'prometheus-server-configmap-reload' does not define memory request.",
+            "evidence": {
+                "container": "prometheus-server-configmap-reload"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-server",
+            "namespace": "monitoring",
+            "title": "CPU limit not configured",
+            "description": "Container 'prometheus-server-configmap-reload' does not define CPU limit.",
+            "evidence": {
+                "container": "prometheus-server-configmap-reload"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-server",
+            "namespace": "monitoring",
+            "title": "Memory limit not configured",
+            "description": "Container 'prometheus-server-configmap-reload' does not define memory limit.",
+            "evidence": {
+                "container": "prometheus-server-configmap-reload"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-server",
+            "namespace": "monitoring",
+            "title": "Container has no resource requests",
+            "description": "Container 'prometheus-server' has no CPU/Memory requests.",
+            "evidence": {
+                "container": "prometheus-server",
+                "requests": {}
+            },
+            "recommendation": "Configure CPU and memory requests for proper scheduling."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Medium",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-server",
+            "namespace": "monitoring",
+            "title": "Container has no resource limits",
+            "description": "Container 'prometheus-server' has no CPU/Memory limits.",
+            "evidence": {
+                "container": "prometheus-server",
+                "limits": {}
+            },
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-server",
+            "namespace": "monitoring",
+            "title": "CPU request not configured",
+            "description": "Container 'prometheus-server' does not define CPU request.",
+            "evidence": {
+                "container": "prometheus-server"
+            },
+            "recommendation": "Configure CPU request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-server",
+            "namespace": "monitoring",
+            "title": "Memory request not configured",
+            "description": "Container 'prometheus-server' does not define memory request.",
+            "evidence": {
+                "container": "prometheus-server"
+            },
+            "recommendation": "Configure memory request."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-server",
+            "namespace": "monitoring",
+            "title": "CPU limit not configured",
+            "description": "Container 'prometheus-server' does not define CPU limit.",
+            "evidence": {
+                "container": "prometheus-server"
+            },
+            "recommendation": "Configure CPU limit."
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "severity": "Low",
+            "resource_type": "Deployment",
+            "resource_name": "prometheus-server",
+            "namespace": "monitoring",
+            "title": "Memory limit not configured",
+            "description": "Container 'prometheus-server' does not define memory limit.",
+            "evidence": {
+                "container": "prometheus-server"
+            },
+            "recommendation": "Configure memory limit."
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "java-app-76899fdffd-4zh56",
+            "namespace": "backend",
+            "description": "Container restarted 11 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "java-app",
+                "restart_count": 11
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "java-app-76899fdffd-vrld2",
+            "namespace": "backend",
+            "description": "Container restarted 11 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "java-app",
+                "restart_count": 11
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "redis-78f9456bf7-bwqrb",
+            "namespace": "backend",
+            "description": "Container restarted 11 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "redis",
+                "restart_count": 11
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "redis-78f9456bf7-rz8x4",
+            "namespace": "backend",
+            "description": "Container restarted 11 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "redis",
+                "restart_count": 11
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "mysql-76bd68bfd9-ncwmp",
+            "namespace": "database",
+            "description": "Container restarted 11 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "mysql",
+                "restart_count": 11
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "coredns-66bc5c9577-f6pjb",
+            "namespace": "kube-system",
+            "description": "Container restarted 19 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "coredns",
+                "restart_count": 19
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "coredns-66bc5c9577-txq5g",
+            "namespace": "kube-system",
+            "description": "Container restarted 19 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "coredns",
+                "restart_count": 19
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kindnet-99nnr",
+            "namespace": "kube-system",
+            "description": "Container restarted 19 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "kindnet-cni",
+                "restart_count": 19
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kindnet-bfk4h",
+            "namespace": "kube-system",
+            "description": "Container restarted 19 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "kindnet-cni",
+                "restart_count": 19
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kindnet-h7ddx",
+            "namespace": "kube-system",
+            "description": "Container restarted 19 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "kindnet-cni",
+                "restart_count": 19
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kindnet-rsgmd",
+            "namespace": "kube-system",
+            "description": "Container restarted 20 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "kindnet-cni",
+                "restart_count": 20
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kube-controller-manager-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container restarted 88 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "kube-controller-manager",
+                "restart_count": 88
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kube-proxy-4xvrm",
+            "namespace": "kube-system",
+            "description": "Container restarted 19 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "kube-proxy",
+                "restart_count": 19
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kube-proxy-c8l7m",
+            "namespace": "kube-system",
+            "description": "Container restarted 20 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "kube-proxy",
+                "restart_count": 20
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kube-proxy-ld4rs",
+            "namespace": "kube-system",
+            "description": "Container restarted 19 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "kube-proxy",
+                "restart_count": 19
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kube-proxy-nnm6d",
+            "namespace": "kube-system",
+            "description": "Container restarted 19 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "kube-proxy",
+                "restart_count": 19
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kube-scheduler-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container restarted 83 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "kube-scheduler",
+                "restart_count": 83
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "metrics-server-5b57c547cb-6hqvt",
+            "namespace": "kube-system",
+            "description": "Container restarted 81 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "metrics-server",
+                "restart_count": 81
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "stress-generator-646fbfcc84-wrrlj",
+            "namespace": "loadtest",
+            "description": "Container restarted 11 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "stress",
+                "restart_count": 11
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "local-path-provisioner-7b8c8ddbd6-5wsc9",
+            "namespace": "local-path-storage",
+            "description": "Container restarted 37 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "local-path-provisioner",
+                "restart_count": 37
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "Container restarted 74 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "alertmanager",
+                "restart_count": 74
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-kube-state-metrics-79d4c77466-s9nxx",
+            "namespace": "monitoring",
+            "description": "Container restarted 58 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "kube-state-metrics",
+                "restart_count": 58
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "Container restarted 54 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 54
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-prometheus-node-exporter-8nl58",
+            "namespace": "monitoring",
+            "description": "Container restarted 31 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 31
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "Container restarted 50 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 50
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "Container restarted 36 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 36
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-prometheus-pushgateway-55b4699767-znpjg",
+            "namespace": "monitoring",
+            "description": "Container restarted 12 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "pushgateway",
+                "restart_count": 12
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container restarted 11 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "prometheus-server",
+                "restart_count": 11
+            }
+        },
+        {
+            "rule_id": "POD-001",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container restarted 25 times.",
+            "recommendation": "Investigate application logs and container health.",
+            "metadata": {
+                "container": "prometheus-server-configmap-reload",
+                "restart_count": 25
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "medium",
+            "title": "Mutable image tag detected",
+            "resource": "java-app-76899fdffd-4zh56",
+            "namespace": "backend",
+            "description": "Container 'java-app' uses mutable tag 'latest'.",
+            "recommendation": "Use immutable version tags (example: v1.2.3).",
+            "metadata": {
+                "container": "java-app",
+                "image": "docker.io/springio/gs-spring-boot-docker:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "high",
+            "title": "Image uses latest tag",
+            "resource": "java-app-76899fdffd-4zh56",
+            "namespace": "backend",
+            "description": "Container 'java-app' uses the 'latest' tag.",
+            "recommendation": "Avoid 'latest'. Use a fixed version.",
+            "metadata": {
+                "container": "java-app",
+                "image": "docker.io/springio/gs-spring-boot-docker:latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "medium",
+            "title": "Mutable image tag detected",
+            "resource": "java-app-76899fdffd-vrld2",
+            "namespace": "backend",
+            "description": "Container 'java-app' uses mutable tag 'latest'.",
+            "recommendation": "Use immutable version tags (example: v1.2.3).",
+            "metadata": {
+                "container": "java-app",
+                "image": "docker.io/springio/gs-spring-boot-docker:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "high",
+            "title": "Image uses latest tag",
+            "resource": "java-app-76899fdffd-vrld2",
+            "namespace": "backend",
+            "description": "Container 'java-app' uses the 'latest' tag.",
+            "recommendation": "Avoid 'latest'. Use a fixed version.",
+            "metadata": {
+                "container": "java-app",
+                "image": "docker.io/springio/gs-spring-boot-docker:latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "medium",
+            "title": "Mutable image tag detected",
+            "resource": "redis-78f9456bf7-bwqrb",
+            "namespace": "backend",
+            "description": "Container 'redis' uses mutable tag 'latest'.",
+            "recommendation": "Use immutable version tags (example: v1.2.3).",
+            "metadata": {
+                "container": "redis",
+                "image": "docker.io/library/redis:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "high",
+            "title": "Image uses latest tag",
+            "resource": "redis-78f9456bf7-bwqrb",
+            "namespace": "backend",
+            "description": "Container 'redis' uses the 'latest' tag.",
+            "recommendation": "Avoid 'latest'. Use a fixed version.",
+            "metadata": {
+                "container": "redis",
+                "image": "docker.io/library/redis:latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "medium",
+            "title": "Mutable image tag detected",
+            "resource": "redis-78f9456bf7-rz8x4",
+            "namespace": "backend",
+            "description": "Container 'redis' uses mutable tag 'latest'.",
+            "recommendation": "Use immutable version tags (example: v1.2.3).",
+            "metadata": {
+                "container": "redis",
+                "image": "docker.io/library/redis:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "high",
+            "title": "Image uses latest tag",
+            "resource": "redis-78f9456bf7-rz8x4",
+            "namespace": "backend",
+            "description": "Container 'redis' uses the 'latest' tag.",
+            "recommendation": "Avoid 'latest'. Use a fixed version.",
+            "metadata": {
+                "container": "redis",
+                "image": "docker.io/library/redis:latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "medium",
+            "title": "Mutable image tag detected",
+            "resource": "nginx-7fb4f4978f-hqtqr",
+            "namespace": "frontend",
+            "description": "Container 'nginx' uses mutable tag 'latest'.",
+            "recommendation": "Use immutable version tags (example: v1.2.3).",
+            "metadata": {
+                "container": "nginx",
+                "image": "docker.io/library/nginx:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "high",
+            "title": "Image uses latest tag",
+            "resource": "nginx-7fb4f4978f-hqtqr",
+            "namespace": "frontend",
+            "description": "Container 'nginx' uses the 'latest' tag.",
+            "recommendation": "Avoid 'latest'. Use a fixed version.",
+            "metadata": {
+                "container": "nginx",
+                "image": "docker.io/library/nginx:latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "medium",
+            "title": "Mutable image tag detected",
+            "resource": "nginx-7fb4f4978f-vj4cl",
+            "namespace": "frontend",
+            "description": "Container 'nginx' uses mutable tag 'latest'.",
+            "recommendation": "Use immutable version tags (example: v1.2.3).",
+            "metadata": {
+                "container": "nginx",
+                "image": "docker.io/library/nginx:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "high",
+            "title": "Image uses latest tag",
+            "resource": "nginx-7fb4f4978f-vj4cl",
+            "namespace": "frontend",
+            "description": "Container 'nginx' uses the 'latest' tag.",
+            "recommendation": "Avoid 'latest'. Use a fixed version.",
+            "metadata": {
+                "container": "nginx",
+                "image": "docker.io/library/nginx:latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "medium",
+            "title": "Mutable image tag detected",
+            "resource": "stress-generator-646fbfcc84-wrrlj",
+            "namespace": "loadtest",
+            "description": "Container 'stress' uses mutable tag 'latest'.",
+            "recommendation": "Use immutable version tags (example: v1.2.3).",
+            "metadata": {
+                "container": "stress",
+                "image": "docker.io/polinux/stress:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "rule_id": "POD-009",
+            "severity": "high",
+            "title": "Image uses latest tag",
+            "resource": "stress-generator-646fbfcc84-wrrlj",
+            "namespace": "loadtest",
+            "description": "Container 'stress' uses the 'latest' tag.",
+            "recommendation": "Avoid 'latest'. Use a fixed version.",
+            "metadata": {
+                "container": "stress",
+                "image": "docker.io/polinux/stress:latest"
+            }
+        },
+        {
+            "rule_id": "POD-003",
+            "severity": "critical",
+            "title": "Image pull failed",
+            "resource": "opencost-8b9688c47-hrzd6",
+            "namespace": "monitoring",
+            "description": "Failed to apply default image tag \"ghcr.io/opencost/opencost:1.120.3@sha256:9f282400e59a4fc886e5fa3bca3c777b9dcae866b781641ca1d1271525d15f7\": couldn't parse image name \"ghcr.io/opencost/opencost:1.120.3@sha256:9f282400e59a4fc886e5fa3bca3c777b9dcae866b781641ca1d1271525d15f7\": invalid checksum digest length",
+            "recommendation": "Verify image name, image tag, registry connectivity and imagePullSecrets.",
+            "metadata": {
+                "container": "opencost",
+                "image": "ghcr.io/opencost/opencost:1.120.3@sha256:9f282400e59a4fc886e5fa3bca3c777b9dcae866b781641ca1d1271525d15f7",
+                "reason": "InvalidImageName"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "java-app-76899fdffd-4zh56",
+            "namespace": "backend",
+            "description": "Container 'java-app' has restarted 11 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "java-app",
+                "restart_count": 11,
+                "image": "docker.io/springio/gs-spring-boot-docker:latest"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "java-app-76899fdffd-vrld2",
+            "namespace": "backend",
+            "description": "Container 'java-app' has restarted 11 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "java-app",
+                "restart_count": 11,
+                "image": "docker.io/springio/gs-spring-boot-docker:latest"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "redis-78f9456bf7-bwqrb",
+            "namespace": "backend",
+            "description": "Container 'redis' has restarted 11 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "redis",
+                "restart_count": 11,
+                "image": "docker.io/library/redis:latest"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "redis-78f9456bf7-rz8x4",
+            "namespace": "backend",
+            "description": "Container 'redis' has restarted 11 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "redis",
+                "restart_count": 11,
+                "image": "docker.io/library/redis:latest"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "mysql-76bd68bfd9-ncwmp",
+            "namespace": "database",
+            "description": "Container 'mysql' has restarted 11 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "mysql",
+                "restart_count": 11,
+                "image": "docker.io/library/mysql:8.0"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "coredns-66bc5c9577-f6pjb",
+            "namespace": "kube-system",
+            "description": "Container 'coredns' has restarted 19 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "coredns",
+                "restart_count": 19,
+                "image": "registry.k8s.io/coredns/coredns:v1.12.1"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "coredns-66bc5c9577-txq5g",
+            "namespace": "kube-system",
+            "description": "Container 'coredns' has restarted 19 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "coredns",
+                "restart_count": 19,
+                "image": "registry.k8s.io/coredns/coredns:v1.12.1"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "kindnet-99nnr",
+            "namespace": "kube-system",
+            "description": "Container 'kindnet-cni' has restarted 19 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "kindnet-cni",
+                "restart_count": 19,
+                "image": "docker.io/kindest/kindnetd:v20250512-df8de77b"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "kindnet-bfk4h",
+            "namespace": "kube-system",
+            "description": "Container 'kindnet-cni' has restarted 19 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "kindnet-cni",
+                "restart_count": 19,
+                "image": "docker.io/kindest/kindnetd:v20250512-df8de77b"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "kindnet-h7ddx",
+            "namespace": "kube-system",
+            "description": "Container 'kindnet-cni' has restarted 19 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "kindnet-cni",
+                "restart_count": 19,
+                "image": "docker.io/kindest/kindnetd:v20250512-df8de77b"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "kindnet-rsgmd",
+            "namespace": "kube-system",
+            "description": "Container 'kindnet-cni' has restarted 20 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "kindnet-cni",
+                "restart_count": 20,
+                "image": "docker.io/kindest/kindnetd:v20250512-df8de77b"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "kube-controller-manager-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-controller-manager' has restarted 88 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "kube-controller-manager",
+                "restart_count": 88,
+                "image": "registry.k8s.io/kube-controller-manager-amd64:v1.34.0"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "kube-proxy-4xvrm",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has restarted 19 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "kube-proxy",
+                "restart_count": 19,
+                "image": "registry.k8s.io/kube-proxy-amd64:v1.34.0"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "kube-proxy-c8l7m",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has restarted 20 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "kube-proxy",
+                "restart_count": 20,
+                "image": "registry.k8s.io/kube-proxy-amd64:v1.34.0"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "kube-proxy-ld4rs",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has restarted 19 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "kube-proxy",
+                "restart_count": 19,
+                "image": "registry.k8s.io/kube-proxy-amd64:v1.34.0"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "kube-proxy-nnm6d",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has restarted 19 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "kube-proxy",
+                "restart_count": 19,
+                "image": "registry.k8s.io/kube-proxy-amd64:v1.34.0"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "kube-scheduler-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-scheduler' has restarted 83 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "kube-scheduler",
+                "restart_count": 83,
+                "image": "registry.k8s.io/kube-scheduler-amd64:v1.34.0"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "metrics-server-5b57c547cb-6hqvt",
+            "namespace": "kube-system",
+            "description": "Container 'metrics-server' has restarted 81 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "metrics-server",
+                "restart_count": 81,
+                "image": "registry.k8s.io/metrics-server/metrics-server:v0.8.1"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "stress-generator-646fbfcc84-wrrlj",
+            "namespace": "loadtest",
+            "description": "Container 'stress' has restarted 11 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "stress",
+                "restart_count": 11,
+                "image": "docker.io/polinux/stress:latest"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "local-path-provisioner-7b8c8ddbd6-5wsc9",
+            "namespace": "local-path-storage",
+            "description": "Container 'local-path-provisioner' has restarted 37 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "local-path-provisioner",
+                "restart_count": 37,
+                "image": "docker.io/kindest/local-path-provisioner:v20250214-acbabc1a"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "critical",
+            "title": "Liveness probe failure detected",
+            "resource": "opencost-8b9688c47-hrzd6",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [opencost]",
+            "recommendation": "Verify the liveness probe endpoint, application startup time, timeoutSeconds, failureThreshold and container logs.",
+            "metadata": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "critical",
+            "title": "Liveness probe failure detected",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [alertmanager]",
+            "recommendation": "Verify the liveness probe endpoint, application startup time, timeoutSeconds, failureThreshold and container logs.",
+            "metadata": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "Container 'alertmanager' has restarted 74 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "alertmanager",
+                "restart_count": 74,
+                "image": "quay.io/prometheus/alertmanager:v0.33.0"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "prometheus-kube-state-metrics-79d4c77466-s9nxx",
+            "namespace": "monitoring",
+            "description": "Container 'kube-state-metrics' has restarted 58 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "kube-state-metrics",
+                "restart_count": 58,
+                "image": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "critical",
+            "title": "Liveness probe failure detected",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [node-exporter]",
+            "recommendation": "Verify the liveness probe endpoint, application startup time, timeoutSeconds, failureThreshold and container logs.",
+            "metadata": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has restarted 54 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 54,
+                "image": "quay.io/prometheus/node-exporter:v1.11.1"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "prometheus-prometheus-node-exporter-8nl58",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has restarted 31 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 31,
+                "image": "quay.io/prometheus/node-exporter:v1.11.1"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "critical",
+            "title": "Liveness probe failure detected",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [node-exporter]",
+            "recommendation": "Verify the liveness probe endpoint, application startup time, timeoutSeconds, failureThreshold and container logs.",
+            "metadata": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has restarted 50 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 50,
+                "image": "quay.io/prometheus/node-exporter:v1.11.1"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "critical",
+            "title": "Liveness probe failure detected",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [node-exporter]",
+            "recommendation": "Verify the liveness probe endpoint, application startup time, timeoutSeconds, failureThreshold and container logs.",
+            "metadata": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has restarted 36 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 36,
+                "image": "quay.io/prometheus/node-exporter:v1.11.1"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "prometheus-prometheus-pushgateway-55b4699767-znpjg",
+            "namespace": "monitoring",
+            "description": "Container 'pushgateway' has restarted 12 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "pushgateway",
+                "restart_count": 12,
+                "image": "quay.io/prometheus/pushgateway:v1.11.3"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container 'prometheus-server' has restarted 11 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "prometheus-server",
+                "restart_count": 11,
+                "image": "quay.io/prometheus/prometheus:v3.12.0"
+            }
+        },
+        {
+            "rule_id": "POD-007",
+            "severity": "high",
+            "title": "Possible liveness probe restart",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container 'prometheus-server-configmap-reload' has restarted 25 times.",
+            "recommendation": "Inspect events using 'kubectl describe pod' to confirm whether liveness probes are causing restarts.",
+            "metadata": {
+                "container": "prometheus-server-configmap-reload",
+                "restart_count": 25,
+                "image": "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0"
+            }
+        },
+        {
+            "rule_id": "POD-002",
+            "severity": "high",
+            "title": "Pod is Pending",
+            "resource": "opencost-8b9688c47-hrzd6",
+            "namespace": "monitoring",
+            "description": "Pod remains Pending.",
+            "recommendation": "Describe the pod and inspect scheduler events.",
+            "metadata": {
+                "reason": "",
+                "phase": "Pending"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "java-app-76899fdffd-4zh56",
+            "namespace": "backend",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "java-app-76899fdffd-vrld2",
+            "namespace": "backend",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "redis-78f9456bf7-bwqrb",
+            "namespace": "backend",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "redis-78f9456bf7-rz8x4",
+            "namespace": "backend",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "mysql-76bd68bfd9-ncwmp",
+            "namespace": "database",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "nginx-7fb4f4978f-hqtqr",
+            "namespace": "frontend",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "nginx-7fb4f4978f-vj4cl",
+            "namespace": "frontend",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "coredns-66bc5c9577-f6pjb",
+            "namespace": "kube-system",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "coredns-66bc5c9577-txq5g",
+            "namespace": "kube-system",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "etcd-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "kube-apiserver-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "kube-controller-manager-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "kube-proxy-4xvrm",
+            "namespace": "kube-system",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "kube-proxy-c8l7m",
+            "namespace": "kube-system",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "kube-proxy-ld4rs",
+            "namespace": "kube-system",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "kube-proxy-nnm6d",
+            "namespace": "kube-system",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "kube-scheduler-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "metrics-server-5b57c547cb-6hqvt",
+            "namespace": "kube-system",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "stress-generator-646fbfcc84-wrrlj",
+            "namespace": "loadtest",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "local-path-provisioner-7b8c8ddbd6-5wsc9",
+            "namespace": "local-path-storage",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "low",
+            "title": "Burstable Pod",
+            "resource": "opencost-8b9688c47-hrzd6",
+            "namespace": "monitoring",
+            "description": "Pod belongs to Burstable QoS class.",
+            "recommendation": "Verify resource requests and limits are appropriate for the workload.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "prometheus-kube-state-metrics-79d4c77466-s9nxx",
+            "namespace": "monitoring",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "prometheus-prometheus-node-exporter-8nl58",
+            "namespace": "monitoring",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "prometheus-prometheus-pushgateway-55b4699767-znpjg",
+            "namespace": "monitoring",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-010",
+            "severity": "high",
+            "title": "BestEffort Pod",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Pod belongs to BestEffort QoS class.",
+            "recommendation": "Configure CPU and memory requests and limits to improve scheduling and reduce eviction risk.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Pod is not Ready",
+            "resource": "opencost-8b9688c47-hrzd6",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [opencost]",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "metadata": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Containers are not Ready",
+            "resource": "opencost-8b9688c47-hrzd6",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [opencost]",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "metadata": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Container is not Ready",
+            "resource": "opencost-8b9688c47-hrzd6",
+            "namespace": "monitoring",
+            "description": "Container 'opencost' is not ready.",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "metadata": {
+                "container": "opencost",
+                "restart_count": 0,
+                "image": "ghcr.io/opencost/opencost:1.120.3@sha256:9f282400e59a4fc886e5fa3bca3c777b9dcae866b781641ca1d1271525d15f7"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Pod is not Ready",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [alertmanager]",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "metadata": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Containers are not Ready",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [alertmanager]",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "metadata": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Container is not Ready",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "Container 'alertmanager' is not ready.",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "metadata": {
+                "container": "alertmanager",
+                "restart_count": 74,
+                "image": "quay.io/prometheus/alertmanager:v0.33.0"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Pod is not Ready",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [node-exporter]",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "metadata": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Containers are not Ready",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [node-exporter]",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "metadata": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Container is not Ready",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' is not ready.",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 54,
+                "image": "quay.io/prometheus/node-exporter:v1.11.1"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Pod is not Ready",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [node-exporter]",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "metadata": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Containers are not Ready",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [node-exporter]",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "metadata": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Container is not Ready",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' is not ready.",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 50,
+                "image": "quay.io/prometheus/node-exporter:v1.11.1"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Pod is not Ready",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [node-exporter]",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "metadata": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Containers are not Ready",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "containers with unready status: [node-exporter]",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "metadata": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "rule_id": "POD-006",
+            "severity": "high",
+            "title": "Container is not Ready",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' is not ready.",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 36,
+                "image": "quay.io/prometheus/node-exporter:v1.11.1"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "java-app-76899fdffd-4zh56",
+            "namespace": "backend",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "java-app-76899fdffd-vrld2",
+            "namespace": "backend",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "redis-78f9456bf7-bwqrb",
+            "namespace": "backend",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "redis-78f9456bf7-rz8x4",
+            "namespace": "backend",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "mysql-76bd68bfd9-ncwmp",
+            "namespace": "database",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "nginx-7fb4f4978f-hqtqr",
+            "namespace": "frontend",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "nginx-7fb4f4978f-vj4cl",
+            "namespace": "frontend",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "coredns-66bc5c9577-f6pjb",
+            "namespace": "kube-system",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "coredns-66bc5c9577-f6pjb",
+            "namespace": "kube-system",
+            "description": "Container 'coredns' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "coredns"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "coredns-66bc5c9577-txq5g",
+            "namespace": "kube-system",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "coredns-66bc5c9577-txq5g",
+            "namespace": "kube-system",
+            "description": "Container 'coredns' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "coredns"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "etcd-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "etcd-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'etcd' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "etcd"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "etcd-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'etcd' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "etcd"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "kube-apiserver-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "kube-apiserver-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-apiserver' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "kube-apiserver"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "kube-apiserver-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-apiserver' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "kube-apiserver"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "kube-apiserver-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-apiserver' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "kube-apiserver"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "kube-controller-manager-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "kube-controller-manager-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-controller-manager' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "kube-controller-manager"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "kube-controller-manager-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-controller-manager' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "kube-controller-manager"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "kube-controller-manager-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-controller-manager' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "kube-controller-manager"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "kube-proxy-4xvrm",
+            "namespace": "kube-system",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "kube-proxy-4xvrm",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "kube-proxy-4xvrm",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "kube-proxy-4xvrm",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "kube-proxy-4xvrm",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "kube-proxy-c8l7m",
+            "namespace": "kube-system",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "kube-proxy-c8l7m",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "kube-proxy-c8l7m",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "kube-proxy-c8l7m",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "kube-proxy-c8l7m",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "kube-proxy-ld4rs",
+            "namespace": "kube-system",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "kube-proxy-ld4rs",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "kube-proxy-ld4rs",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "kube-proxy-ld4rs",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "kube-proxy-ld4rs",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "kube-proxy-nnm6d",
+            "namespace": "kube-system",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "kube-proxy-nnm6d",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "kube-proxy-nnm6d",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "kube-proxy-nnm6d",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "kube-proxy-nnm6d",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "kube-scheduler-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "kube-scheduler-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-scheduler' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "kube-scheduler"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "kube-scheduler-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-scheduler' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "kube-scheduler"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "kube-scheduler-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-scheduler' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "kube-scheduler"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "metrics-server-5b57c547cb-6hqvt",
+            "namespace": "kube-system",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "metrics-server-5b57c547cb-6hqvt",
+            "namespace": "kube-system",
+            "description": "Container 'metrics-server' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "metrics-server"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "metrics-server-5b57c547cb-6hqvt",
+            "namespace": "kube-system",
+            "description": "Container 'metrics-server' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "metrics-server"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "stress-generator-646fbfcc84-wrrlj",
+            "namespace": "loadtest",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "local-path-provisioner-7b8c8ddbd6-5wsc9",
+            "namespace": "local-path-storage",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "local-path-provisioner-7b8c8ddbd6-5wsc9",
+            "namespace": "local-path-storage",
+            "description": "Container 'local-path-provisioner' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "local-path-provisioner"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "local-path-provisioner-7b8c8ddbd6-5wsc9",
+            "namespace": "local-path-storage",
+            "description": "Container 'local-path-provisioner' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "local-path-provisioner"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "local-path-provisioner-7b8c8ddbd6-5wsc9",
+            "namespace": "local-path-storage",
+            "description": "Container 'local-path-provisioner' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "local-path-provisioner"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "local-path-provisioner-7b8c8ddbd6-5wsc9",
+            "namespace": "local-path-storage",
+            "description": "Container 'local-path-provisioner' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "local-path-provisioner"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "Burstable QoS",
+            "resource": "opencost-8b9688c47-hrzd6",
+            "namespace": "monitoring",
+            "description": "Pod is using Burstable QoS.",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "metadata": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "opencost-8b9688c47-hrzd6",
+            "namespace": "monitoring",
+            "description": "Container 'opencost' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "opencost"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "opencost-8b9688c47-hrzd6",
+            "namespace": "monitoring",
+            "description": "Container 'opencost-ui' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "opencost-ui"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "Container 'alertmanager' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "alertmanager"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "Container 'alertmanager' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "alertmanager"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "Container 'alertmanager' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "alertmanager"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "Container 'alertmanager' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "alertmanager"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "prometheus-kube-state-metrics-79d4c77466-s9nxx",
+            "namespace": "monitoring",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "prometheus-kube-state-metrics-79d4c77466-s9nxx",
+            "namespace": "monitoring",
+            "description": "Container 'kube-state-metrics' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "kube-state-metrics"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "prometheus-kube-state-metrics-79d4c77466-s9nxx",
+            "namespace": "monitoring",
+            "description": "Container 'kube-state-metrics' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "kube-state-metrics"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "prometheus-kube-state-metrics-79d4c77466-s9nxx",
+            "namespace": "monitoring",
+            "description": "Container 'kube-state-metrics' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "kube-state-metrics"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "prometheus-kube-state-metrics-79d4c77466-s9nxx",
+            "namespace": "monitoring",
+            "description": "Container 'kube-state-metrics' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "kube-state-metrics"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "prometheus-prometheus-node-exporter-8nl58",
+            "namespace": "monitoring",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "prometheus-prometheus-node-exporter-8nl58",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "prometheus-prometheus-node-exporter-8nl58",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "prometheus-prometheus-node-exporter-8nl58",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "prometheus-prometheus-node-exporter-8nl58",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "node-exporter"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "prometheus-prometheus-pushgateway-55b4699767-znpjg",
+            "namespace": "monitoring",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "prometheus-prometheus-pushgateway-55b4699767-znpjg",
+            "namespace": "monitoring",
+            "description": "Container 'pushgateway' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "pushgateway"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "prometheus-prometheus-pushgateway-55b4699767-znpjg",
+            "namespace": "monitoring",
+            "description": "Container 'pushgateway' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "pushgateway"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "prometheus-prometheus-pushgateway-55b4699767-znpjg",
+            "namespace": "monitoring",
+            "description": "Container 'pushgateway' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "pushgateway"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "prometheus-prometheus-pushgateway-55b4699767-znpjg",
+            "namespace": "monitoring",
+            "description": "Container 'pushgateway' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "pushgateway"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "BestEffort QoS",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "metadata": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container 'prometheus-server' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "prometheus-server"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container 'prometheus-server' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "prometheus-server"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container 'prometheus-server' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "prometheus-server"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container 'prometheus-server' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "prometheus-server"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "CPU request missing",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container 'prometheus-server-configmap-reload' has no CPU request.",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "metadata": {
+                "container": "prometheus-server-configmap-reload"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "medium",
+            "title": "Memory request missing",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container 'prometheus-server-configmap-reload' has no memory request.",
+            "recommendation": "Configure memory requests.",
+            "metadata": {
+                "container": "prometheus-server-configmap-reload"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "low",
+            "title": "CPU limit missing",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container 'prometheus-server-configmap-reload' has no CPU limit.",
+            "recommendation": "Consider configuring CPU limits.",
+            "metadata": {
+                "container": "prometheus-server-configmap-reload"
+            }
+        },
+        {
+            "rule_id": "POD-008",
+            "severity": "high",
+            "title": "Memory limit missing",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container 'prometheus-server-configmap-reload' has no memory limit.",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "metadata": {
+                "container": "prometheus-server-configmap-reload"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "java-app-76899fdffd-4zh56",
+            "namespace": "backend",
+            "description": "Container 'java-app' has restarted 11 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "java-app",
+                "restart_count": 11,
+                "image": "docker.io/springio/gs-spring-boot-docker:latest"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "java-app-76899fdffd-vrld2",
+            "namespace": "backend",
+            "description": "Container 'java-app' has restarted 11 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "java-app",
+                "restart_count": 11,
+                "image": "docker.io/springio/gs-spring-boot-docker:latest"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "redis-78f9456bf7-bwqrb",
+            "namespace": "backend",
+            "description": "Container 'redis' has restarted 11 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "redis",
+                "restart_count": 11,
+                "image": "docker.io/library/redis:latest"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "redis-78f9456bf7-rz8x4",
+            "namespace": "backend",
+            "description": "Container 'redis' has restarted 11 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "redis",
+                "restart_count": 11,
+                "image": "docker.io/library/redis:latest"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "mysql-76bd68bfd9-ncwmp",
+            "namespace": "database",
+            "description": "Container 'mysql' has restarted 11 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "mysql",
+                "restart_count": 11,
+                "image": "docker.io/library/mysql:8.0"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "coredns-66bc5c9577-f6pjb",
+            "namespace": "kube-system",
+            "description": "Container 'coredns' has restarted 19 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "coredns",
+                "restart_count": 19,
+                "image": "registry.k8s.io/coredns/coredns:v1.12.1"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "coredns-66bc5c9577-txq5g",
+            "namespace": "kube-system",
+            "description": "Container 'coredns' has restarted 19 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "coredns",
+                "restart_count": 19,
+                "image": "registry.k8s.io/coredns/coredns:v1.12.1"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kindnet-99nnr",
+            "namespace": "kube-system",
+            "description": "Container 'kindnet-cni' has restarted 19 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "kindnet-cni",
+                "restart_count": 19,
+                "image": "docker.io/kindest/kindnetd:v20250512-df8de77b"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kindnet-bfk4h",
+            "namespace": "kube-system",
+            "description": "Container 'kindnet-cni' has restarted 19 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "kindnet-cni",
+                "restart_count": 19,
+                "image": "docker.io/kindest/kindnetd:v20250512-df8de77b"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kindnet-h7ddx",
+            "namespace": "kube-system",
+            "description": "Container 'kindnet-cni' has restarted 19 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "kindnet-cni",
+                "restart_count": 19,
+                "image": "docker.io/kindest/kindnetd:v20250512-df8de77b"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "kindnet-rsgmd",
+            "namespace": "kube-system",
+            "description": "Container 'kindnet-cni' has restarted 20 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "kindnet-cni",
+                "restart_count": 20,
+                "image": "docker.io/kindest/kindnetd:v20250512-df8de77b"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "kube-controller-manager-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-controller-manager' has restarted 88 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "kube-controller-manager",
+                "restart_count": 88,
+                "image": "registry.k8s.io/kube-controller-manager-amd64:v1.34.0"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kube-proxy-4xvrm",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has restarted 19 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "kube-proxy",
+                "restart_count": 19,
+                "image": "registry.k8s.io/kube-proxy-amd64:v1.34.0"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "kube-proxy-c8l7m",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has restarted 20 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "kube-proxy",
+                "restart_count": 20,
+                "image": "registry.k8s.io/kube-proxy-amd64:v1.34.0"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kube-proxy-ld4rs",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has restarted 19 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "kube-proxy",
+                "restart_count": 19,
+                "image": "registry.k8s.io/kube-proxy-amd64:v1.34.0"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "kube-proxy-nnm6d",
+            "namespace": "kube-system",
+            "description": "Container 'kube-proxy' has restarted 19 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "kube-proxy",
+                "restart_count": 19,
+                "image": "registry.k8s.io/kube-proxy-amd64:v1.34.0"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "kube-scheduler-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "description": "Container 'kube-scheduler' has restarted 83 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "kube-scheduler",
+                "restart_count": 83,
+                "image": "registry.k8s.io/kube-scheduler-amd64:v1.34.0"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "metrics-server-5b57c547cb-6hqvt",
+            "namespace": "kube-system",
+            "description": "Container 'metrics-server' has restarted 81 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "metrics-server",
+                "restart_count": 81,
+                "image": "registry.k8s.io/metrics-server/metrics-server:v0.8.1"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "stress-generator-646fbfcc84-wrrlj",
+            "namespace": "loadtest",
+            "description": "Container 'stress' has restarted 11 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "stress",
+                "restart_count": 11,
+                "image": "docker.io/polinux/stress:latest"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "local-path-provisioner-7b8c8ddbd6-5wsc9",
+            "namespace": "local-path-storage",
+            "description": "Container 'local-path-provisioner' has restarted 37 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "local-path-provisioner",
+                "restart_count": 37,
+                "image": "docker.io/kindest/local-path-provisioner:v20250214-acbabc1a"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-alertmanager-0",
+            "namespace": "monitoring",
+            "description": "Container 'alertmanager' has restarted 74 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "alertmanager",
+                "restart_count": 74,
+                "image": "quay.io/prometheus/alertmanager:v0.33.0"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-kube-state-metrics-79d4c77466-s9nxx",
+            "namespace": "monitoring",
+            "description": "Container 'kube-state-metrics' has restarted 58 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "kube-state-metrics",
+                "restart_count": 58,
+                "image": "registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-prometheus-node-exporter-296cp",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has restarted 54 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 54,
+                "image": "quay.io/prometheus/node-exporter:v1.11.1"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-prometheus-node-exporter-8nl58",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has restarted 31 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 31,
+                "image": "quay.io/prometheus/node-exporter:v1.11.1"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-prometheus-node-exporter-dx7tz",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has restarted 50 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 50,
+                "image": "quay.io/prometheus/node-exporter:v1.11.1"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-prometheus-node-exporter-gx8fc",
+            "namespace": "monitoring",
+            "description": "Container 'node-exporter' has restarted 36 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "node-exporter",
+                "restart_count": 36,
+                "image": "quay.io/prometheus/node-exporter:v1.11.1"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-prometheus-pushgateway-55b4699767-znpjg",
+            "namespace": "monitoring",
+            "description": "Container 'pushgateway' has restarted 12 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "pushgateway",
+                "restart_count": 12,
+                "image": "quay.io/prometheus/pushgateway:v1.11.3"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "high",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container 'prometheus-server' has restarted 11 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "prometheus-server",
+                "restart_count": 11,
+                "image": "quay.io/prometheus/prometheus:v3.12.0"
+            }
+        },
+        {
+            "rule_id": "POD-005",
+            "severity": "critical",
+            "title": "Container restarting frequently",
+            "resource": "prometheus-server-58f85d558c-vx499",
+            "namespace": "monitoring",
+            "description": "Container 'prometheus-server-configmap-reload' has restarted 25 times.",
+            "recommendation": "Inspect previous container logs using 'kubectl logs --previous'. Review application logs, probes, resource limits and recent deployments.",
+            "metadata": {
+                "container": "prometheus-server-configmap-reload",
+                "restart_count": 25,
+                "image": "quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0"
+            }
+        }
+    ],
+    "incidents": [],
+    "actions": [],
+    "recommendations": [],
+    "summary": {
+        "collectors_executed": 5,
+        "resources_scanned": 45,
+        "issues_found": 344,
+        "cluster_status": "Issues Detected"
+    },
+    "metadata": {
+        "deployment": {
+            "collector": "DeploymentCollector",
+            "resource_count": 12,
+            "metrics": [
+                {
+                    "metric": "deployment_count",
+                    "value": 12
+                },
+                {
+                    "metric": "healthy_deployments",
+                    "value": 11
+                },
+                {
+                    "metric": "unhealthy_deployments",
+                    "value": 1
+                },
+                {
+                    "metric": "fully_available_deployments",
+                    "value": 11
+                },
+                {
+                    "metric": "partially_available_deployments",
+                    "value": 0
+                },
+                {
+                    "metric": "failed_rollouts",
+                    "value": 1
+                },
+                {
+                    "metric": "desired_replicas",
+                    "value": 16
+                },
+                {
+                    "metric": "ready_replicas",
+                    "value": 15
+                },
+                {
+                    "metric": "available_replicas",
+                    "value": 15
+                },
+                {
+                    "metric": "updated_replicas",
+                    "value": 16
+                },
+                {
+                    "metric": "unavailable_replicas",
+                    "value": 1
+                }
+            ],
+            "execution_time": 0.6182
+        },
+        "ingress": {
+            "collector": "IngressCollector",
+            "resource_count": 0,
+            "metrics": [
+                {
+                    "metric": "ingress_count",
+                    "value": 0
+                },
+                {
+                    "metric": "rule_count",
+                    "value": 0
+                },
+                {
+                    "metric": "path_count",
+                    "value": 0
+                },
+                {
+                    "metric": "tls_entries",
+                    "value": 0
+                },
+                {
+                    "metric": "tls_enabled_ingresses",
+                    "value": 0
+                },
+                {
+                    "metric": "tls_disabled_ingresses",
+                    "value": 0
+                },
+                {
+                    "metric": "ingresses_with_loadbalancer",
+                    "value": 0
+                },
+                {
+                    "metric": "ingresses_without_loadbalancer",
+                    "value": 0
+                },
+                {
+                    "metric": "nginx_ingress_class",
+                    "value": 0
+                },
+                {
+                    "metric": "custom_ingress_class",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.0316
+        },
+        "networkpolicy": {
+            "collector": "NetworkPolicyCollector",
+            "resource_count": 0,
+            "metrics": [
+                {
+                    "metric": "networkpolicy_count",
+                    "value": 0
+                },
+                {
+                    "metric": "ingress_network_policies",
+                    "value": 0
+                },
+                {
+                    "metric": "egress_network_policies",
+                    "value": 0
+                },
+                {
+                    "metric": "default_deny_policies",
+                    "value": 0
+                },
+                {
+                    "metric": "orphan_network_policies",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.2654
+        },
+        "node": {
+            "collector": "NodeCollector",
+            "resource_count": 0,
+            "metrics": [],
+            "execution_time": 0.0225
+        },
+        "pod": {
+            "collector": "PodCollector",
+            "resource_count": 33,
+            "metrics": [
+                {
+                    "metric": "pod_count",
+                    "value": 33
+                },
+                {
+                    "metric": "running_pods",
+                    "value": 32
+                },
+                {
+                    "metric": "pending_pods",
+                    "value": 1
+                },
+                {
+                    "metric": "failed_pods",
+                    "value": 0
+                },
+                {
+                    "metric": "succeeded_pods",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.1322
+        },
+        "collectors": [
+            {
+                "collector": "DeploymentCollector",
+                "resource_type": "deployment",
+                "resources": 12,
+                "execution_time": 0.6174
+            },
+            {
+                "collector": "IngressCollector",
+                "resource_type": "ingress",
+                "resources": 0,
+                "execution_time": 0.0314
+            },
+            {
+                "collector": "NetworkPolicyCollector",
+                "resource_type": "networkpolicy",
+                "resources": 0,
+                "execution_time": 0.2653
+            },
+            {
+                "collector": "NodeCollector",
+                "resource_type": "node",
+                "resources": 0,
+                "execution_time": 0.0224
+            },
+            {
+                "collector": "PodCollector",
+                "resource_type": "pod",
+                "resources": 33,
+                "execution_time": 0.1314
+            }
+        ]
+    },
+    "logs": [
+        {
+            "level": "warning",
+            "message": "No rules registered for 'node'."
+        }
+    ],
+    "error": null
+}
+(.venv) abhijit@ABHIJIT:/mnt/c/DEVOPS/RootIQ$ context

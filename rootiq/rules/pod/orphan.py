@@ -1,5 +1,6 @@
 # rootiq/rules/pod/orphan.py
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
 from rootiq.incident.issue import Issue
 
@@ -27,9 +28,9 @@ class OrphanRule(BaseRule):
         "Node",  # Static / mirror pods
     }
 
-    def evaluate(self, result):
+    def evaluate(self, context: RuleContext):
 
-        for pod in result.resources:
+        for pod in context.resources:
 
             pod_name = pod["name"]
             namespace = pod["namespace"]
@@ -41,8 +42,8 @@ class OrphanRule(BaseRule):
             #
             if owner is None:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         rule_id=self.id,
                         severity="medium",
                         title="Pod has no owner",
@@ -59,7 +60,7 @@ class OrphanRule(BaseRule):
                             "owner": None,
                         },
                     )
-                )
+                
 
                 continue
 
@@ -68,8 +69,8 @@ class OrphanRule(BaseRule):
             #
             if owner not in self.VALID_OWNERS:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         rule_id=self.id,
                         severity="medium",
                         title="Unknown pod owner",
@@ -86,7 +87,7 @@ class OrphanRule(BaseRule):
                             "owner": owner,
                         },
                     )
-                )
+                
 
             #
             # Completed Job Pods
@@ -96,8 +97,8 @@ class OrphanRule(BaseRule):
                 and pod.get("phase") == "Succeeded"
             ):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         rule_id=self.id,
                         severity="low",
                         title="Completed Job Pod",
@@ -115,6 +116,6 @@ class OrphanRule(BaseRule):
                             "phase": pod.get("phase"),
                         },
                     )
-                )
+                
 
-        return result
+        

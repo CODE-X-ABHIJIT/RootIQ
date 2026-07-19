@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class ServiceTargetPortRule(BaseRule):
@@ -9,11 +8,13 @@ class ServiceTargetPortRule(BaseRule):
 
     name = "ServiceTargetPort"
 
-    def evaluate(self, resources):
+    resource_type = "service"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for service in resources:
+        
+
+        for service in ctx.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -26,8 +27,9 @@ class ServiceTargetPortRule(BaseRule):
 
             if not ports:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Critical",
                         resource_type="Service",
@@ -42,7 +44,7 @@ class ServiceTargetPortRule(BaseRule):
                             "Define at least one Service port."
                         ),
                     )
-                )
+                
 
                 continue
 
@@ -62,8 +64,9 @@ class ServiceTargetPortRule(BaseRule):
 
                 if target_port in (None, ""):
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="High",
                             resource_type="Service",
@@ -81,7 +84,7 @@ class ServiceTargetPortRule(BaseRule):
                                 "Configure a valid targetPort."
                             ),
                         )
-                    )
+                    
 
                 #
                 # Invalid numeric targetPort
@@ -95,8 +98,9 @@ class ServiceTargetPortRule(BaseRule):
                     )
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="High",
                             resource_type="Service",
@@ -113,7 +117,7 @@ class ServiceTargetPortRule(BaseRule):
                                 "Use a port between 1 and 65535."
                             ),
                         )
-                    )
+                    
 
                 #
                 # Invalid Service port
@@ -127,8 +131,9 @@ class ServiceTargetPortRule(BaseRule):
                     )
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="High",
                             resource_type="Service",
@@ -145,7 +150,7 @@ class ServiceTargetPortRule(BaseRule):
                                 "Use a port between 1 and 65535."
                             ),
                         )
-                    )
+                    
 
                 #
                 # Unsupported protocol
@@ -157,8 +162,9 @@ class ServiceTargetPortRule(BaseRule):
                     "SCTP",
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    ctx.report(
+                            rule=self,
+                        
                             id=self.id,
                             severity="Low",
                             resource_type="Service",
@@ -175,6 +181,6 @@ class ServiceTargetPortRule(BaseRule):
                                 "Use TCP, UDP, or SCTP."
                             ),
                         )
-                    )
+                    
 
-        return result
+        

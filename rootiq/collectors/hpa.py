@@ -62,4 +62,4 @@ class HPACollector(BaseCollector):
             result.success = False
             result.error = str(e)
 
-        return result
+        

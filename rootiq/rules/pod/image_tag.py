@@ -1,5 +1,6 @@
 # rootiq/rules/pod/image_tag.py
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
 from rootiq.incident.issue import Issue
 
@@ -18,7 +19,7 @@ class ImageTagRule(BaseRule):
 
     category = "pod"
 
-    def evaluate(self, result):
+    def evaluate(self, context: RuleContext):
 
         bad_tags = {
             "latest",
@@ -32,7 +33,7 @@ class ImageTagRule(BaseRule):
             "nightly",
         }
 
-        for pod in result.resources:
+        for pod in context.resources:
 
             pod_name = pod["name"]
             namespace = pod["namespace"]
@@ -46,8 +47,8 @@ class ImageTagRule(BaseRule):
                 #
                 if ":" not in image:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity="high",
                             title="Image tag missing",
@@ -65,7 +66,7 @@ class ImageTagRule(BaseRule):
                                 "image": image,
                             },
                         )
-                    )
+                
 
                     continue
 
@@ -76,8 +77,8 @@ class ImageTagRule(BaseRule):
                 #
                 if tag in bad_tags:
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity=self.severity,
                             title="Mutable image tag detected",
@@ -97,15 +98,15 @@ class ImageTagRule(BaseRule):
                                 "tag": tag,
                             },
                         )
-                    )
+                
 
                 #
                 # Latest
                 #
                 if tag == "latest":
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity="high",
                             title="Image uses latest tag",
@@ -123,6 +124,6 @@ class ImageTagRule(BaseRule):
                                 "image": image,
                             },
                         )
-                    )
+                
 
-        return result
+        

@@ -1,5 +1,6 @@
 # rootiq/rules/pod/oomkill.py
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
 from rootiq.incident.issue import Issue
 
@@ -18,9 +19,9 @@ class OOMKillRule(BaseRule):
 
     category = "pod"
 
-    def evaluate(self, result):
+    def evaluate(self, context: RuleContext):
 
-        for pod in result.resources:
+        for pod in context.resources:
 
             pod_name = pod["name"]
             namespace = pod["namespace"]
@@ -52,8 +53,8 @@ class OOMKillRule(BaseRule):
                             "was killed because of memory pressure."
                         )
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             rule_id=self.id,
                             severity=self.severity,
                             title="Container OOMKilled",
@@ -74,6 +75,6 @@ class OOMKillRule(BaseRule):
                                 ),
                             },
                         )
-                    )
+                    
 
-        return result
+        

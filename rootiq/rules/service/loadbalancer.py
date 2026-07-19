@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class ServiceLoadBalancerRule(BaseRule):
@@ -9,11 +8,13 @@ class ServiceLoadBalancerRule(BaseRule):
 
     name = "ServiceLoadBalancer"
 
-    def evaluate(self, resources):
+    resource_type = "service"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, ctx: RuleContext):
 
-        for service in resources:
+        
+
+        for service in ctx.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -31,8 +32,9 @@ class ServiceLoadBalancerRule(BaseRule):
 
             if not external_ip:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Service",
@@ -49,7 +51,7 @@ class ServiceLoadBalancerRule(BaseRule):
                             "Verify your cloud provider, MetalLB, or load balancer controller."
                         ),
                     )
-                )
+                
 
             #
             # No ingress
@@ -59,8 +61,9 @@ class ServiceLoadBalancerRule(BaseRule):
 
             if not ingress:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Service",
@@ -77,7 +80,7 @@ class ServiceLoadBalancerRule(BaseRule):
                             "Check cloud provider events or MetalLB logs."
                         ),
                     )
-                )
+                
 
             #
             # Pending status
@@ -88,8 +91,9 @@ class ServiceLoadBalancerRule(BaseRule):
                 and not ingress
             ):
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Critical",
                         resource_type="Service",
@@ -106,7 +110,7 @@ class ServiceLoadBalancerRule(BaseRule):
                             "Verify the LoadBalancer controller is running."
                         ),
                     )
-                )
+                
 
             #
             # Internal LoadBalancer
@@ -119,8 +123,9 @@ class ServiceLoadBalancerRule(BaseRule):
 
             if internal:
 
-                result.issues.append(
-                    Issue(
+                ctx.report(
+                        rule=self,
+                    
                         id=self.id,
                         severity="Info",
                         resource_type="Service",
@@ -137,6 +142,6 @@ class ServiceLoadBalancerRule(BaseRule):
                             "Ensure internal exposure is intended."
                         ),
                     )
-                )
+                
 
-        return result
+        

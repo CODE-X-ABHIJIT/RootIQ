@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class IngressClassRule(BaseRule):
@@ -9,11 +8,13 @@ class IngressClassRule(BaseRule):
 
     name = "IngressClass"
 
-    def evaluate(self, resources):
+    resource_type = "ingress"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context : RuleContext):
 
-        for ingress in resources:
+        
+
+        for ingress in context.resources:
 
             namespace = ingress.get("namespace")
             name = ingress.get("name")
@@ -44,8 +45,8 @@ class IngressClassRule(BaseRule):
 
             if not ingress_class:
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="High",
                         resource_type="Ingress",
@@ -62,7 +63,7 @@ class IngressClassRule(BaseRule):
                             "Specify spec.ingressClassName or the ingress.class annotation."
                         ),
                     )
-                )
+                
 
                 continue
 
@@ -75,8 +76,8 @@ class IngressClassRule(BaseRule):
                 and not ingress_class.strip()
             ):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Ingress",
@@ -93,7 +94,7 @@ class IngressClassRule(BaseRule):
                             "Specify a valid IngressClass."
                         ),
                     )
-                )
+                
 
             #
             # Annotation & spec mismatch
@@ -106,8 +107,8 @@ class IngressClassRule(BaseRule):
                 != ingress.get("ingress_class")
             ):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Low",
                         resource_type="Ingress",
@@ -127,6 +128,6 @@ class IngressClassRule(BaseRule):
                             "Use a single consistent IngressClass."
                         ),
                     )
-                )
+                
 
-        return result
+        

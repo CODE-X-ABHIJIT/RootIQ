@@ -35,7 +35,7 @@ class StatefulSetCollector(BaseCollector):
             result.success = False
             result.error = str(e)
 
-            return result
+            
 
         total_desired = 0
         total_ready = 0
@@ -129,7 +129,7 @@ class StatefulSetCollector(BaseCollector):
 
             if ready < desired:
 
-                result.issues.append(
+                context.report(
                     {
                         "severity": "warning",
                         "resource": sts.metadata.name,
@@ -142,7 +142,7 @@ class StatefulSetCollector(BaseCollector):
 
             if not sts.spec.service_name:
 
-                result.issues.append(
+                context.report(
                     {
                         "severity": "warning",
                         "resource": sts.metadata.name,
@@ -179,4 +179,4 @@ class StatefulSetCollector(BaseCollector):
             ]
         )
 
-        return result
+        

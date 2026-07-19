@@ -24,7 +24,7 @@ class IngressCollector(BaseCollector):
             result.success = False
             result.error = str(e)
 
-            return result
+            
 
         ingress_count = len(ingresses)
 
@@ -265,7 +265,7 @@ class IngressCollector(BaseCollector):
 
             if not rules:
 
-                result.issues.append(
+                context.report(
                     {
                         "severity": "warning",
                         "resource": ingress.metadata.name,

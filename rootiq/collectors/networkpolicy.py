@@ -26,7 +26,7 @@ class NetworkPolicyCollector(BaseCollector):
             result.success = False
             result.error = str(e)
 
-            return result
+            
 
         ingress_count = 0
         egress_count = 0

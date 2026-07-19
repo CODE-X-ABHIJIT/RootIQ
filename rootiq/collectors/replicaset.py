@@ -63,12 +63,12 @@ class ReplicaSetCollector(BaseCollector):
             result.success = False
             result.error = str(e)
 
-            return result
+            
 
         except Exception as e:
             result.success = False
             result.error = str(e)
 
-            return result
+            
 
-        return result
+        

@@ -1,5 +1,6 @@
 # rootiq/rules/pod/imagepull.py
 
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
 from rootiq.incident.issue import Issue
 
@@ -26,9 +27,9 @@ class ImagePullRule(BaseRule):
         "ErrImageNeverPull",
     }
 
-    def evaluate(self, result):
+    def evaluate(self, context: RuleContext):
 
-        for pod in result.resources:
+        for pod in context.resources:
 
             pod_name = pod["name"]
             namespace = pod["namespace"]
@@ -128,8 +129,8 @@ class ImagePullRule(BaseRule):
                         "Registry TLS certificate validation failed."
                     )
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         rule_id=self.id,
                         severity=self.severity,
                         title="Image pull failed",
@@ -143,6 +144,6 @@ class ImagePullRule(BaseRule):
                             "reason": reason,
                         },
                     )
-                )
+                
 
-        return result
+        

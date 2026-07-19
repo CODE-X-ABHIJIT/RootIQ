@@ -1,6 +1,5 @@
+from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.rules.issue import Issue
-from rootiq.rules.result import RuleResult
 
 
 class IngressSSLRedirectRule(BaseRule):
@@ -9,11 +8,13 @@ class IngressSSLRedirectRule(BaseRule):
 
     name = "IngressSSLRedirect"
 
-    def evaluate(self, resources):
+    resource_type = "ingress"
 
-        result = RuleResult(rule=self.name)
+    def evaluate(self, context: RuleContext):
 
-        for ingress in resources:
+        
+
+        for ingress in context.resources:
 
             namespace = ingress.get("namespace")
             name = ingress.get("name")
@@ -48,8 +49,8 @@ class IngressSSLRedirectRule(BaseRule):
 
                 if ssl_redirect == "false":
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="High",
                             resource_type="Ingress",
@@ -66,12 +67,12 @@ class IngressSSLRedirectRule(BaseRule):
                                 "Enable ssl-redirect to force HTTPS."
                             ),
                         )
-                    )
+                
 
                 if force_ssl == "false":
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Ingress",
@@ -88,7 +89,7 @@ class IngressSSLRedirectRule(BaseRule):
                                 "Enable force-ssl-redirect for secure traffic."
                             ),
                         )
-                    )
+                
 
             #
             # Invalid annotation values
@@ -110,8 +111,8 @@ class IngressSSLRedirectRule(BaseRule):
                     )
                 ):
 
-                    result.issues.append(
-                        Issue(
+                    context.report(
+                        
                             id=self.id,
                             severity="Medium",
                             resource_type="Ingress",
@@ -128,7 +129,7 @@ class IngressSSLRedirectRule(BaseRule):
                                 "Use true or false."
                             ),
                         )
-                    )
+                
 
             #
             # TLS enabled but no redirect annotation
@@ -140,8 +141,8 @@ class IngressSSLRedirectRule(BaseRule):
                 and force_ssl is None
             ):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Info",
                         resource_type="Ingress",
@@ -156,7 +157,7 @@ class IngressSSLRedirectRule(BaseRule):
                             "Explicitly configure SSL redirect behavior."
                         ),
                     )
-                )
+            
 
             #
             # Redirect enabled without TLS
@@ -170,8 +171,8 @@ class IngressSSLRedirectRule(BaseRule):
                 )
             ):
 
-                result.issues.append(
-                    Issue(
+                context.report(
+                    
                         id=self.id,
                         severity="Medium",
                         resource_type="Ingress",
@@ -188,6 +189,6 @@ class IngressSSLRedirectRule(BaseRule):
                             "Configure TLS or disable HTTPS redirection."
                         ),
                     )
-                )
+            
 
-        return result
+        

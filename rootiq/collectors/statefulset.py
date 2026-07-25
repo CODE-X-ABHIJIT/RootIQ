@@ -129,7 +129,7 @@ class StatefulSetCollector(BaseCollector):
 
             if ready < desired:
 
-                context.report(
+                result.logs.append(
                     {
                         "severity": "warning",
                         "resource": sts.metadata.name,
@@ -142,7 +142,7 @@ class StatefulSetCollector(BaseCollector):
 
             if not sts.spec.service_name:
 
-                context.report(
+                result.logs.append(
                     {
                         "severity": "warning",
                         "resource": sts.metadata.name,

@@ -90,7 +90,7 @@ class NodeCollector(BaseCollector):
 
                         not_ready_nodes += 1
 
-                        context.report(
+                        result.logs.append(
                             {
                                 "severity": "critical",
                                 "resource": node.metadata.name,
@@ -103,7 +103,7 @@ class NodeCollector(BaseCollector):
                     and condition.status == "True"
                 ):
 
-                    context.report(
+                    result.logs.append(
                         {
                             "severity": "high",
                             "resource": node.metadata.name,
@@ -116,7 +116,7 @@ class NodeCollector(BaseCollector):
                     and condition.status == "True"
                 ):
 
-                    context.report(
+                    result.logs.append(
                         {
                             "severity": "high",
                             "resource": node.metadata.name,
@@ -129,7 +129,7 @@ class NodeCollector(BaseCollector):
                     and condition.status == "True"
                 ):
 
-                    context.report(
+                    result.logs.append(
                         {
                             "severity": "high",
                             "resource": node.metadata.name,
@@ -163,7 +163,7 @@ class NodeCollector(BaseCollector):
 
             if node.spec.unschedulable:
 
-                context.report(
+                result.logs.append(
                     {
                         "severity": "medium",
                         "resource": node.metadata.name,

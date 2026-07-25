@@ -1,19 +1,31 @@
-from dataclasses import asdict
-
 from rootiq.orchestrator.inspect import InspectOrchestrator
-import json
+
 
 def main():
 
     result = InspectOrchestrator().run()
 
-    print(
-    json.dumps(
-        asdict(result),
-        indent=4,
-        default=str,
-    )
-)
+    print()
 
-if __name__ == "__main__":
-    main()
+    if result.issues:
+
+        print(f"Found {len(result.issues)} issue(s)\n")
+
+        # for issue in result.issues:
+
+        #     print(
+        #         f"[{issue['id']}] "
+        #         f"{issue['title']} "
+        #         f"({issue['severity']})"
+        #     )
+
+    else:
+
+        print("✔ No issues found.")
+
+    print()
+
+    print(
+        "Inspection:",
+        result.metadata["incident_id"],
+    )

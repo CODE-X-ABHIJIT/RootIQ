@@ -9,7 +9,7 @@ from rootiq.engine.rule_engine import RuleEngine
 from rootiq.incident.target import ClusterTarget
 from rootiq.kubernetes.client import KubernetesClient
 from rootiq.engine.registry import registry
-
+from rootiq.storage.manager import StorageManager
 
 class InspectOrchestrator:
     """
@@ -38,15 +38,6 @@ class InspectOrchestrator:
         #
 
         RuleManager()
-        print(
-            "TOTAL RULES:",
-            registry.rule_count()
-        )
-
-        print(
-            "RULE TYPES:",
-            registry.resource_types()
-        )
 
         #
         # Rule Executor
@@ -161,7 +152,6 @@ class InspectOrchestrator:
             result.issues.extend(
                 engine_result.issues
             )
-
             result.logs.extend(
                 engine_result.logs
             )
@@ -213,5 +203,17 @@ class InspectOrchestrator:
         )
 
         result.success = True
+
+        #
+        # Persist inspection
+        #
+
+        storage = StorageManager()
+
+        incident_id = storage.save_inspection(
+            result,
+        )
+
+        result.metadata["incident_id"] = incident_id
 
         return result

@@ -53,6 +53,8 @@ class Issue:
         severity=Severity.MEDIUM,
         category=None,
         resource="",
+        resource_name=None,
+        resource_type=None,
         namespace=None,
         recommendation=None,
         evidence=None,
@@ -65,6 +67,15 @@ class Issue:
         #
 
         self.id = id or rule_id
+        #
+        # Backward compatibility
+        #
+
+        if resource_name is not None:
+            resource = resource_name
+
+        if category is None and resource_type is not None:
+            category = resource_type
 
         #
         # Severity

@@ -91,7 +91,7 @@ class PVCCollector(BaseCollector):
 
             if phase == "Pending":
 
-                context.report(
+                result.logs.append(
                     {
                         "severity": "critical",
                         "resource": pvc.metadata.name,
@@ -102,7 +102,7 @@ class PVCCollector(BaseCollector):
 
             if phase == "Lost":
 
-                context.report(
+                result.logs.append(
                     {
                         "severity": "critical",
                         "resource": pvc.metadata.name,

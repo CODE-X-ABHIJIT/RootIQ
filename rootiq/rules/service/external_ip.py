@@ -10,11 +10,11 @@ class ServiceExternalIPRule(BaseRule):
 
     resource_type = "service"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for service in ctx.resources:
+        for service in context.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -33,7 +33,7 @@ class ServiceExternalIPRule(BaseRule):
 
                 if not external_name:
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,
@@ -62,7 +62,7 @@ class ServiceExternalIPRule(BaseRule):
 
             if len(external_ips) != len(set(external_ips)):
 
-                ctx.report(
+                context.report(
                             rule=self,
                     
                         id=self.id,
@@ -91,7 +91,7 @@ class ServiceExternalIPRule(BaseRule):
 
                 if not isinstance(ip, str):
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,

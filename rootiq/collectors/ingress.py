@@ -265,7 +265,7 @@ class IngressCollector(BaseCollector):
 
             if not rules:
 
-                context.report(
+                result.logs.append(
                     {
                         "severity": "warning",
                         "resource": ingress.metadata.name,

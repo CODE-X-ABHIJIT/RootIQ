@@ -10,11 +10,11 @@ class ServiceDuplicatePortRule(BaseRule):
     
     resource_type = "service"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for service in ctx.resources:
+        for service in context.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -46,7 +46,7 @@ class ServiceDuplicatePortRule(BaseRule):
 
                 if key in seen:
 
-                    ctx.report(
+                    context.report(
 
                             rule=self,
                             id=self.id,
@@ -91,7 +91,7 @@ class ServiceDuplicatePortRule(BaseRule):
 
             if duplicates:
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -132,7 +132,7 @@ class ServiceDuplicatePortRule(BaseRule):
 
             if duplicate_targets:
 
-                ctx.report(
+                context.report(
                          rule=self,
                     
                         id=self.id,

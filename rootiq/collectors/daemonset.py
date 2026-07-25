@@ -117,7 +117,7 @@ class DaemonSetCollector(BaseCollector):
 
             if ready < desired:
 
-                context.report(
+                result.logs.append(
                     {
                         "severity": "warning",
                         "resource": ds.metadata.name,
@@ -128,7 +128,7 @@ class DaemonSetCollector(BaseCollector):
 
             if unavailable > 0:
 
-                context.report(
+                result.logs.append(
                     {
                         "severity": "warning",
                         "resource": ds.metadata.name,

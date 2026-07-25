@@ -336,7 +336,7 @@ class ServiceCollector(BaseCollector):
                 and not svc.spec.selector
             ):
 
-                context.report({
+                result.logs.append({
 
                     "severity": "warning",
 

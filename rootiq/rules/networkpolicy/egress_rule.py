@@ -10,11 +10,11 @@ class NetworkPolicyEgressRule(BaseRule):
 
     resource_type = "networkpolicy"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for policy in ctx.resources:
+        for policy in context.resources:
 
             namespace = policy.get("namespace")
             name = policy.get("name")
@@ -38,7 +38,7 @@ class NetworkPolicyEgressRule(BaseRule):
                 and not egress
             ):
 
-                ctx.report(
+                context.report(
                             rule=self,
                     
                         id=self.id,
@@ -80,7 +80,7 @@ class NetworkPolicyEgressRule(BaseRule):
 
                 if not peers:
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,
@@ -107,7 +107,7 @@ class NetworkPolicyEgressRule(BaseRule):
 
                 if not ports:
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,

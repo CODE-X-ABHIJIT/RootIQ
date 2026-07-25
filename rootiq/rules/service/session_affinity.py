@@ -10,11 +10,11 @@ class ServiceSessionAffinityRule(BaseRule):
 
     resource_type = "service"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for service in ctx.resources:
+        for service in context.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -38,7 +38,7 @@ class ServiceSessionAffinityRule(BaseRule):
                 "ClientIP",
             ):
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -71,7 +71,7 @@ class ServiceSessionAffinityRule(BaseRule):
 
                 if timeout is None:
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,
@@ -92,7 +92,7 @@ class ServiceSessionAffinityRule(BaseRule):
 
                 elif timeout < 1 or timeout > 86400:
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,
@@ -115,7 +115,7 @@ class ServiceSessionAffinityRule(BaseRule):
 
                 elif timeout > 10800:
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,

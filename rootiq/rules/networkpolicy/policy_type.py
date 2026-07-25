@@ -10,7 +10,7 @@ class NetworkPolicyTypeRule(BaseRule):
 
     resource_type = "networkpolicy"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
@@ -19,7 +19,7 @@ class NetworkPolicyTypeRule(BaseRule):
             "Egress",
         }
 
-        for policy in ctx.resources:
+        for policy in context.resources:
 
             namespace = policy.get("namespace")
             name = policy.get("name")
@@ -35,7 +35,7 @@ class NetworkPolicyTypeRule(BaseRule):
 
             if not policy_types:
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -62,7 +62,7 @@ class NetworkPolicyTypeRule(BaseRule):
 
             if len(policy_types) != len(set(policy_types)):
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -90,7 +90,7 @@ class NetworkPolicyTypeRule(BaseRule):
 
                 if policy_type not in valid_types:
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,

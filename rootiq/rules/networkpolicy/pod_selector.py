@@ -10,11 +10,11 @@ class NetworkPolicyPodSelectorRule(BaseRule):
 
     resource_type = "networkpolicy"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for policy in ctx.resources:
+        for policy in context.resources:
 
             namespace = policy.get("namespace")
             name = policy.get("name")
@@ -30,7 +30,7 @@ class NetworkPolicyPodSelectorRule(BaseRule):
 
             if selector == {}:
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -55,7 +55,7 @@ class NetworkPolicyPodSelectorRule(BaseRule):
 
             elif not isinstance(selector, dict):
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,

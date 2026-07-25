@@ -10,13 +10,13 @@ class ServiceNodePortRule(BaseRule):
 
     resource_type = "service"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
         used_node_ports = {}
 
-        for service in ctx.resources:
+        for service in context.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -35,7 +35,7 @@ class ServiceNodePortRule(BaseRule):
 
             if not ports:
 
-                ctx.report(
+                context.report(
                             rule=self,
                     
                         id=self.id,
@@ -66,7 +66,7 @@ class ServiceNodePortRule(BaseRule):
 
                 if node_port is None:
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,
@@ -98,7 +98,7 @@ class ServiceNodePortRule(BaseRule):
                     or node_port > 32767
                 ):
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,
@@ -128,7 +128,7 @@ class ServiceNodePortRule(BaseRule):
 
                     previous = used_node_ports[node_port]
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,

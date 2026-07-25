@@ -10,11 +10,11 @@ class ServiceSelectorRule(BaseRule):
 
     resource_type = "service"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for service in ctx.resources:
+        for service in context.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -35,7 +35,7 @@ class ServiceSelectorRule(BaseRule):
 
             if not selector:
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -71,7 +71,7 @@ class ServiceSelectorRule(BaseRule):
 
             if empty:
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,

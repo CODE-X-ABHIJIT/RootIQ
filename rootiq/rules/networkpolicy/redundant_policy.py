@@ -10,17 +10,17 @@ class NetworkPolicyRedundantRule(BaseRule):
 
     resource_type = "networkpolicy"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for i in range(len(ctx.resources)):
+        for i in range(len(context.resources)):
 
-            left = ctx.resources[i]
+            left = context.resources[i]
 
-            for j in range(i + 1, len(ctx.resources)):
+            for j in range(i + 1, len(context.resources)):
 
-                right = ctx.resources[j]
+                right = context.resources[j]
 
                 #
                 # Compare only within the same namespace
@@ -77,7 +77,7 @@ class NetworkPolicyRedundantRule(BaseRule):
                 # Duplicate policy detected
                 #
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,

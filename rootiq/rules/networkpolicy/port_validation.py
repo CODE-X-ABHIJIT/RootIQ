@@ -16,11 +16,11 @@ class NetworkPolicyPortValidationRule(BaseRule):
         "SCTP",
     }
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for policy in ctx.resources:
+        for policy in context.resources:
 
             namespace = policy.get("namespace")
             name = policy.get("name")
@@ -64,7 +64,7 @@ class NetworkPolicyPortValidationRule(BaseRule):
                             not in self.VALID_PROTOCOLS
                         ):
 
-                            ctx.report(
+                            context.report(
                                     rule=self,
                                 
                                     id=self.id,
@@ -101,7 +101,7 @@ class NetworkPolicyPortValidationRule(BaseRule):
                                 or port_value > 65535
                             ):
 
-                                ctx.report(
+                                context.report(
                                         rule=self,
                                     
                                         id=self.id,
@@ -132,7 +132,7 @@ class NetworkPolicyPortValidationRule(BaseRule):
                                 or " " in port_value
                             ):
 
-                                ctx.report(
+                                context.report(
                                         rule=self,
                                     
                                         id=self.id,
@@ -155,7 +155,7 @@ class NetworkPolicyPortValidationRule(BaseRule):
 
                         elif port_value is not None:
 
-                            ctx.report(
+                            context.report(
                                     rule=self,
                                 
                                     id=self.id,
@@ -187,7 +187,7 @@ class NetworkPolicyPortValidationRule(BaseRule):
 
                         if key in seen:
 
-                            ctx.report(
+                            context.report(
                                     rule=self,
                                 
                                     id=self.id,

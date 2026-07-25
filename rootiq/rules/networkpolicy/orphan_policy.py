@@ -10,11 +10,11 @@ class NetworkPolicyOrphanRule(BaseRule):
 
     resource_type = "networkpolicy"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for policy in ctx.resources:
+        for policy in context.resources:
 
             namespace = policy.get(
                 "namespace"
@@ -58,7 +58,7 @@ class NetworkPolicyOrphanRule(BaseRule):
 
             if len(matched_pods) == 0:
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,

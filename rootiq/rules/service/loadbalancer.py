@@ -10,11 +10,11 @@ class ServiceLoadBalancerRule(BaseRule):
 
     resource_type = "service"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for service in ctx.resources:
+        for service in context.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -32,7 +32,7 @@ class ServiceLoadBalancerRule(BaseRule):
 
             if not external_ip:
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -61,7 +61,7 @@ class ServiceLoadBalancerRule(BaseRule):
 
             if not ingress:
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -91,7 +91,7 @@ class ServiceLoadBalancerRule(BaseRule):
                 and not ingress
             ):
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -123,7 +123,7 @@ class ServiceLoadBalancerRule(BaseRule):
 
             if internal:
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,

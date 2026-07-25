@@ -10,11 +10,11 @@ class ServiceHeadlessRule(BaseRule):
 
     resource_type = "service"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for service in ctx.resources:
+        for service in context.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -36,7 +36,7 @@ class ServiceHeadlessRule(BaseRule):
 
             if not endpoints:
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -64,7 +64,7 @@ class ServiceHeadlessRule(BaseRule):
 
             if not selector:
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -97,7 +97,7 @@ class ServiceHeadlessRule(BaseRule):
 
             if len(ips) != len(set(ips)):
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,

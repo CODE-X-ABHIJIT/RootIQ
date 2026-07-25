@@ -10,11 +10,11 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
 
     resource_type = "service"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for service in ctx.resources:
+        for service in context.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -54,7 +54,7 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
                 "Local",
             ):
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -86,7 +86,7 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
                 and not endpoints
             ):
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -118,7 +118,7 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
                 and not health_port
             ):
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -151,7 +151,7 @@ class ServiceExternalTrafficPolicyRule(BaseRule):
                 )
             ):
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,

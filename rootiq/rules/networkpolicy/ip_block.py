@@ -12,11 +12,11 @@ class NetworkPolicyIPBlockRule(BaseRule):
 
     resource_type = "networkpolicy"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for policy in ctx.resources:
+        for policy in context.resources:
 
             namespace = policy.get("namespace")
             name = policy.get("name")
@@ -70,7 +70,7 @@ class NetworkPolicyIPBlockRule(BaseRule):
 
                         if not cidr:
 
-                            ctx.report(
+                            context.report(
                                         rule=self,
                                 
                                     id=self.id,
@@ -101,7 +101,7 @@ class NetworkPolicyIPBlockRule(BaseRule):
 
                         if cidr in cidrs:
 
-                            ctx.report(
+                            context.report(
                                         rule=self,
                                 
                                     id=self.id,
@@ -139,7 +139,7 @@ class NetworkPolicyIPBlockRule(BaseRule):
 
                         except ValueError:
 
-                            ctx.report(
+                            context.report(
                                         rule=self,
                                 
                                     id=self.id,
@@ -171,7 +171,7 @@ class NetworkPolicyIPBlockRule(BaseRule):
                             "::/0",
                         ):
 
-                            ctx.report(
+                            context.report(
                                         rule=self,
                                 
                                     id=self.id,
@@ -209,7 +209,7 @@ class NetworkPolicyIPBlockRule(BaseRule):
 
                             except ValueError:
 
-                                ctx.report(
+                                context.report(
                                         rule=self,
                                     
                                         id=self.id,
@@ -234,7 +234,7 @@ class NetworkPolicyIPBlockRule(BaseRule):
 
                             if not excluded_net.subnet_of(network):
 
-                                ctx.report(
+                                context.report(
                                         rule=self,
                                     
                                         id=self.id,

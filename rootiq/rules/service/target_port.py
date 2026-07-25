@@ -10,11 +10,11 @@ class ServiceTargetPortRule(BaseRule):
 
     resource_type = "service"
 
-    def evaluate(self, ctx: RuleContext):
+    def evaluate(self, context: RuleContext):
 
         
 
-        for service in ctx.resources:
+        for service in context.resources:
 
             namespace = service.get("namespace")
             name = service.get("name")
@@ -27,7 +27,7 @@ class ServiceTargetPortRule(BaseRule):
 
             if not ports:
 
-                ctx.report(
+                context.report(
                         rule=self,
                     
                         id=self.id,
@@ -64,7 +64,7 @@ class ServiceTargetPortRule(BaseRule):
 
                 if target_port in (None, ""):
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,
@@ -98,7 +98,7 @@ class ServiceTargetPortRule(BaseRule):
                     )
                 ):
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,
@@ -131,7 +131,7 @@ class ServiceTargetPortRule(BaseRule):
                     )
                 ):
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,
@@ -162,7 +162,7 @@ class ServiceTargetPortRule(BaseRule):
                     "SCTP",
                 ):
 
-                    ctx.report(
+                    context.report(
                             rule=self,
                         
                             id=self.id,

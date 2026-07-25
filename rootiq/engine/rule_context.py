@@ -20,7 +20,7 @@ class RuleContext:
         Add an issue from a rule.
 
         Example:
-            ctx.report(
+            context.report(
                 id="POD-001",
                 severity="HIGH",
                 resource_type="Pod",

@@ -1,0 +1,40 @@
+{
+    "incident_id": "INC-000005",
+    "title": "Pods Pending",
+    "target": {
+        "name": "production",
+        "context": "prod-context",
+        "namespace": "payments",
+        "cluster_wide": false,
+        "api_server": "",
+        "user": "",
+        "kubernetes_version": "",
+        "platform": "",
+        "environment": "",
+        "region": "",
+        "provider": "",
+        "labels": {}
+    },
+    "severity": "CRITICAL",
+    "status": "NEW",
+    "created_at": "2026-07-05T05:38:58.372876",
+    "updated_at": "2026-07-05T05:38:58.372904",
+    "root_cause": "",
+    "confidence": 0,
+    "affected_resources": [],
+    "evidence": {
+        "logs": [],
+        "events": [],
+        "metrics": [],
+        "resources": []
+    },
+    "repairs": [],
+    "validation": {
+        "checks": {},
+        "overall_status": "UNKNOWN"
+    },
+    "recommendations": [],
+    "labels": {},
+    "annotations": {},
+    "tags": []
+}

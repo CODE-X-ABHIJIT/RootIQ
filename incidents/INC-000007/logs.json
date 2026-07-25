@@ -1,0 +1,22 @@
+[
+    {
+        "level": "error",
+        "message": "DeploymentImageTagRule: Issue.__init__() got an unexpected keyword argument 'resource_type'"
+    },
+    {
+        "level": "error",
+        "message": "DeploymentProgressDeadlineRule: Issue.__init__() got an unexpected keyword argument 'resource_type'"
+    },
+    {
+        "level": "error",
+        "message": "DeploymentReplicaMismatchRule: Issue.__init__() got an unexpected keyword argument 'resource_type'"
+    },
+    {
+        "level": "error",
+        "message": "DeploymentResourcesRule: Issue.__init__() got an unexpected keyword argument 'resource_type'"
+    },
+    {
+        "level": "warning",
+        "message": "No rules registered for 'node'."
+    }
+]

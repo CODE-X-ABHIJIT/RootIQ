@@ -1,0 +1,9 @@
+Incident : INC-000007
+Engine : InspectOrchestrator
+Generated : 2026-07-25 08:05:46.175129
+
+Issues : 262
+Resources : 45
+Collectors : 5
+Execution Time : 2.49s
+Status : Issues Detected

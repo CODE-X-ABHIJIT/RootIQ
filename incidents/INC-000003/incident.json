@@ -1,0 +1,40 @@
+{
+    "incident_id": "INC-000003",
+    "title": "Pods Pending",
+    "target": {
+        "name": "production",
+        "context": "prod-context",
+        "namespace": "payments",
+        "cluster_wide": false,
+        "api_server": "",
+        "user": "",
+        "kubernetes_version": "1.31",
+        "platform": "EKS",
+        "environment": "",
+        "region": "",
+        "provider": "",
+        "labels": {}
+    },
+    "severity": "CRITICAL",
+    "status": "CLOSED",
+    "created_at": "2026-07-05T05:34:14.667653",
+    "updated_at": "2026-07-05T05:34:15.090826",
+    "root_cause": "Insufficient CPU resources",
+    "confidence": 95,
+    "affected_resources": [],
+    "evidence": {
+        "logs": [],
+        "events": [],
+        "metrics": [],
+        "resources": []
+    },
+    "repairs": [],
+    "validation": {
+        "checks": {},
+        "overall_status": "UNKNOWN"
+    },
+    "recommendations": [],
+    "labels": {},
+    "annotations": {},
+    "tags": []
+}

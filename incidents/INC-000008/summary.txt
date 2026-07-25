@@ -1,0 +1,9 @@
+Incident : INC-000008
+Engine : InspectOrchestrator
+Generated : 2026-07-25 08:37:48.777832
+
+Issues : 353
+Resources : 45
+Collectors : 5
+Execution Time : 1.68s
+Status : Issues Detected

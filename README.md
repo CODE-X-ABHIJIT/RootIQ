@@ -217,7 +217,7 @@ Contributions, suggestions, and improvements are welcome. Feel free to fork the 
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+This project is licensed under the Apache License 2.0 .
 
 ---
 

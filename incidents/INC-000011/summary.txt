@@ -1,0 +1,9 @@
+Incident : INC-000011
+Engine : InspectOrchestrator
+Generated : 2026-07-26 03:58:07.631145
+
+Issues : 112
+Resources : 33
+Collectors : 5
+Execution Time : 2.94s
+Status : Issues Detected

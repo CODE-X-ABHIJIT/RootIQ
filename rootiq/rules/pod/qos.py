@@ -2,110 +2,66 @@
 
 from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.incident.issue import Issue
 
 
 class QoSRule(BaseRule):
 
     id = "POD-010"
 
-    name = "QoS Classification"
+    name = "BestEffort QoS"
 
-    description = "Detect pods using non-optimal QoS classes."
+    description = (
+        "Detect pods running without CPU or memory requests and limits."
+    )
 
     resource_type = "pod"
-    
-    severity = "medium"
+
+    severity = "high"
 
     category = "pod"
+
+    SYSTEM_NAMESPACES = {
+        "kube-system",
+        "kube-public",
+        "kube-node-lease",
+    }
 
     def evaluate(self, context: RuleContext):
 
         for pod in context.resources:
 
-            qos = pod.get("qos_class", "Unknown")
-            pod_name = pod["name"]
             namespace = pod["namespace"]
 
             #
-            # BestEffort
+            # Ignore Kubernetes system components
             #
-            if qos == "BestEffort":
-
-                context.report(
-                    
-                        rule_id=self.id,
-                        severity="high",
-                        title="BestEffort Pod",
-                        resource=pod_name,
-                        namespace=namespace,
-                        description=(
-                            "Pod belongs to BestEffort QoS class."
-                        ),
-                        recommendation=(
-                            "Configure CPU and memory requests and limits "
-                            "to improve scheduling and reduce eviction risk."
-                        ),
-                        metadata={
-                            "qos": qos,
-                        },
-                    )
-                
-
-            #
-            # Burstable
-            #
-            elif qos == "Burstable":
-
-                context.report(
-                    
-                        rule_id=self.id,
-                        severity="low",
-                        title="Burstable Pod",
-                        resource=pod_name,
-                        namespace=namespace,
-                        description=(
-                            "Pod belongs to Burstable QoS class."
-                        ),
-                        recommendation=(
-                            "Verify resource requests and limits are "
-                            "appropriate for the workload."
-                        ),
-                        metadata={
-                            "qos": qos,
-                        },
-                    )
-                
-
-            #
-            # Guaranteed
-            #
-            elif qos == "Guaranteed":
-
+            if namespace in self.SYSTEM_NAMESPACES:
                 continue
 
-            #
-            # Unknown
-            #
-            else:
+            qos = pod.get("qos_class", "Unknown")
+            pod_name = pod["name"]
 
-                context.report(
-                    
-                        rule_id=self.id,
-                        severity="medium",
-                        title="Unknown QoS Class",
-                        resource=pod_name,
-                        namespace=namespace,
-                        description=(
-                            "Unable to determine pod QoS classification."
-                        ),
-                        recommendation=(
-                            "Verify pod resource configuration."
-                        ),
-                        metadata={
-                            "qos": qos,
-                        },
-                    )
-                
+            #
+            # Only BestEffort is considered an incident.
+            #
+            if qos != "BestEffort":
+                continue
 
-        
+            context.report(
+                rule_id=self.id,
+                severity="high",
+                title="Pod is running as BestEffort",
+                resource=pod_name,
+                namespace=namespace,
+                description=(
+                    "The pod has no CPU or memory requests/limits and "
+                    "is classified as BestEffort."
+                ),
+                recommendation=(
+                    "Configure CPU and memory requests and limits to "
+                    "improve scheduling stability and reduce eviction risk."
+                ),
+                metadata={
+                    "qos": qos,
+                },
+            )

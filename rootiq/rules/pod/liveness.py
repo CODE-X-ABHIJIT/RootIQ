@@ -2,102 +2,85 @@
 
 from rootiq.engine.rule_context import RuleContext
 from rootiq.rules.base import BaseRule
-from rootiq.incident.issue import Issue
 
 
 class LivenessRule(BaseRule):
 
     id = "POD-007"
 
-    name = "Liveness Probe"
+    name = "Liveness Probe Failure"
 
-    description = "Detect containers failing liveness probes."
+    description = (
+        "Detect pods reporting liveness or probe-related failures."
+    )
 
     resource_type = "pod"
-    
+
     severity = "critical"
 
     category = "pod"
+
+    SYSTEM_NAMESPACES = {
+        "kube-system",
+        "kube-public",
+        "kube-node-lease",
+    }
+
+    PROBE_REASONS = {
+        "ProbeError",
+        "ContainersNotReady",
+    }
 
     def evaluate(self, context: RuleContext):
 
         for pod in context.resources:
 
-            pod_name = pod["name"]
             namespace = pod["namespace"]
 
             #
-            # Pod Conditions
+            # Ignore Kubernetes system components
             #
+            if namespace in self.SYSTEM_NAMESPACES:
+                continue
+
+            pod_name = pod["name"]
+
             for condition in pod.get("conditions", []):
 
-                if (
-                    condition.get("type") == "Ready"
-                    and condition.get("status") != "True"
-                    and condition.get("reason")
-                    in (
-                        "ContainersNotReady",
-                        "ProbeError",
-                    )
-                ):
+                if condition.get("type") != "Ready":
+                    continue
 
-                    context.report(
-                        
-                            rule_id=self.id,
-                            severity=self.severity,
-                            title="Liveness probe failure detected",
-                            resource=pod_name,
-                            namespace=namespace,
-                            description=(
-                                condition.get("message")
-                                or "Container failed liveness probe."
-                            ),
-                            recommendation=(
-                                "Verify the liveness probe endpoint, "
-                                "application startup time, timeoutSeconds, "
-                                "failureThreshold and container logs."
-                            ),
-                            metadata={
-                                "condition": "Ready",
-                                "reason": condition.get("reason"),
-                            },
-                        )
-                    
+                if condition.get("status") == "True":
+                    continue
 
-            #
-            # Frequent restart may indicate liveness failures
-            #
-            for container in pod.get("containers", []):
+                reason = condition.get("reason", "")
 
-                restart_count = container.get(
-                    "restart_count", 0
-                )
-
-                if restart_count < 5:
+                if reason not in self.PROBE_REASONS:
                     continue
 
                 context.report(
-                    
-                        rule_id=self.id,
-                        severity="high",
-                        title="Possible liveness probe restart",
-                        resource=pod_name,
-                        namespace=namespace,
-                        description=(
-                            f"Container '{container['name']}' "
-                            f"has restarted {restart_count} times."
-                        ),
-                        recommendation=(
-                            "Inspect events using "
-                            "'kubectl describe pod' to confirm "
-                            "whether liveness probes are causing restarts."
-                        ),
-                        metadata={
-                            "container": container["name"],
-                            "restart_count": restart_count,
-                            "image": container.get("image"),
-                        },
-                    )
-                
+                    rule_id=self.id,
+                    severity=self.severity,
+                    title="Possible probe failure detected",
+                    resource=pod_name,
+                    namespace=namespace,
+                    description=(
+                        condition.get("message")
+                        or "The pod reports a probe-related readiness failure."
+                    ),
+                    recommendation=(
+                        "Inspect pod events using "
+                        "'kubectl describe pod' and verify "
+                        "liveness/readiness probe configuration, "
+                        "startup time and application logs."
+                    ),
+                    metadata={
+                        "condition": "Ready",
+                        "reason": reason,
+                    },
+                )
 
-        
+                #
+                # Prevent duplicate reports for the same pod
+                #
+                break

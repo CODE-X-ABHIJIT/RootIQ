@@ -1,0 +1,17 @@
+Incident : INC-000021
+Engine   : InspectOrchestrator
+Generated: 2026-07-26 05:16:38
+
+Issue Summary
+-------------
+67 Total Issues
+ • Critical : 0
+ • High     : 12
+ • Medium   : 0
+ • Low      : 10
+ • Info     : 45
+
+Resources Scanned : 33
+Collectors        : 5
+Execution Time    : 0.94s
+Status            : Issues Detected

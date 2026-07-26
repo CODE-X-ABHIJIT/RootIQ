@@ -89,33 +89,3 @@ class CrashLoopRule(BaseRule):
                                 "container": container["name"]
                             },
                         )
-                
-
-                #
-                # Restart count unusually high
-                #
-                elif container.get("restart_count", 0) >= 5:
-
-                    context.report(
-                        
-                            rule_id=self.id,
-                            severity="high",
-                            title="Container restarting frequently",
-                            resource=pod_name,
-                            namespace=namespace,
-                            description=(
-                                f"Container restarted "
-                                f"{container['restart_count']} times."
-                            ),
-                            recommendation=(
-                                "Investigate application logs and "
-                                "container health."
-                            ),
-                            metadata={
-                                "container": container["name"],
-                                "restart_count": container[
-                                    "restart_count"
-                                ],
-                            },
-                        )
-                

@@ -1,0 +1,9 @@
+Incident : INC-000009
+Engine : InspectOrchestrator
+Generated : 2026-07-26 03:35:44.115469
+
+Issues : 145
+Resources : 33
+Collectors : 5
+Execution Time : 1.48s
+Status : Issues Detected

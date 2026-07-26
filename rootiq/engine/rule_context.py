@@ -1,5 +1,6 @@
-from dataclasses import dataclass, field
-from dataclasses import asdict
+from dataclasses import dataclass, field, asdict
+
+from rootiq.config.config_loader import RootIQConfig
 from rootiq.incident.issue import Issue
 
 
@@ -17,6 +18,8 @@ class RuleContext:
 
     metadata: dict = field(default_factory=dict)
 
+    config: RootIQConfig = field(default_factory=RootIQConfig)
+
     # ==================================================
     # Backward Compatibility
     # ==================================================
@@ -26,51 +29,123 @@ class RuleContext:
         return self
 
     # ==================================================
+    # Exclusion Helpers
+    # ==================================================
+
+    def is_excluded(
+        self,
+        namespace: str,
+        resource_name: str,
+    ) -> bool:
+
+        scan = self.config.scan
+
+        #
+        # Scan everything
+        #
+        if scan.get("include_system", False):
+            return False
+
+        #
+        # Namespace exclusion
+        #
+        if namespace in scan.get(
+            "exclude_namespaces",
+            [],
+        ):
+            return True
+
+        #
+        # Workload exclusion
+        #
+        for workload in scan.get(
+            "exclude_workloads",
+            [],
+        ):
+
+            if resource_name.startswith(workload):
+                return True
+
+        return False
+
+    # ==================================================
+    # Severity Handling
+    # ==================================================
+
+    def severity_for(
+        self,
+        namespace: str,
+        resource_name: str,
+        severity: str,
+    ) -> str:
+
+        if not self.is_excluded(
+            namespace,
+            resource_name,
+        ):
+            return severity
+
+        return "info"
+
+    # ==================================================
     # Issue Reporting
     # ==================================================
 
     def report(self, issue=None, **kwargs):
         """
-        Supports both styles:
+        Supports:
 
-        context.report(Issue(...))
+            context.report(Issue(...))
 
-        and
+            context.report({...})
 
-        context.report(
-            rule_id="POD-001",
-            title="...",
-            severity="HIGH",
-            ...
-        )
+            context.report(
+                rule_id="POD-001",
+                ...
+            )
         """
 
         #
-        # Style 1:
-        # context.report(Issue(...))
+        # Style 1
         #
 
         if isinstance(issue, Issue):
+
+            issue.severity = self.severity_for(
+                issue.namespace,
+                issue.resource,
+                issue.severity,
+            )
 
             self.issues.append(asdict(issue))
             return
 
         #
-        # Style 2:
-        # context.report({...})
+        # Style 2
         #
 
         if isinstance(issue, dict):
+
+            issue["severity"] = self.severity_for(
+                issue.get("namespace", ""),
+                issue.get("resource", ""),
+                issue.get("severity", "info"),
+            )
 
             self.issues.append(issue)
             return
 
         #
-        # Style 3:
-        # context.report(rule_id=..., ...)
+        # Style 3
         #
 
         if kwargs:
+
+            kwargs["severity"] = self.severity_for(
+                kwargs.get("namespace", ""),
+                kwargs.get("resource", ""),
+                kwargs.get("severity", "info"),
+            )
 
             self.issues.append(
                 asdict(
@@ -82,10 +157,9 @@ class RuleContext:
         raise TypeError(
             "report() expects an Issue, dict or keyword arguments."
         )
+
     def add_issue(self, issue):
-        self.report(
-        issue
-        )
+        self.report(issue)
 
     # ==================================================
     # Logging

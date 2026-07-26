@@ -1,15 +1,14 @@
 import time
-from rootiq.rules.manager import RuleManager
-from rootiq import collectors
-from rootiq.collectors.manager import CollectorManager
 
+from rootiq.collectors.manager import CollectorManager
 from rootiq.engine.result import EngineResult
 from rootiq.engine.rule_engine import RuleEngine
-
+from rootiq.engine.registry import registry
 from rootiq.incident.target import ClusterTarget
 from rootiq.kubernetes.client import KubernetesClient
-from rootiq.engine.registry import registry
+from rootiq.rules.manager import RuleManager
 from rootiq.storage.manager import StorageManager
+
 
 class InspectOrchestrator:
     """
@@ -33,20 +32,21 @@ class InspectOrchestrator:
     name = "InspectOrchestrator"
 
     def __init__(self):
+
         #
-        # Discover Rules Once
+        # Discover Rules
         #
 
         RuleManager()
 
         #
-        # Rule Executor
+        # Rule Engine
         #
 
         self.rule_engine = RuleEngine()
 
         #
-        # Built-in Collectors
+        # Collectors
         #
 
         self.collectors = CollectorManager().all()
@@ -65,7 +65,7 @@ class InspectOrchestrator:
         start = time.perf_counter()
 
         #
-        # Connect to Kubernetes
+        # Kubernetes Client
         #
 
         target = ClusterTarget(
@@ -78,7 +78,7 @@ class InspectOrchestrator:
         k8s = KubernetesClient(target)
 
         #
-        # Engine Result
+        # Final Engine Result
         #
 
         result = EngineResult(
@@ -86,6 +86,18 @@ class InspectOrchestrator:
         )
 
         collector_summary = []
+
+        #
+        # Overall Severity Counter
+        #
+
+        severity_summary = {
+            "CRITICAL": 0,
+            "HIGH": 0,
+            "MEDIUM": 0,
+            "LOW": 0,
+            "INFO": 0,
+        }
 
         #
         # Execute Collectors
@@ -129,7 +141,7 @@ class InspectOrchestrator:
             )
 
             #
-            # Merge Collector Logs
+            # Collector Logs
             #
 
             result.logs.extend(
@@ -146,15 +158,42 @@ class InspectOrchestrator:
             )
 
             #
-            # Merge Rule Results
+            # Merge Issues
             #
 
             result.issues.extend(
                 engine_result.issues
             )
+
+            #
+            # Merge Logs
+            #
+
             result.logs.extend(
                 engine_result.logs
             )
+
+            #
+            # Merge Severity Summary
+            #
+
+            engine_severity = engine_result.summary.get(
+                "severity",
+                {},
+            )
+
+            for key in severity_summary:
+
+                severity_summary[key] += (
+                    engine_severity.get(
+                        key,
+                        0,
+                    )
+                )
+
+            #
+            # Metadata
+            #
 
             result.metadata[
                 collector.resource_type
@@ -172,7 +211,7 @@ class InspectOrchestrator:
             }
 
         #
-        # Summary
+        # Final Summary
         #
 
         result.summary = {
@@ -186,6 +225,7 @@ class InspectOrchestrator:
             "issues_found": len(
                 result.issues
             ),
+            "severity": severity_summary,
             "cluster_status": (
                 "Healthy"
                 if not result.issues
@@ -205,7 +245,7 @@ class InspectOrchestrator:
         result.success = True
 
         #
-        # Persist inspection
+        # Save Inspection
         #
 
         storage = StorageManager()
@@ -214,6 +254,8 @@ class InspectOrchestrator:
             result,
         )
 
-        result.metadata["incident_id"] = incident_id
+        result.metadata[
+            "incident_id"
+        ] = incident_id
 
         return result

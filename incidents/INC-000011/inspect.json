@@ -1,0 +1,1819 @@
+{
+    "engine": "InspectOrchestrator",
+    "success": true,
+    "execution_time": 2.9431,
+    "issues": [
+        {
+            "id": "DEPLOYMENT-005",
+            "title": "Container image has no explicit tag",
+            "description": "Container 'java-app' uses image 'springio/gs-spring-boot-docker' without a tag.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "java-app",
+            "namespace": "backend",
+            "recommendation": "Specify an immutable image tag instead of relying on the registry default.",
+            "evidence": {
+                "container": "java-app",
+                "image": "springio/gs-spring-boot-docker"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-005",
+            "title": "Container image has no explicit tag",
+            "description": "Container 'redis' uses image 'redis' without a tag.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "redis",
+            "namespace": "backend",
+            "recommendation": "Specify an immutable image tag instead of relying on the registry default.",
+            "evidence": {
+                "container": "redis",
+                "image": "redis"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-005",
+            "title": "Container image has no explicit tag",
+            "description": "Container 'nginx' uses image 'nginx' without a tag.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "nginx",
+            "namespace": "frontend",
+            "recommendation": "Specify an immutable image tag instead of relying on the registry default.",
+            "evidence": {
+                "container": "nginx",
+                "image": "nginx"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-005",
+            "title": "Container image has no explicit tag",
+            "description": "Container 'stress' uses image 'polinux/stress' without a tag.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "stress-generator",
+            "namespace": "loadtest",
+            "recommendation": "Specify an immutable image tag instead of relying on the registry default.",
+            "evidence": {
+                "container": "stress",
+                "image": "polinux/stress"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource requests",
+            "description": "Container 'java-app' has no CPU/Memory requests.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "java-app",
+            "namespace": "backend",
+            "recommendation": "Configure CPU and memory requests for proper scheduling.",
+            "evidence": {
+                "container": "java-app",
+                "requests": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource limits",
+            "description": "Container 'java-app' has no CPU/Memory limits.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "java-app",
+            "namespace": "backend",
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion.",
+            "evidence": {
+                "container": "java-app",
+                "limits": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU request not configured",
+            "description": "Container 'java-app' does not define CPU request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "java-app",
+            "namespace": "backend",
+            "recommendation": "Configure CPU request.",
+            "evidence": {
+                "container": "java-app"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory request not configured",
+            "description": "Container 'java-app' does not define memory request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "java-app",
+            "namespace": "backend",
+            "recommendation": "Configure memory request.",
+            "evidence": {
+                "container": "java-app"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU limit not configured",
+            "description": "Container 'java-app' does not define CPU limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "java-app",
+            "namespace": "backend",
+            "recommendation": "Configure CPU limit.",
+            "evidence": {
+                "container": "java-app"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory limit not configured",
+            "description": "Container 'java-app' does not define memory limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "java-app",
+            "namespace": "backend",
+            "recommendation": "Configure memory limit.",
+            "evidence": {
+                "container": "java-app"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource requests",
+            "description": "Container 'redis' has no CPU/Memory requests.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "redis",
+            "namespace": "backend",
+            "recommendation": "Configure CPU and memory requests for proper scheduling.",
+            "evidence": {
+                "container": "redis",
+                "requests": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource limits",
+            "description": "Container 'redis' has no CPU/Memory limits.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "redis",
+            "namespace": "backend",
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion.",
+            "evidence": {
+                "container": "redis",
+                "limits": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU request not configured",
+            "description": "Container 'redis' does not define CPU request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "redis",
+            "namespace": "backend",
+            "recommendation": "Configure CPU request.",
+            "evidence": {
+                "container": "redis"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory request not configured",
+            "description": "Container 'redis' does not define memory request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "redis",
+            "namespace": "backend",
+            "recommendation": "Configure memory request.",
+            "evidence": {
+                "container": "redis"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU limit not configured",
+            "description": "Container 'redis' does not define CPU limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "redis",
+            "namespace": "backend",
+            "recommendation": "Configure CPU limit.",
+            "evidence": {
+                "container": "redis"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory limit not configured",
+            "description": "Container 'redis' does not define memory limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "redis",
+            "namespace": "backend",
+            "recommendation": "Configure memory limit.",
+            "evidence": {
+                "container": "redis"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource requests",
+            "description": "Container 'mysql' has no CPU/Memory requests.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "mysql",
+            "namespace": "database",
+            "recommendation": "Configure CPU and memory requests for proper scheduling.",
+            "evidence": {
+                "container": "mysql",
+                "requests": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource limits",
+            "description": "Container 'mysql' has no CPU/Memory limits.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "mysql",
+            "namespace": "database",
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion.",
+            "evidence": {
+                "container": "mysql",
+                "limits": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU request not configured",
+            "description": "Container 'mysql' does not define CPU request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "mysql",
+            "namespace": "database",
+            "recommendation": "Configure CPU request.",
+            "evidence": {
+                "container": "mysql"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory request not configured",
+            "description": "Container 'mysql' does not define memory request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "mysql",
+            "namespace": "database",
+            "recommendation": "Configure memory request.",
+            "evidence": {
+                "container": "mysql"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU limit not configured",
+            "description": "Container 'mysql' does not define CPU limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "mysql",
+            "namespace": "database",
+            "recommendation": "Configure CPU limit.",
+            "evidence": {
+                "container": "mysql"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory limit not configured",
+            "description": "Container 'mysql' does not define memory limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "mysql",
+            "namespace": "database",
+            "recommendation": "Configure memory limit.",
+            "evidence": {
+                "container": "mysql"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource requests",
+            "description": "Container 'nginx' has no CPU/Memory requests.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "nginx",
+            "namespace": "frontend",
+            "recommendation": "Configure CPU and memory requests for proper scheduling.",
+            "evidence": {
+                "container": "nginx",
+                "requests": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource limits",
+            "description": "Container 'nginx' has no CPU/Memory limits.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "nginx",
+            "namespace": "frontend",
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion.",
+            "evidence": {
+                "container": "nginx",
+                "limits": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU request not configured",
+            "description": "Container 'nginx' does not define CPU request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "nginx",
+            "namespace": "frontend",
+            "recommendation": "Configure CPU request.",
+            "evidence": {
+                "container": "nginx"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory request not configured",
+            "description": "Container 'nginx' does not define memory request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "nginx",
+            "namespace": "frontend",
+            "recommendation": "Configure memory request.",
+            "evidence": {
+                "container": "nginx"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU limit not configured",
+            "description": "Container 'nginx' does not define CPU limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "nginx",
+            "namespace": "frontend",
+            "recommendation": "Configure CPU limit.",
+            "evidence": {
+                "container": "nginx"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory limit not configured",
+            "description": "Container 'nginx' does not define memory limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "nginx",
+            "namespace": "frontend",
+            "recommendation": "Configure memory limit.",
+            "evidence": {
+                "container": "nginx"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource requests",
+            "description": "Container 'coredns' has no CPU/Memory requests.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "coredns",
+            "namespace": "kube-system",
+            "recommendation": "Configure CPU and memory requests for proper scheduling.",
+            "evidence": {
+                "container": "coredns",
+                "requests": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource limits",
+            "description": "Container 'coredns' has no CPU/Memory limits.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "coredns",
+            "namespace": "kube-system",
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion.",
+            "evidence": {
+                "container": "coredns",
+                "limits": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU request not configured",
+            "description": "Container 'coredns' does not define CPU request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "coredns",
+            "namespace": "kube-system",
+            "recommendation": "Configure CPU request.",
+            "evidence": {
+                "container": "coredns"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory request not configured",
+            "description": "Container 'coredns' does not define memory request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "coredns",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory request.",
+            "evidence": {
+                "container": "coredns"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU limit not configured",
+            "description": "Container 'coredns' does not define CPU limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "coredns",
+            "namespace": "kube-system",
+            "recommendation": "Configure CPU limit.",
+            "evidence": {
+                "container": "coredns"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory limit not configured",
+            "description": "Container 'coredns' does not define memory limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "coredns",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory limit.",
+            "evidence": {
+                "container": "coredns"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource requests",
+            "description": "Container 'metrics-server' has no CPU/Memory requests.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "metrics-server",
+            "namespace": "kube-system",
+            "recommendation": "Configure CPU and memory requests for proper scheduling.",
+            "evidence": {
+                "container": "metrics-server",
+                "requests": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource limits",
+            "description": "Container 'metrics-server' has no CPU/Memory limits.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "metrics-server",
+            "namespace": "kube-system",
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion.",
+            "evidence": {
+                "container": "metrics-server",
+                "limits": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU request not configured",
+            "description": "Container 'metrics-server' does not define CPU request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "metrics-server",
+            "namespace": "kube-system",
+            "recommendation": "Configure CPU request.",
+            "evidence": {
+                "container": "metrics-server"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory request not configured",
+            "description": "Container 'metrics-server' does not define memory request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "metrics-server",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory request.",
+            "evidence": {
+                "container": "metrics-server"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU limit not configured",
+            "description": "Container 'metrics-server' does not define CPU limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "metrics-server",
+            "namespace": "kube-system",
+            "recommendation": "Configure CPU limit.",
+            "evidence": {
+                "container": "metrics-server"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory limit not configured",
+            "description": "Container 'metrics-server' does not define memory limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "metrics-server",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory limit.",
+            "evidence": {
+                "container": "metrics-server"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource requests",
+            "description": "Container 'stress' has no CPU/Memory requests.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "stress-generator",
+            "namespace": "loadtest",
+            "recommendation": "Configure CPU and memory requests for proper scheduling.",
+            "evidence": {
+                "container": "stress",
+                "requests": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource limits",
+            "description": "Container 'stress' has no CPU/Memory limits.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "stress-generator",
+            "namespace": "loadtest",
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion.",
+            "evidence": {
+                "container": "stress",
+                "limits": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU request not configured",
+            "description": "Container 'stress' does not define CPU request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "stress-generator",
+            "namespace": "loadtest",
+            "recommendation": "Configure CPU request.",
+            "evidence": {
+                "container": "stress"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory request not configured",
+            "description": "Container 'stress' does not define memory request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "stress-generator",
+            "namespace": "loadtest",
+            "recommendation": "Configure memory request.",
+            "evidence": {
+                "container": "stress"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU limit not configured",
+            "description": "Container 'stress' does not define CPU limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "stress-generator",
+            "namespace": "loadtest",
+            "recommendation": "Configure CPU limit.",
+            "evidence": {
+                "container": "stress"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory limit not configured",
+            "description": "Container 'stress' does not define memory limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "stress-generator",
+            "namespace": "loadtest",
+            "recommendation": "Configure memory limit.",
+            "evidence": {
+                "container": "stress"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource requests",
+            "description": "Container 'local-path-provisioner' has no CPU/Memory requests.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "local-path-provisioner",
+            "namespace": "local-path-storage",
+            "recommendation": "Configure CPU and memory requests for proper scheduling.",
+            "evidence": {
+                "container": "local-path-provisioner",
+                "requests": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Container has no resource limits",
+            "description": "Container 'local-path-provisioner' has no CPU/Memory limits.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "local-path-provisioner",
+            "namespace": "local-path-storage",
+            "recommendation": "Configure CPU and memory limits to prevent resource exhaustion.",
+            "evidence": {
+                "container": "local-path-provisioner",
+                "limits": {}
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU request not configured",
+            "description": "Container 'local-path-provisioner' does not define CPU request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "local-path-provisioner",
+            "namespace": "local-path-storage",
+            "recommendation": "Configure CPU request.",
+            "evidence": {
+                "container": "local-path-provisioner"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory request not configured",
+            "description": "Container 'local-path-provisioner' does not define memory request.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "local-path-provisioner",
+            "namespace": "local-path-storage",
+            "recommendation": "Configure memory request.",
+            "evidence": {
+                "container": "local-path-provisioner"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "CPU limit not configured",
+            "description": "Container 'local-path-provisioner' does not define CPU limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "local-path-provisioner",
+            "namespace": "local-path-storage",
+            "recommendation": "Configure CPU limit.",
+            "evidence": {
+                "container": "local-path-provisioner"
+            },
+            "labels": {}
+        },
+        {
+            "id": "DEPLOYMENT-006",
+            "title": "Memory limit not configured",
+            "description": "Container 'local-path-provisioner' does not define memory limit.",
+            "severity": "LOW",
+            "category": "DEPLOYMENT",
+            "resource": "local-path-provisioner",
+            "namespace": "local-path-storage",
+            "recommendation": "Configure memory limit.",
+            "evidence": {
+                "container": "local-path-provisioner"
+            },
+            "labels": {}
+        },
+        {
+            "id": "POD-009",
+            "title": "Image uses latest tag",
+            "description": "Container 'java-app' uses the mutable 'latest' tag.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "java-app-58f9cf9764-4d8sd",
+            "namespace": "backend",
+            "recommendation": "Use a fixed image version instead of 'latest'.",
+            "evidence": [],
+            "labels": {
+                "container": "java-app",
+                "image": "docker.io/springio/gs-spring-boot-docker:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "id": "POD-009",
+            "title": "Image uses latest tag",
+            "description": "Container 'java-app' uses the mutable 'latest' tag.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "java-app-58f9cf9764-tjqfn",
+            "namespace": "backend",
+            "recommendation": "Use a fixed image version instead of 'latest'.",
+            "evidence": [],
+            "labels": {
+                "container": "java-app",
+                "image": "docker.io/springio/gs-spring-boot-docker:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "id": "POD-009",
+            "title": "Image uses latest tag",
+            "description": "Container 'redis' uses the mutable 'latest' tag.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "redis-79d7fbc987-mg6nr",
+            "namespace": "backend",
+            "recommendation": "Use a fixed image version instead of 'latest'.",
+            "evidence": [],
+            "labels": {
+                "container": "redis",
+                "image": "docker.io/library/redis:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "id": "POD-009",
+            "title": "Image uses latest tag",
+            "description": "Container 'redis' uses the mutable 'latest' tag.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "redis-79d7fbc987-rjnzp",
+            "namespace": "backend",
+            "recommendation": "Use a fixed image version instead of 'latest'.",
+            "evidence": [],
+            "labels": {
+                "container": "redis",
+                "image": "docker.io/library/redis:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "id": "POD-009",
+            "title": "Image uses latest tag",
+            "description": "Container 'nginx' uses the mutable 'latest' tag.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "nginx-5dbf5fcd66-94lsv",
+            "namespace": "frontend",
+            "recommendation": "Use a fixed image version instead of 'latest'.",
+            "evidence": [],
+            "labels": {
+                "container": "nginx",
+                "image": "docker.io/library/nginx:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "id": "POD-009",
+            "title": "Image uses latest tag",
+            "description": "Container 'nginx' uses the mutable 'latest' tag.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "nginx-5dbf5fcd66-t6q6s",
+            "namespace": "frontend",
+            "recommendation": "Use a fixed image version instead of 'latest'.",
+            "evidence": [],
+            "labels": {
+                "container": "nginx",
+                "image": "docker.io/library/nginx:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "id": "POD-009",
+            "title": "Image uses latest tag",
+            "description": "Container 'stress' uses the mutable 'latest' tag.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "stress-generator-98589c58f-9hjqk",
+            "namespace": "loadtest",
+            "recommendation": "Use a fixed image version instead of 'latest'.",
+            "evidence": [],
+            "labels": {
+                "container": "stress",
+                "image": "docker.io/polinux/stress:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "id": "POD-009",
+            "title": "Image uses latest tag",
+            "description": "Container 'stress' uses the mutable 'latest' tag.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "stress-generator-98589c58f-bjt88",
+            "namespace": "loadtest",
+            "recommendation": "Use a fixed image version instead of 'latest'.",
+            "evidence": [],
+            "labels": {
+                "container": "stress",
+                "image": "docker.io/polinux/stress:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "java-app-58f9cf9764-4d8sd",
+            "namespace": "backend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "java-app-58f9cf9764-tjqfn",
+            "namespace": "backend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "redis-79d7fbc987-mg6nr",
+            "namespace": "backend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "redis-79d7fbc987-rjnzp",
+            "namespace": "backend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "mysql-645c68446d-qgbvl",
+            "namespace": "database",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "mysql-645c68446d-txrfr",
+            "namespace": "database",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "nginx-5dbf5fcd66-94lsv",
+            "namespace": "frontend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "nginx-5dbf5fcd66-t6q6s",
+            "namespace": "frontend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "coredns-695b4f4875-6crqq",
+            "namespace": "kube-system",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU limit missing",
+            "description": "Container 'coredns' has no CPU limit.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "coredns-695b4f4875-6crqq",
+            "namespace": "kube-system",
+            "recommendation": "Consider configuring CPU limits.",
+            "evidence": [],
+            "labels": {
+                "container": "coredns"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "coredns-695b4f4875-7fd8p",
+            "namespace": "kube-system",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU limit missing",
+            "description": "Container 'coredns' has no CPU limit.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "coredns-695b4f4875-7fd8p",
+            "namespace": "kube-system",
+            "recommendation": "Consider configuring CPU limits.",
+            "evidence": [],
+            "labels": {
+                "container": "coredns"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "etcd-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU limit missing",
+            "description": "Container 'etcd' has no CPU limit.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "etcd-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Consider configuring CPU limits.",
+            "evidence": [],
+            "labels": {
+                "container": "etcd"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory limit missing",
+            "description": "Container 'etcd' has no memory limit.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "etcd-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "evidence": [],
+            "labels": {
+                "container": "etcd"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "kube-apiserver-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory request missing",
+            "description": "Container 'kube-apiserver' has no memory request.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-apiserver-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory requests.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-apiserver"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU limit missing",
+            "description": "Container 'kube-apiserver' has no CPU limit.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "kube-apiserver-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Consider configuring CPU limits.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-apiserver"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory limit missing",
+            "description": "Container 'kube-apiserver' has no memory limit.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "kube-apiserver-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-apiserver"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "kube-controller-manager-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory request missing",
+            "description": "Container 'kube-controller-manager' has no memory request.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-controller-manager-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory requests.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-controller-manager"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU limit missing",
+            "description": "Container 'kube-controller-manager' has no CPU limit.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "kube-controller-manager-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Consider configuring CPU limits.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-controller-manager"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory limit missing",
+            "description": "Container 'kube-controller-manager' has no memory limit.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "kube-controller-manager-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-controller-manager"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "BestEffort QoS",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-proxy-6tc6r",
+            "namespace": "kube-system",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "evidence": [],
+            "labels": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU request missing",
+            "description": "Container 'kube-proxy' has no CPU request.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-proxy-6tc6r",
+            "namespace": "kube-system",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory request missing",
+            "description": "Container 'kube-proxy' has no memory request.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-proxy-6tc6r",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory requests.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU limit missing",
+            "description": "Container 'kube-proxy' has no CPU limit.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "kube-proxy-6tc6r",
+            "namespace": "kube-system",
+            "recommendation": "Consider configuring CPU limits.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory limit missing",
+            "description": "Container 'kube-proxy' has no memory limit.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "kube-proxy-6tc6r",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "BestEffort QoS",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-proxy-78zs2",
+            "namespace": "kube-system",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "evidence": [],
+            "labels": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU request missing",
+            "description": "Container 'kube-proxy' has no CPU request.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-proxy-78zs2",
+            "namespace": "kube-system",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory request missing",
+            "description": "Container 'kube-proxy' has no memory request.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-proxy-78zs2",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory requests.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU limit missing",
+            "description": "Container 'kube-proxy' has no CPU limit.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "kube-proxy-78zs2",
+            "namespace": "kube-system",
+            "recommendation": "Consider configuring CPU limits.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory limit missing",
+            "description": "Container 'kube-proxy' has no memory limit.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "kube-proxy-78zs2",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "BestEffort QoS",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-proxy-c4w8s",
+            "namespace": "kube-system",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "evidence": [],
+            "labels": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU request missing",
+            "description": "Container 'kube-proxy' has no CPU request.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-proxy-c4w8s",
+            "namespace": "kube-system",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory request missing",
+            "description": "Container 'kube-proxy' has no memory request.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-proxy-c4w8s",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory requests.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU limit missing",
+            "description": "Container 'kube-proxy' has no CPU limit.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "kube-proxy-c4w8s",
+            "namespace": "kube-system",
+            "recommendation": "Consider configuring CPU limits.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory limit missing",
+            "description": "Container 'kube-proxy' has no memory limit.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "kube-proxy-c4w8s",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "BestEffort QoS",
+            "description": "Pod has no CPU or memory requests/limits.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-proxy-x7hf4",
+            "namespace": "kube-system",
+            "recommendation": "Define CPU and memory requests and limits.",
+            "evidence": [],
+            "labels": {
+                "qos": "BestEffort"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU request missing",
+            "description": "Container 'kube-proxy' has no CPU request.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-proxy-x7hf4",
+            "namespace": "kube-system",
+            "recommendation": "Configure CPU requests for better scheduling.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory request missing",
+            "description": "Container 'kube-proxy' has no memory request.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-proxy-x7hf4",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory requests.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU limit missing",
+            "description": "Container 'kube-proxy' has no CPU limit.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "kube-proxy-x7hf4",
+            "namespace": "kube-system",
+            "recommendation": "Consider configuring CPU limits.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory limit missing",
+            "description": "Container 'kube-proxy' has no memory limit.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "kube-proxy-x7hf4",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-proxy"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "kube-scheduler-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory request missing",
+            "description": "Container 'kube-scheduler' has no memory request.",
+            "severity": "MEDIUM",
+            "category": "POD",
+            "resource": "kube-scheduler-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory requests.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-scheduler"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU limit missing",
+            "description": "Container 'kube-scheduler' has no CPU limit.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "kube-scheduler-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Consider configuring CPU limits.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-scheduler"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory limit missing",
+            "description": "Container 'kube-scheduler' has no memory limit.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "kube-scheduler-finops-lab-control-plane",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "evidence": [],
+            "labels": {
+                "container": "kube-scheduler"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "metrics-server-6c9458948b-gc85t",
+            "namespace": "kube-system",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "CPU limit missing",
+            "description": "Container 'metrics-server' has no CPU limit.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "metrics-server-6c9458948b-gc85t",
+            "namespace": "kube-system",
+            "recommendation": "Consider configuring CPU limits.",
+            "evidence": [],
+            "labels": {
+                "container": "metrics-server"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Memory limit missing",
+            "description": "Container 'metrics-server' has no memory limit.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "metrics-server-6c9458948b-gc85t",
+            "namespace": "kube-system",
+            "recommendation": "Configure memory limits to avoid node memory exhaustion.",
+            "evidence": [],
+            "labels": {
+                "container": "metrics-server"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "stress-generator-98589c58f-9hjqk",
+            "namespace": "loadtest",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "stress-generator-98589c58f-bjt88",
+            "namespace": "loadtest",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        }
+    ],
+    "incidents": [],
+    "actions": [],
+    "recommendations": [],
+    "summary": {
+        "collectors_executed": 5,
+        "resources_scanned": 33,
+        "issues_found": 112,
+        "cluster_status": "Issues Detected"
+    },
+    "metadata": {
+        "deployment": {
+            "collector": "DeploymentCollector",
+            "resource_count": 8,
+            "metrics": [
+                {
+                    "metric": "deployment_count",
+                    "value": 8
+                },
+                {
+                    "metric": "healthy_deployments",
+                    "value": 7
+                },
+                {
+                    "metric": "unhealthy_deployments",
+                    "value": 0
+                },
+                {
+                    "metric": "fully_available_deployments",
+                    "value": 7
+                },
+                {
+                    "metric": "partially_available_deployments",
+                    "value": 1
+                },
+                {
+                    "metric": "failed_rollouts",
+                    "value": 0
+                },
+                {
+                    "metric": "desired_replicas",
+                    "value": 13
+                },
+                {
+                    "metric": "ready_replicas",
+                    "value": 13
+                },
+                {
+                    "metric": "available_replicas",
+                    "value": 13
+                },
+                {
+                    "metric": "updated_replicas",
+                    "value": 13
+                },
+                {
+                    "metric": "unavailable_replicas",
+                    "value": 0
+                }
+            ],
+            "execution_time": 2.1957
+        },
+        "ingress": {
+            "collector": "IngressCollector",
+            "resource_count": 0,
+            "metrics": [
+                {
+                    "metric": "ingress_count",
+                    "value": 0
+                },
+                {
+                    "metric": "rule_count",
+                    "value": 0
+                },
+                {
+                    "metric": "path_count",
+                    "value": 0
+                },
+                {
+                    "metric": "tls_entries",
+                    "value": 0
+                },
+                {
+                    "metric": "tls_enabled_ingresses",
+                    "value": 0
+                },
+                {
+                    "metric": "tls_disabled_ingresses",
+                    "value": 0
+                },
+                {
+                    "metric": "ingresses_with_loadbalancer",
+                    "value": 0
+                },
+                {
+                    "metric": "ingresses_without_loadbalancer",
+                    "value": 0
+                },
+                {
+                    "metric": "nginx_ingress_class",
+                    "value": 0
+                },
+                {
+                    "metric": "custom_ingress_class",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.0673
+        },
+        "networkpolicy": {
+            "collector": "NetworkPolicyCollector",
+            "resource_count": 0,
+            "metrics": [
+                {
+                    "metric": "networkpolicy_count",
+                    "value": 0
+                },
+                {
+                    "metric": "ingress_network_policies",
+                    "value": 0
+                },
+                {
+                    "metric": "egress_network_policies",
+                    "value": 0
+                },
+                {
+                    "metric": "default_deny_policies",
+                    "value": 0
+                },
+                {
+                    "metric": "orphan_network_policies",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.2873
+        },
+        "node": {
+            "collector": "NodeCollector",
+            "resource_count": 0,
+            "metrics": [],
+            "execution_time": 0.068
+        },
+        "pod": {
+            "collector": "PodCollector",
+            "resource_count": 25,
+            "metrics": [
+                {
+                    "metric": "pod_count",
+                    "value": 25
+                },
+                {
+                    "metric": "running_pods",
+                    "value": 25
+                },
+                {
+                    "metric": "pending_pods",
+                    "value": 0
+                },
+                {
+                    "metric": "failed_pods",
+                    "value": 0
+                },
+                {
+                    "metric": "succeeded_pods",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.2153
+        },
+        "collectors": [
+            {
+                "collector": "DeploymentCollector",
+                "resource_type": "deployment",
+                "resources": 8,
+                "execution_time": 2.1843
+            },
+            {
+                "collector": "IngressCollector",
+                "resource_type": "ingress",
+                "resources": 0,
+                "execution_time": 0.0672
+            },
+            {
+                "collector": "NetworkPolicyCollector",
+                "resource_type": "networkpolicy",
+                "resources": 0,
+                "execution_time": 0.2872
+            },
+            {
+                "collector": "NodeCollector",
+                "resource_type": "node",
+                "resources": 0,
+                "execution_time": 0.068
+            },
+            {
+                "collector": "PodCollector",
+                "resource_type": "pod",
+                "resources": 25,
+                "execution_time": 0.2131
+            }
+        ]
+    },
+    "logs": [
+        {
+            "level": "warning",
+            "message": "No rules registered for 'node'."
+        }
+    ],
+    "error": null
+}

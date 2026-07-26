@@ -1,0 +1,9 @@
+Incident : INC-000012
+Engine : InspectOrchestrator
+Generated : 2026-07-26 04:04:02.532674
+
+Issues : 67
+Resources : 33
+Collectors : 5
+Execution Time : 0.82s
+Status : Issues Detected

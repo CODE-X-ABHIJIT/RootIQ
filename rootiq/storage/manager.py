@@ -183,17 +183,24 @@ class StorageManager:
         result,
     ):
 
+        severity = result.summary.get("severity", {})
+
         return (
             f"Incident : {incident_id}\n"
-            f"Engine : {result.engine}\n"
-            f"Generated : {datetime.now()}\n\n"
-            f"Issues : {len(result.issues)}\n"
-            f"Resources : "
-            f"{result.summary.get('resources_scanned',0)}\n"
-            f"Collectors : "
-            f"{result.summary.get('collectors_executed',0)}\n"
-            f"Execution Time : "
-            f"{result.execution_time:.2f}s\n"
-            f"Status : "
-            f"{result.summary.get('cluster_status','Unknown')}\n"
+            f"Engine   : {result.engine}\n"
+            f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+
+            f"Issue Summary\n"
+            f"-------------\n"
+            f"{len(result.issues)} Total Issues\n"
+            f" • Critical : {severity.get('CRITICAL', 0)}\n"
+            f" • High     : {severity.get('HIGH', 0)}\n"
+            f" • Medium   : {severity.get('MEDIUM', 0)}\n"
+            f" • Low      : {severity.get('LOW', 0)}\n"
+            f" • Info     : {severity.get('INFO', 0)}\n\n"
+
+            f"Resources Scanned : {result.summary.get('resources_scanned', 0)}\n"
+            f"Collectors        : {result.summary.get('collectors_executed', 0)}\n"
+            f"Execution Time    : {result.execution_time:.2f}s\n"
+            f"Status            : {result.summary.get('cluster_status', 'Unknown')}\n"
         )

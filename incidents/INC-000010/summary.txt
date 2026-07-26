@@ -1,0 +1,9 @@
+Incident : INC-000010
+Engine : InspectOrchestrator
+Generated : 2026-07-26 03:43:24.545481
+
+Issues : 143
+Resources : 33
+Collectors : 5
+Execution Time : 1.38s
+Status : Issues Detected

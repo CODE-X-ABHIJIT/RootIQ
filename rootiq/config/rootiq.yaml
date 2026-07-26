@@ -1,0 +1,19 @@
+scan:
+
+  include_system: false
+
+  exclude_namespaces:
+    - kube-system
+    - kube-public
+    - kube-node-lease
+    - local-path-storage
+    - monitoring
+
+  exclude_workloads:
+    - kube-proxy
+    - coredns
+    - metrics-server
+    - etcd
+    - kube-apiserver
+    - kube-controller-manager
+    - kube-scheduler

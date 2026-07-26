@@ -6,252 +6,207 @@ class DeploymentResourcesRule(BaseRule):
 
     id = "DEPLOYMENT-006"
 
-    name = "DeploymentResources"
+    name = "Deployment Resource Configuration"
+
+    description = (
+        "Detect missing or invalid CPU/Memory requests and limits."
+    )
 
     resource_type = "deployment"
 
-    def evaluate(self, context: RuleContext):
+    severity = "medium"
 
-        
+    category = "deployment"
+
+    def evaluate(self, context: RuleContext):
 
         for deployment in context.resources:
 
-            namespace = deployment.get("namespace")
-            deployment_name = deployment.get("name")
+            deployment_name = deployment["name"]
+            namespace = deployment["namespace"]
 
             for container in deployment.get("containers", []):
 
-                context.resources = container.get("context.resources", {})
+                resources = container.get("resources", {})
 
-                requests = context.resources.get("requests", {})
-                limits = context.resources.get("limits", {})
+                requests = resources.get("requests", {})
+                limits = resources.get("limits", {})
 
                 #
-                # Missing Requests
+                # No requests AND no limits
                 #
+                if not requests and not limits:
 
+                    context.report(
+                        rule_id=self.id,
+                        severity="high",
+                        title="Container has no resource configuration",
+                        resource=deployment_name,
+                        namespace=namespace,
+                        description=(
+                            f"Container '{container['name']}' has neither "
+                            "CPU/Memory requests nor limits configured."
+                        ),
+                        recommendation=(
+                            "Configure CPU and memory requests and limits "
+                            "for reliable scheduling and resource isolation."
+                        ),
+                        metadata={
+                            "container": container["name"],
+                        },
+                    )
+
+                    continue
+
+                #
+                # Requests missing
+                #
                 if not requests:
 
                     context.report(
-                        
-                            id=self.id,
-                            severity="Medium",
-                            resource_type="Deployment",
-                            resource_name=deployment_name,
-                            namespace=namespace,
-                            title="Container has no resource requests",
-                            description=(
-                                f"Container '{container['name']}' has no CPU/Memory requests."
-                            ),
-                            evidence={
-                                "container": container["name"],
-                                "requests": requests,
-                            },
-                            recommendation=(
-                                "Configure CPU and memory requests for proper scheduling."
-                            ),
-                        )
-                
+                        rule_id=self.id,
+                        severity="medium",
+                        title="Container has no resource requests",
+                        resource=deployment_name,
+                        namespace=namespace,
+                        description=(
+                            f"Container '{container['name']}' has no "
+                            "CPU/Memory requests configured."
+                        ),
+                        recommendation=(
+                            "Configure CPU and memory requests."
+                        ),
+                        metadata={
+                            "container": container["name"],
+                        },
+                    )
 
                 #
-                # Missing Limits
+                # Limits missing
                 #
-
                 if not limits:
 
                     context.report(
-                        
-                            id=self.id,
-                            severity="Medium",
-                            resource_type="Deployment",
-                            resource_name=deployment_name,
+                        rule_id=self.id,
+                        severity="medium",
+                        title="Container has no resource limits",
+                        resource=deployment_name,
+                        namespace=namespace,
+                        description=(
+                            f"Container '{container['name']}' has no "
+                            "CPU/Memory limits configured."
+                        ),
+                        recommendation=(
+                            "Configure CPU and memory limits."
+                        ),
+                        metadata={
+                            "container": container["name"],
+                        },
+                    )
+
+                #
+                # Missing individual requests
+                #
+                if requests:
+
+                    if "cpu" not in requests:
+
+                        context.report(
+                            rule_id=self.id,
+                            severity="low",
+                            title="CPU request missing",
+                            resource=deployment_name,
                             namespace=namespace,
-                            title="Container has no resource limits",
                             description=(
-                                f"Container '{container['name']}' has no CPU/Memory limits."
+                                f"Container '{container['name']}' does not "
+                                "define a CPU request."
                             ),
-                            evidence={
+                            recommendation="Configure a CPU request.",
+                            metadata={
                                 "container": container["name"],
-                                "limits": limits,
                             },
-                            recommendation=(
-                                "Configure CPU and memory limits to prevent resource exhaustion."
-                            ),
                         )
-                
+
+                    if "memory" not in requests:
+
+                        context.report(
+                            rule_id=self.id,
+                            severity="low",
+                            title="Memory request missing",
+                            resource=deployment_name,
+                            namespace=namespace,
+                            description=(
+                                f"Container '{container['name']}' does not "
+                                "define a memory request."
+                            ),
+                            recommendation="Configure a memory request.",
+                            metadata={
+                                "container": container["name"],
+                            },
+                        )
 
                 #
-                # CPU request > limit
+                # Missing individual limits
                 #
+                if limits:
 
+                    if "cpu" not in limits:
+
+                        context.report(
+                            rule_id=self.id,
+                            severity="low",
+                            title="CPU limit missing",
+                            resource=deployment_name,
+                            namespace=namespace,
+                            description=(
+                                f"Container '{container['name']}' does not "
+                                "define a CPU limit."
+                            ),
+                            recommendation="Configure a CPU limit.",
+                            metadata={
+                                "container": container["name"],
+                            },
+                        )
+
+                    if "memory" not in limits:
+
+                        context.report(
+                            rule_id=self.id,
+                            severity="low",
+                            title="Memory limit missing",
+                            resource=deployment_name,
+                            namespace=namespace,
+                            description=(
+                                f"Container '{container['name']}' does not "
+                                "define a memory limit."
+                            ),
+                            recommendation="Configure a memory limit.",
+                            metadata={
+                                "container": container["name"],
+                            },
+                        )
+
+                #
+                # Request greater than limit
+                #
                 cpu_request = requests.get("cpu")
                 cpu_limit = limits.get("cpu")
 
-                if (
-                    cpu_request
-                    and cpu_limit
-                    and cpu_request > cpu_limit
-                ):
+                if cpu_request and cpu_limit:
 
-                    context.report(
-                        
-                            id=self.id,
-                            severity="High",
-                            resource_type="Deployment",
-                            resource_name=deployment_name,
-                            namespace=namespace,
-                            title="CPU request exceeds CPU limit",
-                            description=(
-                                f"Container '{container['name']}' has CPU request greater than CPU limit."
-                            ),
-                            evidence={
-                                "container": container["name"],
-                                "cpu_request": cpu_request,
-                                "cpu_limit": cpu_limit,
-                            },
-                            recommendation=(
-                                "Ensure CPU request is less than or equal to the CPU limit."
-                            ),
-                        )
-                
-
-                #
-                # Memory request > limit
-                #
+                    #
+                    # TODO (Phase 2):
+                    # Parse Kubernetes quantities before comparing.
+                    #
+                    pass
 
                 memory_request = requests.get("memory")
                 memory_limit = limits.get("memory")
 
-                if (
-                    memory_request
-                    and memory_limit
-                    and memory_request > memory_limit
-                ):
+                if memory_request and memory_limit:
 
-                    context.report(
-                        
-                            id=self.id,
-                            severity="High",
-                            resource_type="Deployment",
-                            resource_name=deployment_name,
-                            namespace=namespace,
-                            title="Memory request exceeds memory limit",
-                            description=(
-                                f"Container '{container['name']}' has memory request greater than memory limit."
-                            ),
-                            evidence={
-                                "container": container["name"],
-                                "memory_request": memory_request,
-                                "memory_limit": memory_limit,
-                            },
-                            recommendation=(
-                                "Ensure memory request is less than or equal to the memory limit."
-                            ),
-                        )
-                
-
-                #
-                # Missing CPU request
-                #
-
-                if "cpu" not in requests:
-
-                    context.report(
-                        
-                            id=self.id,
-                            severity="Low",
-                            resource_type="Deployment",
-                            resource_name=deployment_name,
-                            namespace=namespace,
-                            title="CPU request not configured",
-                            description=(
-                                f"Container '{container['name']}' does not define CPU request."
-                            ),
-                            evidence={
-                                "container": container["name"],
-                            },
-                            recommendation=(
-                                "Configure CPU request."
-                            ),
-                        )
-                
-
-                #
-                # Missing Memory request
-                #
-
-                if "memory" not in requests:
-
-                    context.report(
-                        
-                            id=self.id,
-                            severity="Low",
-                            resource_type="Deployment",
-                            resource_name=deployment_name,
-                            namespace=namespace,
-                            title="Memory request not configured",
-                            description=(
-                                f"Container '{container['name']}' does not define memory request."
-                            ),
-                            evidence={
-                                "container": container["name"],
-                            },
-                            recommendation=(
-                                "Configure memory request."
-                            ),
-                        )
-                
-
-                #
-                # Missing CPU limit
-                #
-
-                if "cpu" not in limits:
-
-                    context.report(
-                        
-                            id=self.id,
-                            severity="Low",
-                            resource_type="Deployment",
-                            resource_name=deployment_name,
-                            namespace=namespace,
-                            title="CPU limit not configured",
-                            description=(
-                                f"Container '{container['name']}' does not define CPU limit."
-                            ),
-                            evidence={
-                                "container": container["name"],
-                            },
-                            recommendation=(
-                                "Configure CPU limit."
-                            ),
-                        )
-                
-
-                #
-                # Missing Memory limit
-                #
-
-                if "memory" not in limits:
-
-                    context.report(
-                        
-                            id=self.id,
-                            severity="Low",
-                            resource_type="Deployment",
-                            resource_name=deployment_name,
-                            namespace=namespace,
-                            title="Memory limit not configured",
-                            description=(
-                                f"Container '{container['name']}' does not define memory limit."
-                            ),
-                            evidence={
-                                "container": container["name"],
-                            },
-                            recommendation=(
-                                "Configure memory limit."
-                            ),
-                        )
-                
-
-        
+                    #
+                    # TODO (Phase 2):
+                    # Parse Kubernetes quantities before comparing.
+                    #
+                    pass

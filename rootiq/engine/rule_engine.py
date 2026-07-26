@@ -1,5 +1,6 @@
 import time
 
+from rootiq.engine import result
 from rootiq.engine.result import EngineResult
 from rootiq.engine.registry import registry
 from rootiq.engine.rule_context import RuleContext
@@ -114,7 +115,6 @@ class RuleEngine:
             }
         )
 
-       
         #
         # Severity Summary
         #
@@ -129,11 +129,30 @@ class RuleEngine:
 
         for issue in result.issues:
 
-            severity = getattr(
-                issue,
-                "severity",
-                None,
-            )
+            #
+            # Support both dict and Issue objects
+            #
+
+            if isinstance(issue, dict):
+
+                severity = issue.get(
+                    "severity",
+                )
+
+            else:
+
+                severity = getattr(
+                    issue,
+                    "severity",
+                    None,
+                )
+
+            if severity is None:
+                continue
+
+            #
+            # Enum -> string
+            #
 
             if hasattr(
                 severity,
@@ -142,15 +161,26 @@ class RuleEngine:
 
                 severity = severity.value
 
-            if severity:
+            severity = str(
+                severity
+            ).upper()
 
-                severity = severity.upper()
+            #
+            # Handles values like:
+            # Severity.HIGH
+            #
 
-                if severity in severity_summary:
+            if "." in severity:
 
-                    severity_summary[
-                        severity
-                    ] += 1
+                severity = severity.split(
+                    "."
+                )[-1]
+
+            if severity in severity_summary:
+
+                severity_summary[
+                    severity
+                ] += 1
 
         #
         # Final Summary

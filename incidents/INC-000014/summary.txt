@@ -1,0 +1,17 @@
+Incident : INC-000014
+Engine   : InspectOrchestrator
+Generated: 2026-07-26 04:43:30
+
+Issue Summary
+-------------
+67 Total Issues
+ • Critical : 0
+ • High     : 0
+ • Medium   : 0
+ • Low      : 0
+ • Info     : 0
+
+Resources Scanned : 33
+Collectors        : 5
+Execution Time    : 0.96s
+Status            : Issues Detected

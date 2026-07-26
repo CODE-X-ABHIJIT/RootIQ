@@ -6,80 +6,93 @@ class DeploymentImageTagRule(BaseRule):
 
     id = "DEPLOYMENT-005"
 
-    name = "DeploymentImageTag"
+    name = "Deployment Image Tag Validation"
+
+    description = (
+        "Detect deployments using mutable or missing container image tags."
+    )
 
     resource_type = "deployment"
 
+    severity = "medium"
+
+    category = "deployment"
+
     def evaluate(self, context: RuleContext):
 
-        
+        mutable_tags = {
+            "latest",
+            "dev",
+            "development",
+            "snapshot",
+            "test",
+            "master",
+            "main",
+            "edge",
+            "nightly",
+        }
 
         for deployment in context.resources:
 
-            namespace = deployment.get("namespace")
-            deployment_name = deployment.get("name")
+            deployment_name = deployment["name"]
+            namespace = deployment["namespace"]
 
             for container in deployment.get("containers", []):
 
                 image = container.get("image", "")
 
                 #
-                # No tag specified
+                # Image has no explicit tag
                 #
-
                 if ":" not in image:
 
                     context.report(
-                        
-                            id=self.id,
-                            severity="Medium",
-                            resource_type="Deployment",
-                            resource_name=deployment_name,
-                            namespace=namespace,
-                            title="Container image has no explicit tag",
-                            description=(
-                                f"Container '{container.get('name')}' uses image '{image}' without a tag."
-                            ),
-                            evidence={
-                                "container": container.get("name"),
-                                "image": image,
-                            },
-                            recommendation=(
-                                "Specify an immutable image tag instead of relying on the registry default."
-                            ),
-                        )
-                
+                        rule_id=self.id,
+                        severity="high",
+                        title="Container image has no explicit tag",
+                        resource=deployment_name,
+                        namespace=namespace,
+                        description=(
+                            f"Container '{container['name']}' uses image "
+                            f"'{image}' without an explicit tag."
+                        ),
+                        recommendation=(
+                            "Specify an immutable image tag "
+                            "(example: nginx:1.27.2)."
+                        ),
+                        metadata={
+                            "container": container["name"],
+                            "image": image,
+                        },
+                    )
 
                     continue
 
-                tag = image.rsplit(":", 1)[1]
+                tag = image.rsplit(":", 1)[1].lower()
 
                 #
-                # latest tag
+                # Mutable image tag
                 #
-
-                if tag.lower() == "latest":
+                if tag in mutable_tags:
 
                     context.report(
-                        
-                            id=self.id,
-                            severity="Medium",
-                            resource_type="Deployment",
-                            resource_name=deployment_name,
-                            namespace=namespace,
-                            title="Container uses latest image tag",
-                            description=(
-                                f"Container '{container.get('name')}' uses the 'latest' tag."
-                            ),
-                            evidence={
-                                "container": container.get("name"),
-                                "image": image,
-                                "tag": tag,
-                            },
-                            recommendation=(
-                                "Use a fixed version tag (for example v1.4.2) to ensure reproducible deployments."
-                            ),
-                        )
-                
-
-        
+                        rule_id=self.id,
+                        severity="medium",
+                        title="Container uses mutable image tag",
+                        resource=deployment_name,
+                        namespace=namespace,
+                        description=(
+                            f"Container '{container['name']}' uses the "
+                            f"mutable image tag '{tag}'."
+                        ),
+                        recommendation=(
+                            "Use an immutable version tag "
+                            "(example: v1.4.2 or 1.27.2) "
+                            "to ensure reproducible deployments."
+                        ),
+                        metadata={
+                            "container": container["name"],
+                            "image": image,
+                            "tag": tag,
+                        },
+                    )

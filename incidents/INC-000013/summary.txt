@@ -1,0 +1,9 @@
+Incident : INC-000013
+Engine : InspectOrchestrator
+Generated : 2026-07-26 04:19:26.374231
+
+Issues : 67
+Resources : 33
+Collectors : 5
+Execution Time : 1.28s
+Status : Issues Detected

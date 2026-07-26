@@ -1,0 +1,17 @@
+Incident : INC-000025
+Engine   : InspectOrchestrator
+Generated: 2026-07-26 09:42:23
+
+Issue Summary
+-------------
+18 Total Issues
+ • Critical : 2
+ • High     : 5
+ • Medium   : 0
+ • Low      : 11
+ • Info     : 0
+
+Resources Scanned : 34
+Collectors        : 5
+Execution Time    : 1.73s
+Status            : Issues Detected

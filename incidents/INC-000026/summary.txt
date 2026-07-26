@@ -1,0 +1,17 @@
+Incident : INC-000026
+Engine   : InspectOrchestrator
+Generated: 2026-07-26 09:49:47
+
+Issue Summary
+-------------
+10 Total Issues
+ • Critical : 0
+ • High     : 0
+ • Medium   : 0
+ • Low      : 10
+ • Info     : 0
+
+Resources Scanned : 33
+Collectors        : 5
+Execution Time    : 0.42s
+Status            : Issues Detected

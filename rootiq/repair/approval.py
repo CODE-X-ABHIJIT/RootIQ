@@ -1,3 +1,5 @@
+from prompt_toolkit import prompt
+
 class RepairApproval:
 
 
@@ -100,8 +102,9 @@ class RepairApproval:
                     print("\nCurrent Command:")
                     print(action["command"])
 
-                    edited_command = input(
-                        "\nNew Command: "
+                    edited_command = prompt(
+                        "New Command: ",
+                        default=action["command"]
                     ).strip()
 
 

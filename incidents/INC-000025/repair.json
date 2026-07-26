@@ -1,0 +1,25 @@
+{
+    "incident": "INC-000025",
+    "generated_at": "2026-07-26T09:48:21.113912",
+    "total_actions": 1,
+    "successful_actions": 1,
+    "failed_actions": 0,
+    "actions": [
+        {
+            "action": "Restart workload",
+            "resource": {
+                "kind": "Deployment",
+                "name": "java-app-7d476b49f8-l97pn",
+                "namespace": "backend"
+            },
+            "command": "kubectl set image deployment/java-app java-app=nginx:1.27.5 -n backend",
+            "rollback": "kubectl rollout undo deployment/java-app-7d476b49f8-l97pn -n backend",
+            "risk": "LOW",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/java-app image updated",
+            "stderr": "",
+            "execution_time": 1.206
+        }
+    ]
+}

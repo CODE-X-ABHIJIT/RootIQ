@@ -1,0 +1,17 @@
+Incident : INC-000024
+Engine   : InspectOrchestrator
+Generated: 2026-07-26 09:31:42
+
+Issue Summary
+-------------
+20 Total Issues
+ • Critical : 3
+ • High     : 6
+ • Medium   : 0
+ • Low      : 11
+ • Info     : 0
+
+Resources Scanned : 34
+Collectors        : 5
+Execution Time    : 1.27s
+Status            : Issues Detected

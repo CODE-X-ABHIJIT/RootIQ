@@ -1,0 +1,73 @@
+{
+    "incident": "INC-000023",
+    "generated_at": "2026-07-26T09:19:36.942148",
+    "total_actions": 4,
+    "successful_actions": 4,
+    "failed_actions": 0,
+    "actions": [
+        {
+            "action": "Update container image",
+            "resource": {
+                "kind": "Deployment",
+                "name": "java-app",
+                "namespace": "backend"
+            },
+            "command": "kubectl set image deployment/java-app java-app=springio/gs-spring-boot-docker:v1.0.2 -n backend",
+            "rollback": "kubectl rollout undo deployment/java-app -n backend",
+            "risk": "LOW",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/java-app image updated",
+            "stderr": "",
+            "execution_time": 1.114
+        },
+        {
+            "action": "Update container image",
+            "resource": {
+                "kind": "Deployment",
+                "name": "redis",
+                "namespace": "backend"
+            },
+            "command": "kubectl set image deployment/redis redis=redis:7.2.6 -n backend",
+            "rollback": "kubectl rollout undo deployment/redis -n backend",
+            "risk": "LOW",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/redis image updated",
+            "stderr": "",
+            "execution_time": 0.989
+        },
+        {
+            "action": "Update container image",
+            "resource": {
+                "kind": "Deployment",
+                "name": "nginx",
+                "namespace": "frontend"
+            },
+            "command": "kubectl set image deployment/nginx nginx=nginx:1.27.5 -n frontend",
+            "rollback": "kubectl rollout undo deployment/nginx -n frontend",
+            "risk": "LOW",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/nginx image updated",
+            "stderr": "",
+            "execution_time": 0.691
+        },
+        {
+            "action": "Update container image",
+            "resource": {
+                "kind": "Deployment",
+                "name": "stress-generator",
+                "namespace": "loadtest"
+            },
+            "command": "kubectl set image deployment/stress-generator stress=polinux/stress:1.0.4 -n loadtest",
+            "rollback": "kubectl rollout undo deployment/stress-generator -n loadtest",
+            "risk": "LOW",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/stress-generator image updated",
+            "stderr": "",
+            "execution_time": 0.787
+        }
+    ]
+}

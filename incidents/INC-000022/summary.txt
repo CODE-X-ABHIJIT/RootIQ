@@ -1,0 +1,17 @@
+Incident : INC-000022
+Engine   : InspectOrchestrator
+Generated: 2026-07-26 07:07:44
+
+Issue Summary
+-------------
+22 Total Issues
+ • Critical : 0
+ • High     : 12
+ • Medium   : 0
+ • Low      : 10
+ • Info     : 0
+
+Resources Scanned : 33
+Collectors        : 5
+Execution Time    : 0.68s
+Status            : Issues Detected

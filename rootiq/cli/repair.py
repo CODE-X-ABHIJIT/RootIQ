@@ -1,19 +1,15 @@
-from dataclasses import asdict
-
 from rootiq.orchestrator.repair import RepairOrchestrator
-import json
+
 
 def main():
 
     result = RepairOrchestrator().run()
 
-    print(
-        json.dumps(
-            asdict(result),
-            indent=4,
-            default=str,
-        )
-    )
+    print(result.summary)
+
+    for log in result.logs:
+        print(log)
+
 
 
 if __name__ == "__main__":

@@ -111,13 +111,15 @@ class RuleContext:
 
         if isinstance(issue, Issue):
 
-            issue.severity = self.severity_for(
+            if self.is_excluded(
                 issue.namespace,
                 issue.resource,
-                issue.severity,
-            )
+            ):
+                return
 
-            self.issues.append(asdict(issue))
+            self.issues.append(
+                asdict(issue)
+            )
             return
 
         #
@@ -126,11 +128,11 @@ class RuleContext:
 
         if isinstance(issue, dict):
 
-            issue["severity"] = self.severity_for(
+            if self.is_excluded(
                 issue.get("namespace", ""),
                 issue.get("resource", ""),
-                issue.get("severity", "info"),
-            )
+            ):
+                return
 
             self.issues.append(issue)
             return
@@ -141,11 +143,11 @@ class RuleContext:
 
         if kwargs:
 
-            kwargs["severity"] = self.severity_for(
-                kwargs.get("namespace", ""),
-                kwargs.get("resource", ""),
-                kwargs.get("severity", "info"),
-            )
+            if self.is_excluded(
+                kwargs.get("namespace"),
+                kwargs.get("resource"),
+            ):
+                return
 
             self.issues.append(
                 asdict(

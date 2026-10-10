@@ -11,6 +11,8 @@ RootIQ provides four main commands:
 
 RootIQ is designed to make Kubernetes incident investigation more structured and repeatable. Repairs are not performed autonomously: users review and approve proposed actions before execution.
 
+CLI : pip install rootiq
+
 ---
 
 ## 📖 Overview

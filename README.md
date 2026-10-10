@@ -13,7 +13,7 @@ RootIQ is designed to make Kubernetes incident investigation more structured and
 
 CLI  : pip install rootiq
 
-LINK : https://pypi.org/project/rootiq/0.1.0/
+LINK : https://pypi.org/project/rootiq/
 ---
 
 ## 📖 Overview

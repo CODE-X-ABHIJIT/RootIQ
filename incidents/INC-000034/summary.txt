@@ -1,0 +1,17 @@
+Incident : INC-000034
+Engine   : InspectOrchestrator
+Generated: 2026-10-10 17:38:58
+
+Issue Summary
+-------------
+14 Total Issues
+ • Critical : 0
+ • High     : 1
+ • Medium   : 1
+ • Low      : 12
+ • Info     : 0
+
+Resources Scanned : 38
+Collectors        : 5
+Execution Time    : 1.69s
+Status            : Issues Detected

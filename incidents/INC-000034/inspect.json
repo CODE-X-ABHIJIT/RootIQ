@@ -1,0 +1,422 @@
+{
+    "engine": "InspectOrchestrator",
+    "success": true,
+    "execution_time": 1.6872,
+    "issues": [
+        {
+            "id": "DEPLOYMENT-005",
+            "title": "Container uses mutable image tag",
+            "description": "Container 'nginx' uses the mutable image tag 'latest'.",
+            "severity": "MEDIUM",
+            "category": "DEPLOYMENT",
+            "resource": "repair-image-test",
+            "namespace": "rootiq-lab",
+            "recommendation": "Use an immutable version tag (example: v1.4.2 or 1.27.2) to ensure reproducible deployments.",
+            "evidence": [],
+            "labels": {
+                "container": "nginx",
+                "image": "nginx:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "id": "POD-009",
+            "title": "Image uses latest tag",
+            "description": "Container 'nginx' uses the mutable 'latest' tag.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "repair-image-test-d59d986c9-gpsx9",
+            "namespace": "rootiq-lab",
+            "recommendation": "Use a fixed image version instead of 'latest'.",
+            "evidence": [],
+            "labels": {
+                "container": "nginx",
+                "image": "docker.io/library/nginx:latest",
+                "tag": "latest"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "java-app-c6d589c7d-qjxdw",
+            "namespace": "backend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "java-app-c6d589c7d-rq492",
+            "namespace": "backend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "redis-55bddd8499-cfxvf",
+            "namespace": "backend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "redis-55bddd8499-jv22d",
+            "namespace": "backend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "mysql-5dfc4bd45c-85qw7",
+            "namespace": "database",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "mysql-5dfc4bd45c-gq8zw",
+            "namespace": "database",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "nginx-575776c67b-bjlc2",
+            "namespace": "frontend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "nginx-575776c67b-xfdq9",
+            "namespace": "frontend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "stress-generator-74b6d8475d-8wt9s",
+            "namespace": "loadtest",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "stress-generator-74b6d8475d-mcjrs",
+            "namespace": "loadtest",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "repair-image-test-d59d986c9-gpsx9",
+            "namespace": "rootiq-lab",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "resource-test-56f5b6b965-v8s4v",
+            "namespace": "rootiq-lab",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        }
+    ],
+    "incidents": [],
+    "actions": [],
+    "recommendations": [],
+    "summary": {
+        "collectors_executed": 5,
+        "resources_scanned": 38,
+        "issues_found": 14,
+        "severity": {
+            "CRITICAL": 0,
+            "HIGH": 1,
+            "MEDIUM": 1,
+            "LOW": 12,
+            "INFO": 0
+        },
+        "cluster_status": "Issues Detected"
+    },
+    "metadata": {
+        "deployment": {
+            "collector": "DeploymentCollector",
+            "resource_count": 11,
+            "metrics": [
+                {
+                    "metric": "deployment_count",
+                    "value": 11
+                },
+                {
+                    "metric": "healthy_deployments",
+                    "value": 9
+                },
+                {
+                    "metric": "unhealthy_deployments",
+                    "value": 0
+                },
+                {
+                    "metric": "fully_available_deployments",
+                    "value": 9
+                },
+                {
+                    "metric": "partially_available_deployments",
+                    "value": 2
+                },
+                {
+                    "metric": "failed_rollouts",
+                    "value": 0
+                },
+                {
+                    "metric": "desired_replicas",
+                    "value": 15
+                },
+                {
+                    "metric": "ready_replicas",
+                    "value": 15
+                },
+                {
+                    "metric": "available_replicas",
+                    "value": 15
+                },
+                {
+                    "metric": "updated_replicas",
+                    "value": 15
+                },
+                {
+                    "metric": "unavailable_replicas",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.1876
+        },
+        "ingress": {
+            "collector": "IngressCollector",
+            "resource_count": 0,
+            "metrics": [
+                {
+                    "metric": "ingress_count",
+                    "value": 0
+                },
+                {
+                    "metric": "rule_count",
+                    "value": 0
+                },
+                {
+                    "metric": "path_count",
+                    "value": 0
+                },
+                {
+                    "metric": "tls_entries",
+                    "value": 0
+                },
+                {
+                    "metric": "tls_enabled_ingresses",
+                    "value": 0
+                },
+                {
+                    "metric": "tls_disabled_ingresses",
+                    "value": 0
+                },
+                {
+                    "metric": "ingresses_with_loadbalancer",
+                    "value": 0
+                },
+                {
+                    "metric": "ingresses_without_loadbalancer",
+                    "value": 0
+                },
+                {
+                    "metric": "nginx_ingress_class",
+                    "value": 0
+                },
+                {
+                    "metric": "custom_ingress_class",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.0131
+        },
+        "networkpolicy": {
+            "collector": "NetworkPolicyCollector",
+            "resource_count": 0,
+            "metrics": [
+                {
+                    "metric": "networkpolicy_count",
+                    "value": 0
+                },
+                {
+                    "metric": "ingress_network_policies",
+                    "value": 0
+                },
+                {
+                    "metric": "egress_network_policies",
+                    "value": 0
+                },
+                {
+                    "metric": "default_deny_policies",
+                    "value": 0
+                },
+                {
+                    "metric": "orphan_network_policies",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.0337
+        },
+        "node": {
+            "collector": "NodeCollector",
+            "resource_count": 0,
+            "metrics": [],
+            "execution_time": 0.0097
+        },
+        "pod": {
+            "collector": "PodCollector",
+            "resource_count": 27,
+            "metrics": [
+                {
+                    "metric": "pod_count",
+                    "value": 27
+                },
+                {
+                    "metric": "running_pods",
+                    "value": 27
+                },
+                {
+                    "metric": "pending_pods",
+                    "value": 0
+                },
+                {
+                    "metric": "failed_pods",
+                    "value": 0
+                },
+                {
+                    "metric": "succeeded_pods",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.0205
+        },
+        "collectors": [
+            {
+                "collector": "DeploymentCollector",
+                "resource_type": "deployment",
+                "resources": 11,
+                "execution_time": 0.1856
+            },
+            {
+                "collector": "IngressCollector",
+                "resource_type": "ingress",
+                "resources": 0,
+                "execution_time": 0.0116
+            },
+            {
+                "collector": "NetworkPolicyCollector",
+                "resource_type": "networkpolicy",
+                "resources": 0,
+                "execution_time": 0.0326
+            },
+            {
+                "collector": "NodeCollector",
+                "resource_type": "node",
+                "resources": 0,
+                "execution_time": 0.0097
+            },
+            {
+                "collector": "PodCollector",
+                "resource_type": "pod",
+                "resources": 27,
+                "execution_time": 0.0191
+            }
+        ]
+    },
+    "logs": [
+        {
+            "level": "warning",
+            "message": "No rules registered for 'node'."
+        }
+    ],
+    "error": null
+}

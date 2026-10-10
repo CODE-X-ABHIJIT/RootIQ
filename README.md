@@ -1,29 +1,33 @@
 # RootIQ
 
-> **RootIQ** is an intelligent Kubernetes Incident Response and Auto-Remediation framework that automates incident detection, root cause analysis (RCA), validation, and reporting for cloud-native environments.
+**RootIQ** is an open-source Kubernetes root cause analysis (RCA) and repair-assistance CLI that helps engineers investigate cluster issues, understand their causes, plan repairs, validate outcomes, and generate incident reports.
+
+RootIQ provides four main commands:
+
+* **Inspect** — Collect Kubernetes resource information and identify potential issues.
+* **Repair** — Analyze detected issues, prepare repair actions, and request user approval before executing supported repairs.
+* **Validate** — Check cluster health and assess the results of troubleshooting or repair actions.
+* **Report** — Generate structured reports to support incident review and troubleshooting.
+
+RootIQ is designed to make Kubernetes incident investigation more structured and repeatable. Repairs are not performed autonomously: users review and approve proposed actions before execution.
 
 ---
 
 ## 📖 Overview
 
-Managing Kubernetes production environments often requires engineers to manually investigate failures, correlate events, identify root causes, execute recovery actions, and validate cluster health. This process is time-consuming, error-prone, and heavily dependent on operational expertise.
-
-RootIQ streamlines this workflow by collecting cluster data, analyzing incidents using a rule-based engine, performing automated remediation, validating the applied fixes, and generating comprehensive incident reports—all through a single command-line interface.
+RootIQ streamlines Kubernetes incident investigation by collecting cluster data, analyzing issues with a rule-based engine, preparing repair plans for user review and approval, validating outcomes, and generating structured incident reports—all through a single command-line interface.
 
 ---
 
 ## ✨ Features
 
-* 🔍 Automated Kubernetes cluster inspection
-* 🧠 Rule-based Root Cause Analysis (RCA)
-* 🛠️ Automated repair engine
+* 🔍 Kubernetes resource inspection and issue detection
+* 🧠 Rule-based root cause analysis (RCA)
+* 🛠️ Planned repairs with user approval before execution
 * ✅ Post-repair validation
-* 📄 Incident report generation
-* 📦 Structured incident lifecycle management
-* 📝 Persistent incident storage
+* 📄 Structured incident reporting
+* 📦 Incident lifecycle and persistent incident storage
 * ☸️ Kubernetes-native resource collectors
-* 🔒 Safe and extensible remediation framework
-* ⚡ Modular and scalable architecture
 
 ---
 

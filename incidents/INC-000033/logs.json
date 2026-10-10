@@ -1,0 +1,22 @@
+[
+    {
+        "level": "error",
+        "message": "DeploymentProgressDeadlineRule: 'NoneType' object has no attribute 'startswith'"
+    },
+    {
+        "level": "error",
+        "message": "DeploymentReplicaMismatchRule: 'NoneType' object has no attribute 'startswith'"
+    },
+    {
+        "level": "error",
+        "message": "DeploymentRolloutRule: 'NoneType' object has no attribute 'startswith'"
+    },
+    {
+        "level": "error",
+        "message": "DeploymentUnavailableRule: 'NoneType' object has no attribute 'startswith'"
+    },
+    {
+        "level": "warning",
+        "message": "No rules registered for 'node'."
+    }
+]

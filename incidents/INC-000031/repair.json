@@ -1,0 +1,41 @@
+{
+    "incident": "INC-000031",
+    "generated_at": "2026-10-10T06:44:22.116370",
+    "total_actions": 2,
+    "successful_actions": 2,
+    "failed_actions": 0,
+    "actions": [
+        {
+            "action": "Apply resource limits",
+            "resource": {
+                "kind": "Deployment",
+                "name": "repair-image-test",
+                "namespace": "rootiq-lab"
+            },
+            "command": "kubectl patch deployment/repair-image-test --type=strategic -p '{\"spec\": {\"template\": {\"spec\": {\"containers\": [{\"name\": \"nginx\", \"resources\": {\"requests\": {\"cpu\": \"100m\", \"memory\": \"128Mi\"}, \"limits\": {\"cpu\": \"200m\", \"memory\": \"256Mi\"}}}]}}}}' -n rootiq-lab",
+            "rollback": "kubectl rollout undo deployment/repair-image-test -n rootiq-lab",
+            "risk": "MEDIUM",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/repair-image-test patched",
+            "stderr": "",
+            "execution_time": 6.939
+        },
+        {
+            "action": "Apply resource limits",
+            "resource": {
+                "kind": "Deployment",
+                "name": "repair-scale-test",
+                "namespace": "rootiq-lab"
+            },
+            "command": "kubectl patch deployment/repair-scale-test --type=strategic -p '{\"spec\": {\"template\": {\"spec\": {\"containers\": [{\"name\": \"nginx\", \"resources\": {\"requests\": {\"cpu\": \"100m\", \"memory\": \"128Mi\"}, \"limits\": {\"cpu\": \"200m\", \"memory\": \"256Mi\"}}}]}}}}' -n rootiq-lab",
+            "rollback": "kubectl rollout undo deployment/repair-scale-test -n rootiq-lab",
+            "risk": "MEDIUM",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/repair-scale-test patched",
+            "stderr": "",
+            "execution_time": -5.466
+        }
+    ]
+}

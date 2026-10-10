@@ -1,0 +1,1248 @@
+{
+    "engine": "InspectOrchestrator",
+    "success": true,
+    "execution_time": 0.4384,
+    "issues": [
+        {
+            "id": "POD-001",
+            "title": "Container restart back-off detected",
+            "description": "Back-off pulling image \"nginx:1.27.5\": ErrImagePull: failed to pull and unpack image \"docker.io/library/nginx:1.27.5\": failed to resolve reference \"docker.io/library/nginx:1.27.5\": failed to do request: Head \"https://registry-1.docker.io/v2/library/nginx/manifests/1.27.5\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-hf6bb",
+            "namespace": "backend",
+            "recommendation": "Check pod logs and investigate why the application exits.",
+            "evidence": [],
+            "labels": {
+                "container": "java-app"
+            }
+        },
+        {
+            "id": "POD-001",
+            "title": "Container restart back-off detected",
+            "description": "Back-off pulling image \"nginx:1.27.5\": ErrImagePull: failed to pull and unpack image \"docker.io/library/nginx:1.27.5\": failed to resolve reference \"docker.io/library/nginx:1.27.5\": failed to do request: Head \"https://registry-1.docker.io/v2/library/nginx/manifests/1.27.5\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-mclp2",
+            "namespace": "backend",
+            "recommendation": "Check pod logs and investigate why the application exits.",
+            "evidence": [],
+            "labels": {
+                "container": "java-app"
+            }
+        },
+        {
+            "id": "POD-001",
+            "title": "Container restart back-off detected",
+            "description": "Back-off pulling image \"redis:7.2.6\": ErrImagePull: failed to pull and unpack image \"docker.io/library/redis:7.2.6\": failed to resolve reference \"docker.io/library/redis:7.2.6\": failed to do request: Head \"https://registry-1.docker.io/v2/library/redis/manifests/7.2.6\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-bg9k4",
+            "namespace": "backend",
+            "recommendation": "Check pod logs and investigate why the application exits.",
+            "evidence": [],
+            "labels": {
+                "container": "redis"
+            }
+        },
+        {
+            "id": "POD-001",
+            "title": "Container restart back-off detected",
+            "description": "Back-off pulling image \"redis:7.2.6\": ErrImagePull: rpc error: code = DeadlineExceeded desc = failed to pull and unpack image \"docker.io/library/redis:7.2.6\": failed to resolve reference \"docker.io/library/redis:7.2.6\": failed to do request: Head \"https://registry-1.docker.io/v2/library/redis/manifests/7.2.6\": dial tcp 98.90.98.171:443: i/o timeout",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-nf9fg",
+            "namespace": "backend",
+            "recommendation": "Check pod logs and investigate why the application exits.",
+            "evidence": [],
+            "labels": {
+                "container": "redis"
+            }
+        },
+        {
+            "id": "POD-001",
+            "title": "Container restart back-off detected",
+            "description": "Back-off pulling image \"nginx:1.27.5\": ErrImagePull: failed to pull and unpack image \"docker.io/library/nginx:1.27.5\": failed to resolve reference \"docker.io/library/nginx:1.27.5\": failed to do request: Head \"https://registry-1.docker.io/v2/library/nginx/manifests/1.27.5\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-2hslm",
+            "namespace": "frontend",
+            "recommendation": "Check pod logs and investigate why the application exits.",
+            "evidence": [],
+            "labels": {
+                "container": "nginx"
+            }
+        },
+        {
+            "id": "POD-001",
+            "title": "Container restart back-off detected",
+            "description": "Back-off pulling image \"nginx:1.27.5\": ErrImagePull: failed to pull and unpack image \"docker.io/library/nginx:1.27.5\": failed to resolve reference \"docker.io/library/nginx:1.27.5\": failed to do request: Head \"https://registry-1.docker.io/v2/library/nginx/manifests/1.27.5\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-f8xf2",
+            "namespace": "frontend",
+            "recommendation": "Check pod logs and investigate why the application exits.",
+            "evidence": [],
+            "labels": {
+                "container": "nginx"
+            }
+        },
+        {
+            "id": "POD-001",
+            "title": "Container restart back-off detected",
+            "description": "Back-off pulling image \"polinux/stress:1.0.4\": ErrImagePull: failed to pull and unpack image \"docker.io/polinux/stress:1.0.4\": failed to resolve reference \"docker.io/polinux/stress:1.0.4\": failed to do request: Head \"https://registry-1.docker.io/v2/polinux/stress/manifests/1.0.4\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-bmsxp",
+            "namespace": "loadtest",
+            "recommendation": "Check pod logs and investigate why the application exits.",
+            "evidence": [],
+            "labels": {
+                "container": "stress"
+            }
+        },
+        {
+            "id": "POD-003",
+            "title": "Image pull failed",
+            "description": "Back-off pulling image \"nginx:1.27.5\": ErrImagePull: failed to pull and unpack image \"docker.io/library/nginx:1.27.5\": failed to resolve reference \"docker.io/library/nginx:1.27.5\": failed to do request: Head \"https://registry-1.docker.io/v2/library/nginx/manifests/1.27.5\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-hf6bb",
+            "namespace": "backend",
+            "recommendation": "Check DNS resolution and network connectivity.",
+            "evidence": [],
+            "labels": {
+                "container": "java-app",
+                "image": "docker.io/library/nginx:1.27.5",
+                "reason": "ImagePullBackOff"
+            }
+        },
+        {
+            "id": "POD-003",
+            "title": "Image pull failed",
+            "description": "Back-off pulling image \"nginx:1.27.5\": ErrImagePull: failed to pull and unpack image \"docker.io/library/nginx:1.27.5\": failed to resolve reference \"docker.io/library/nginx:1.27.5\": failed to do request: Head \"https://registry-1.docker.io/v2/library/nginx/manifests/1.27.5\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-mclp2",
+            "namespace": "backend",
+            "recommendation": "Check DNS resolution and network connectivity.",
+            "evidence": [],
+            "labels": {
+                "container": "java-app",
+                "image": "docker.io/library/nginx:1.27.5",
+                "reason": "ImagePullBackOff"
+            }
+        },
+        {
+            "id": "POD-003",
+            "title": "Image pull failed",
+            "description": "Back-off pulling image \"redis:7.2.6\": ErrImagePull: failed to pull and unpack image \"docker.io/library/redis:7.2.6\": failed to resolve reference \"docker.io/library/redis:7.2.6\": failed to do request: Head \"https://registry-1.docker.io/v2/library/redis/manifests/7.2.6\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-bg9k4",
+            "namespace": "backend",
+            "recommendation": "Check DNS resolution and network connectivity.",
+            "evidence": [],
+            "labels": {
+                "container": "redis",
+                "image": "docker.io/library/redis:7.2.6",
+                "reason": "ImagePullBackOff"
+            }
+        },
+        {
+            "id": "POD-003",
+            "title": "Image pull failed",
+            "description": "Back-off pulling image \"redis:7.2.6\": ErrImagePull: rpc error: code = DeadlineExceeded desc = failed to pull and unpack image \"docker.io/library/redis:7.2.6\": failed to resolve reference \"docker.io/library/redis:7.2.6\": failed to do request: Head \"https://registry-1.docker.io/v2/library/redis/manifests/7.2.6\": dial tcp 98.90.98.171:443: i/o timeout",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-nf9fg",
+            "namespace": "backend",
+            "recommendation": "Registry unreachable. Verify network connectivity.",
+            "evidence": [],
+            "labels": {
+                "container": "redis",
+                "image": "docker.io/library/redis:7.2.6",
+                "reason": "ImagePullBackOff"
+            }
+        },
+        {
+            "id": "POD-003",
+            "title": "Image pull failed",
+            "description": "Back-off pulling image \"nginx:1.27.5\": ErrImagePull: failed to pull and unpack image \"docker.io/library/nginx:1.27.5\": failed to resolve reference \"docker.io/library/nginx:1.27.5\": failed to do request: Head \"https://registry-1.docker.io/v2/library/nginx/manifests/1.27.5\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-2hslm",
+            "namespace": "frontend",
+            "recommendation": "Check DNS resolution and network connectivity.",
+            "evidence": [],
+            "labels": {
+                "container": "nginx",
+                "image": "docker.io/library/nginx:1.27.5",
+                "reason": "ImagePullBackOff"
+            }
+        },
+        {
+            "id": "POD-003",
+            "title": "Image pull failed",
+            "description": "Back-off pulling image \"nginx:1.27.5\": ErrImagePull: failed to pull and unpack image \"docker.io/library/nginx:1.27.5\": failed to resolve reference \"docker.io/library/nginx:1.27.5\": failed to do request: Head \"https://registry-1.docker.io/v2/library/nginx/manifests/1.27.5\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-f8xf2",
+            "namespace": "frontend",
+            "recommendation": "Check DNS resolution and network connectivity.",
+            "evidence": [],
+            "labels": {
+                "container": "nginx",
+                "image": "docker.io/library/nginx:1.27.5",
+                "reason": "ImagePullBackOff"
+            }
+        },
+        {
+            "id": "POD-003",
+            "title": "Image pull failed",
+            "description": "Back-off pulling image \"polinux/stress:1.0.4\": ErrImagePull: failed to pull and unpack image \"docker.io/polinux/stress:1.0.4\": failed to resolve reference \"docker.io/polinux/stress:1.0.4\": failed to do request: Head \"https://registry-1.docker.io/v2/polinux/stress/manifests/1.0.4\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-bmsxp",
+            "namespace": "loadtest",
+            "recommendation": "Check DNS resolution and network connectivity.",
+            "evidence": [],
+            "labels": {
+                "container": "stress",
+                "image": "docker.io/polinux/stress:1.0.4",
+                "reason": "ImagePullBackOff"
+            }
+        },
+        {
+            "id": "POD-003",
+            "title": "Image pull failed",
+            "description": "failed to pull and unpack image \"docker.io/polinux/stress:1.0.4\": failed to resolve reference \"docker.io/polinux/stress:1.0.4\": failed to do request: Head \"https://registry-1.docker.io/v2/polinux/stress/manifests/1.0.4\": dial tcp: lookup registry-1.docker.io on 172.18.0.1:53: server misbehaving",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-mcgrx",
+            "namespace": "loadtest",
+            "recommendation": "Check DNS resolution and network connectivity.",
+            "evidence": [],
+            "labels": {
+                "container": "stress",
+                "image": "docker.io/polinux/stress:1.0.4",
+                "reason": "ErrImagePull"
+            }
+        },
+        {
+            "id": "POD-007",
+            "title": "Possible probe failure detected",
+            "description": "containers with unready status: [java-app]",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-hf6bb",
+            "namespace": "backend",
+            "recommendation": "Inspect pod events using 'kubectl describe pod' and verify liveness/readiness probe configuration, startup time and application logs.",
+            "evidence": [],
+            "labels": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "id": "POD-007",
+            "title": "Possible probe failure detected",
+            "description": "containers with unready status: [java-app]",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-mclp2",
+            "namespace": "backend",
+            "recommendation": "Inspect pod events using 'kubectl describe pod' and verify liveness/readiness probe configuration, startup time and application logs.",
+            "evidence": [],
+            "labels": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "id": "POD-007",
+            "title": "Possible probe failure detected",
+            "description": "containers with unready status: [redis]",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-bg9k4",
+            "namespace": "backend",
+            "recommendation": "Inspect pod events using 'kubectl describe pod' and verify liveness/readiness probe configuration, startup time and application logs.",
+            "evidence": [],
+            "labels": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "id": "POD-007",
+            "title": "Possible probe failure detected",
+            "description": "containers with unready status: [redis]",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-nf9fg",
+            "namespace": "backend",
+            "recommendation": "Inspect pod events using 'kubectl describe pod' and verify liveness/readiness probe configuration, startup time and application logs.",
+            "evidence": [],
+            "labels": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "id": "POD-007",
+            "title": "Possible probe failure detected",
+            "description": "containers with unready status: [nginx]",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-2hslm",
+            "namespace": "frontend",
+            "recommendation": "Inspect pod events using 'kubectl describe pod' and verify liveness/readiness probe configuration, startup time and application logs.",
+            "evidence": [],
+            "labels": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "id": "POD-007",
+            "title": "Possible probe failure detected",
+            "description": "containers with unready status: [nginx]",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-f8xf2",
+            "namespace": "frontend",
+            "recommendation": "Inspect pod events using 'kubectl describe pod' and verify liveness/readiness probe configuration, startup time and application logs.",
+            "evidence": [],
+            "labels": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "id": "POD-007",
+            "title": "Possible probe failure detected",
+            "description": "containers with unready status: [stress]",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-bmsxp",
+            "namespace": "loadtest",
+            "recommendation": "Inspect pod events using 'kubectl describe pod' and verify liveness/readiness probe configuration, startup time and application logs.",
+            "evidence": [],
+            "labels": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "id": "POD-007",
+            "title": "Possible probe failure detected",
+            "description": "containers with unready status: [stress]",
+            "severity": "CRITICAL",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-mcgrx",
+            "namespace": "loadtest",
+            "recommendation": "Inspect pod events using 'kubectl describe pod' and verify liveness/readiness probe configuration, startup time and application logs.",
+            "evidence": [],
+            "labels": {
+                "condition": "Ready",
+                "reason": "ContainersNotReady"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Pod is not Ready",
+            "description": "containers with unready status: [java-app]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-hf6bb",
+            "namespace": "backend",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Containers are not Ready",
+            "description": "containers with unready status: [java-app]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-hf6bb",
+            "namespace": "backend",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Container is not Ready",
+            "description": "Container 'java-app' is not ready.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-hf6bb",
+            "namespace": "backend",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "evidence": [],
+            "labels": {
+                "container": "java-app",
+                "restart_count": 9,
+                "image": "docker.io/library/nginx:1.27.5"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Pod is not Ready",
+            "description": "containers with unready status: [java-app]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-mclp2",
+            "namespace": "backend",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Containers are not Ready",
+            "description": "containers with unready status: [java-app]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-mclp2",
+            "namespace": "backend",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Container is not Ready",
+            "description": "Container 'java-app' is not ready.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-mclp2",
+            "namespace": "backend",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "evidence": [],
+            "labels": {
+                "container": "java-app",
+                "restart_count": 9,
+                "image": "docker.io/library/nginx:1.27.5"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Pod is not Ready",
+            "description": "containers with unready status: [redis]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-bg9k4",
+            "namespace": "backend",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Containers are not Ready",
+            "description": "containers with unready status: [redis]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-bg9k4",
+            "namespace": "backend",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Container is not Ready",
+            "description": "Container 'redis' is not ready.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-bg9k4",
+            "namespace": "backend",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "evidence": [],
+            "labels": {
+                "container": "redis",
+                "restart_count": 9,
+                "image": "docker.io/library/redis:7.2.6"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Pod is not Ready",
+            "description": "containers with unready status: [redis]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-nf9fg",
+            "namespace": "backend",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Containers are not Ready",
+            "description": "containers with unready status: [redis]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-nf9fg",
+            "namespace": "backend",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Container is not Ready",
+            "description": "Container 'redis' is not ready.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-nf9fg",
+            "namespace": "backend",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "evidence": [],
+            "labels": {
+                "container": "redis",
+                "restart_count": 9,
+                "image": "docker.io/library/redis:7.2.6"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Pod is not Ready",
+            "description": "containers with unready status: [nginx]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-2hslm",
+            "namespace": "frontend",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Containers are not Ready",
+            "description": "containers with unready status: [nginx]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-2hslm",
+            "namespace": "frontend",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Container is not Ready",
+            "description": "Container 'nginx' is not ready.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-2hslm",
+            "namespace": "frontend",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "evidence": [],
+            "labels": {
+                "container": "nginx",
+                "restart_count": 9,
+                "image": "docker.io/library/nginx:1.27.5"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Pod is not Ready",
+            "description": "containers with unready status: [nginx]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-f8xf2",
+            "namespace": "frontend",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Containers are not Ready",
+            "description": "containers with unready status: [nginx]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-f8xf2",
+            "namespace": "frontend",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Container is not Ready",
+            "description": "Container 'nginx' is not ready.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-f8xf2",
+            "namespace": "frontend",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "evidence": [],
+            "labels": {
+                "container": "nginx",
+                "restart_count": 5,
+                "image": "docker.io/library/nginx:1.27.5"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Pod is not Ready",
+            "description": "containers with unready status: [stress]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-bmsxp",
+            "namespace": "loadtest",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Containers are not Ready",
+            "description": "containers with unready status: [stress]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-bmsxp",
+            "namespace": "loadtest",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Container is not Ready",
+            "description": "Container 'stress' is not ready.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-bmsxp",
+            "namespace": "loadtest",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "evidence": [],
+            "labels": {
+                "container": "stress",
+                "restart_count": 9,
+                "image": "docker.io/polinux/stress:1.0.4"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Pod is not Ready",
+            "description": "containers with unready status: [stress]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-mcgrx",
+            "namespace": "loadtest",
+            "recommendation": "Inspect readiness probe configuration, application logs and dependent services.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "Ready"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Containers are not Ready",
+            "description": "containers with unready status: [stress]",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-mcgrx",
+            "namespace": "loadtest",
+            "recommendation": "Identify the container failing readiness and inspect logs.",
+            "evidence": [],
+            "labels": {
+                "reason": "ContainersNotReady",
+                "condition": "ContainersReady"
+            }
+        },
+        {
+            "id": "POD-006",
+            "title": "Container is not Ready",
+            "description": "Container 'stress' is not ready.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-mcgrx",
+            "namespace": "loadtest",
+            "recommendation": "Verify readiness probe, startup sequence, dependencies and application logs.",
+            "evidence": [],
+            "labels": {
+                "container": "stress",
+                "restart_count": 9,
+                "image": "docker.io/polinux/stress:1.0.4"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-hf6bb",
+            "namespace": "backend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-mclp2",
+            "namespace": "backend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-bg9k4",
+            "namespace": "backend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-nf9fg",
+            "namespace": "backend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "mysql-645c68446d-qgbvl",
+            "namespace": "database",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "mysql-645c68446d-txrfr",
+            "namespace": "database",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-2hslm",
+            "namespace": "frontend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-f8xf2",
+            "namespace": "frontend",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-bmsxp",
+            "namespace": "loadtest",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-008",
+            "title": "Burstable QoS",
+            "description": "Pod is using Burstable QoS.",
+            "severity": "LOW",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-mcgrx",
+            "namespace": "loadtest",
+            "recommendation": "Verify that CPU and memory requests are properly configured.",
+            "evidence": [],
+            "labels": {
+                "qos": "Burstable"
+            }
+        },
+        {
+            "id": "POD-005",
+            "title": "Container restarting frequently",
+            "description": "Container 'java-app' has restarted 9 times.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-hf6bb",
+            "namespace": "backend",
+            "recommendation": "Inspect the previous logs using 'kubectl logs --previous'. Review probe failures, application logs, resource limits, OOMKills, and recent deployments.",
+            "evidence": [],
+            "labels": {
+                "container": "java-app",
+                "restart_count": 9,
+                "image": "docker.io/library/nginx:1.27.5"
+            }
+        },
+        {
+            "id": "POD-005",
+            "title": "Container restarting frequently",
+            "description": "Container 'java-app' has restarted 9 times.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "java-app-65b58c598f-mclp2",
+            "namespace": "backend",
+            "recommendation": "Inspect the previous logs using 'kubectl logs --previous'. Review probe failures, application logs, resource limits, OOMKills, and recent deployments.",
+            "evidence": [],
+            "labels": {
+                "container": "java-app",
+                "restart_count": 9,
+                "image": "docker.io/library/nginx:1.27.5"
+            }
+        },
+        {
+            "id": "POD-005",
+            "title": "Container restarting frequently",
+            "description": "Container 'redis' has restarted 9 times.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-bg9k4",
+            "namespace": "backend",
+            "recommendation": "Inspect the previous logs using 'kubectl logs --previous'. Review probe failures, application logs, resource limits, OOMKills, and recent deployments.",
+            "evidence": [],
+            "labels": {
+                "container": "redis",
+                "restart_count": 9,
+                "image": "docker.io/library/redis:7.2.6"
+            }
+        },
+        {
+            "id": "POD-005",
+            "title": "Container restarting frequently",
+            "description": "Container 'redis' has restarted 9 times.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "redis-85589d4f7d-nf9fg",
+            "namespace": "backend",
+            "recommendation": "Inspect the previous logs using 'kubectl logs --previous'. Review probe failures, application logs, resource limits, OOMKills, and recent deployments.",
+            "evidence": [],
+            "labels": {
+                "container": "redis",
+                "restart_count": 9,
+                "image": "docker.io/library/redis:7.2.6"
+            }
+        },
+        {
+            "id": "POD-005",
+            "title": "Container restarting frequently",
+            "description": "Container 'mysql' has restarted 11 times.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "mysql-645c68446d-qgbvl",
+            "namespace": "database",
+            "recommendation": "Inspect the previous logs using 'kubectl logs --previous'. Review probe failures, application logs, resource limits, OOMKills, and recent deployments.",
+            "evidence": [],
+            "labels": {
+                "container": "mysql",
+                "restart_count": 11,
+                "image": "docker.io/library/mysql:8.0"
+            }
+        },
+        {
+            "id": "POD-005",
+            "title": "Container restarting frequently",
+            "description": "Container 'mysql' has restarted 11 times.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "mysql-645c68446d-txrfr",
+            "namespace": "database",
+            "recommendation": "Inspect the previous logs using 'kubectl logs --previous'. Review probe failures, application logs, resource limits, OOMKills, and recent deployments.",
+            "evidence": [],
+            "labels": {
+                "container": "mysql",
+                "restart_count": 11,
+                "image": "docker.io/library/mysql:8.0"
+            }
+        },
+        {
+            "id": "POD-005",
+            "title": "Container restarting frequently",
+            "description": "Container 'nginx' has restarted 9 times.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-2hslm",
+            "namespace": "frontend",
+            "recommendation": "Inspect the previous logs using 'kubectl logs --previous'. Review probe failures, application logs, resource limits, OOMKills, and recent deployments.",
+            "evidence": [],
+            "labels": {
+                "container": "nginx",
+                "restart_count": 9,
+                "image": "docker.io/library/nginx:1.27.5"
+            }
+        },
+        {
+            "id": "POD-005",
+            "title": "Container restarting frequently",
+            "description": "Container 'nginx' has restarted 5 times.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "nginx-6ddbbb8969-f8xf2",
+            "namespace": "frontend",
+            "recommendation": "Inspect the previous logs using 'kubectl logs --previous'. Review probe failures, application logs, resource limits, OOMKills, and recent deployments.",
+            "evidence": [],
+            "labels": {
+                "container": "nginx",
+                "restart_count": 5,
+                "image": "docker.io/library/nginx:1.27.5"
+            }
+        },
+        {
+            "id": "POD-005",
+            "title": "Container restarting frequently",
+            "description": "Container 'stress' has restarted 9 times.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-bmsxp",
+            "namespace": "loadtest",
+            "recommendation": "Inspect the previous logs using 'kubectl logs --previous'. Review probe failures, application logs, resource limits, OOMKills, and recent deployments.",
+            "evidence": [],
+            "labels": {
+                "container": "stress",
+                "restart_count": 9,
+                "image": "docker.io/polinux/stress:1.0.4"
+            }
+        },
+        {
+            "id": "POD-005",
+            "title": "Container restarting frequently",
+            "description": "Container 'stress' has restarted 9 times.",
+            "severity": "HIGH",
+            "category": "POD",
+            "resource": "stress-generator-cb44bb996-mcgrx",
+            "namespace": "loadtest",
+            "recommendation": "Inspect the previous logs using 'kubectl logs --previous'. Review probe failures, application logs, resource limits, OOMKills, and recent deployments.",
+            "evidence": [],
+            "labels": {
+                "container": "stress",
+                "restart_count": 9,
+                "image": "docker.io/polinux/stress:1.0.4"
+            }
+        }
+    ],
+    "incidents": [],
+    "actions": [],
+    "recommendations": [],
+    "summary": {
+        "collectors_executed": 5,
+        "resources_scanned": 33,
+        "issues_found": 67,
+        "severity": {
+            "CRITICAL": 23,
+            "HIGH": 34,
+            "MEDIUM": 0,
+            "LOW": 10,
+            "INFO": 0
+        },
+        "cluster_status": "Issues Detected"
+    },
+    "metadata": {
+        "deployment": {
+            "collector": "DeploymentCollector",
+            "resource_count": 8,
+            "metrics": [
+                {
+                    "metric": "deployment_count",
+                    "value": 8
+                },
+                {
+                    "metric": "healthy_deployments",
+                    "value": 3
+                },
+                {
+                    "metric": "unhealthy_deployments",
+                    "value": 4
+                },
+                {
+                    "metric": "fully_available_deployments",
+                    "value": 3
+                },
+                {
+                    "metric": "partially_available_deployments",
+                    "value": 1
+                },
+                {
+                    "metric": "failed_rollouts",
+                    "value": 4
+                },
+                {
+                    "metric": "desired_replicas",
+                    "value": 13
+                },
+                {
+                    "metric": "ready_replicas",
+                    "value": 5
+                },
+                {
+                    "metric": "available_replicas",
+                    "value": 5
+                },
+                {
+                    "metric": "updated_replicas",
+                    "value": 13
+                },
+                {
+                    "metric": "unavailable_replicas",
+                    "value": 8
+                }
+            ],
+            "execution_time": 0.2453
+        },
+        "ingress": {
+            "collector": "IngressCollector",
+            "resource_count": 0,
+            "metrics": [
+                {
+                    "metric": "ingress_count",
+                    "value": 0
+                },
+                {
+                    "metric": "rule_count",
+                    "value": 0
+                },
+                {
+                    "metric": "path_count",
+                    "value": 0
+                },
+                {
+                    "metric": "tls_entries",
+                    "value": 0
+                },
+                {
+                    "metric": "tls_enabled_ingresses",
+                    "value": 0
+                },
+                {
+                    "metric": "tls_disabled_ingresses",
+                    "value": 0
+                },
+                {
+                    "metric": "ingresses_with_loadbalancer",
+                    "value": 0
+                },
+                {
+                    "metric": "ingresses_without_loadbalancer",
+                    "value": 0
+                },
+                {
+                    "metric": "nginx_ingress_class",
+                    "value": 0
+                },
+                {
+                    "metric": "custom_ingress_class",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.0197
+        },
+        "networkpolicy": {
+            "collector": "NetworkPolicyCollector",
+            "resource_count": 0,
+            "metrics": [
+                {
+                    "metric": "networkpolicy_count",
+                    "value": 0
+                },
+                {
+                    "metric": "ingress_network_policies",
+                    "value": 0
+                },
+                {
+                    "metric": "egress_network_policies",
+                    "value": 0
+                },
+                {
+                    "metric": "default_deny_policies",
+                    "value": 0
+                },
+                {
+                    "metric": "orphan_network_policies",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.0574
+        },
+        "node": {
+            "collector": "NodeCollector",
+            "resource_count": 0,
+            "metrics": [],
+            "execution_time": 0.0143
+        },
+        "pod": {
+            "collector": "PodCollector",
+            "resource_count": 25,
+            "metrics": [
+                {
+                    "metric": "pod_count",
+                    "value": 25
+                },
+                {
+                    "metric": "running_pods",
+                    "value": 25
+                },
+                {
+                    "metric": "pending_pods",
+                    "value": 0
+                },
+                {
+                    "metric": "failed_pods",
+                    "value": 0
+                },
+                {
+                    "metric": "succeeded_pods",
+                    "value": 0
+                }
+            ],
+            "execution_time": 0.094
+        },
+        "collectors": [
+            {
+                "collector": "DeploymentCollector",
+                "resource_type": "deployment",
+                "resources": 8,
+                "execution_time": 0.2258
+            },
+            {
+                "collector": "IngressCollector",
+                "resource_type": "ingress",
+                "resources": 0,
+                "execution_time": 0.0131
+            },
+            {
+                "collector": "NetworkPolicyCollector",
+                "resource_type": "networkpolicy",
+                "resources": 0,
+                "execution_time": 0.0506
+            },
+            {
+                "collector": "NodeCollector",
+                "resource_type": "node",
+                "resources": 0,
+                "execution_time": 0.0143
+            },
+            {
+                "collector": "PodCollector",
+                "resource_type": "pod",
+                "resources": 25,
+                "execution_time": 0.0773
+            }
+        ]
+    },
+    "logs": [
+        {
+            "level": "error",
+            "message": "DeploymentReplicaMismatchRule: 'NoneType' object has no attribute 'startswith'"
+        },
+        {
+            "level": "error",
+            "message": "DeploymentRolloutRule: 'NoneType' object has no attribute 'startswith'"
+        },
+        {
+            "level": "error",
+            "message": "DeploymentUnavailableRule: 'NoneType' object has no attribute 'startswith'"
+        },
+        {
+            "level": "warning",
+            "message": "No rules registered for 'node'."
+        }
+    ],
+    "error": null
+}

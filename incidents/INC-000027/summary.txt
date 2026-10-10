@@ -1,0 +1,17 @@
+Incident : INC-000027
+Engine   : InspectOrchestrator
+Generated: 2026-10-10 03:54:51
+
+Issue Summary
+-------------
+67 Total Issues
+ • Critical : 23
+ • High     : 34
+ • Medium   : 0
+ • Low      : 10
+ • Info     : 0
+
+Resources Scanned : 33
+Collectors        : 5
+Execution Time    : 0.44s
+Status            : Issues Detected

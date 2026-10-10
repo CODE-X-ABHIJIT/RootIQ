@@ -16,3 +16,8 @@ class RootIQConfig:
     @property
     def scan(self):
         return self.data.get("scan", {})
+
+    
+    @property
+    def repair(self):
+        return self.data.get("repair", {})

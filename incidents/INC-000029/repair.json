@@ -1,0 +1,25 @@
+{
+    "incident": "INC-000029",
+    "generated_at": "2026-10-10T05:33:03.595296",
+    "total_actions": 1,
+    "successful_actions": 1,
+    "failed_actions": 0,
+    "actions": [
+        {
+            "action": "Apply resource limits",
+            "resource": {
+                "kind": "Deployment",
+                "name": "resource-test",
+                "namespace": "rootiq-lab"
+            },
+            "command": "kubectl patch deployment/resource-test --type=strategic -p '{\"spec\": {\"template\": {\"spec\": {\"containers\": [{\"name\": \"nginx\", \"resources\": {\"requests\": {\"cpu\": \"100m\", \"memory\": \"128Mi\"}, \"limits\": {\"cpu\": \"200m\", \"memory\": \"256Mi\"}}}]}}}}' -n rootiq-lab",
+            "rollback": "kubectl rollout undo deployment/resource-test -n rootiq-lab",
+            "risk": "MEDIUM",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/resource-test patched",
+            "stderr": "",
+            "execution_time": 0.986
+        }
+    ]
+}

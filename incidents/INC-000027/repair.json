@@ -1,0 +1,89 @@
+{
+    "incident": "INC-000027",
+    "generated_at": "2026-10-10T04:24:09.825090",
+    "total_actions": 5,
+    "successful_actions": 5,
+    "failed_actions": 0,
+    "actions": [
+        {
+            "action": "Restart workload",
+            "resource": {
+                "kind": "Deployment",
+                "name": "java-app",
+                "namespace": "backend"
+            },
+            "command": "kubectl rollout restart deployment/java-app -n backend",
+            "rollback": "kubectl rollout undo deployment/java-app -n backend",
+            "risk": "MEDIUM",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/java-app restarted",
+            "stderr": "",
+            "execution_time": 8.547
+        },
+        {
+            "action": "Restart workload",
+            "resource": {
+                "kind": "Deployment",
+                "name": "redis",
+                "namespace": "backend"
+            },
+            "command": "kubectl rollout restart deployment/redis -n backend",
+            "rollback": "kubectl rollout undo deployment/redis -n backend",
+            "risk": "MEDIUM",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/redis restarted",
+            "stderr": "",
+            "execution_time": 1.249
+        },
+        {
+            "action": "Restart workload",
+            "resource": {
+                "kind": "Deployment",
+                "name": "nginx",
+                "namespace": "frontend"
+            },
+            "command": "kubectl rollout restart deployment/nginx -n frontend",
+            "rollback": "kubectl rollout undo deployment/nginx -n frontend",
+            "risk": "MEDIUM",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/nginx restarted",
+            "stderr": "",
+            "execution_time": 1.249
+        },
+        {
+            "action": "Restart workload",
+            "resource": {
+                "kind": "Deployment",
+                "name": "stress-generator",
+                "namespace": "loadtest"
+            },
+            "command": "kubectl rollout restart deployment/stress-generator -n loadtest",
+            "rollback": "kubectl rollout undo deployment/stress-generator -n loadtest",
+            "risk": "MEDIUM",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/stress-generator restarted",
+            "stderr": "",
+            "execution_time": 1.085
+        },
+        {
+            "action": "Restart workload",
+            "resource": {
+                "kind": "Deployment",
+                "name": "mysql",
+                "namespace": "database"
+            },
+            "command": "kubectl rollout restart deployment/mysql -n database",
+            "rollback": "kubectl rollout undo deployment/mysql -n database",
+            "risk": "MEDIUM",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/mysql restarted",
+            "stderr": "",
+            "execution_time": 0.829
+        }
+    ]
+}

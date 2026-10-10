@@ -1,0 +1,17 @@
+Incident : INC-000031
+Engine   : InspectOrchestrator
+Generated: 2026-10-10 06:23:19
+
+Issue Summary
+-------------
+26 Total Issues
+ • Critical : 3
+ • High     : 8
+ • Medium   : 3
+ • Low      : 12
+ • Info     : 0
+
+Resources Scanned : 38
+Collectors        : 5
+Execution Time    : 0.77s
+Status            : Issues Detected

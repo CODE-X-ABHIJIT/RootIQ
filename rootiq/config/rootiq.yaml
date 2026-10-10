@@ -1,14 +1,12 @@
+
 scan:
-
   include_system: false
-
   exclude_namespaces:
     - kube-system
     - kube-public
     - kube-node-lease
     - local-path-storage
     - monitoring
-
   exclude_workloads:
     - kube-proxy
     - coredns
@@ -17,3 +15,13 @@ scan:
     - kube-apiserver
     - kube-controller-manager
     - kube-scheduler
+
+repair:
+  resource_profiles:
+    default:
+      requests:
+        cpu: "100m"
+        memory: "128Mi"
+      limits:
+        cpu: "200m"
+        memory: "256Mi"

@@ -1,0 +1,17 @@
+Incident : INC-000029
+Engine   : InspectOrchestrator
+Generated: 2026-10-10 04:57:50
+
+Issue Summary
+-------------
+17 Total Issues
+ • Critical : 0
+ • High     : 3
+ • Medium   : 3
+ • Low      : 11
+ • Info     : 0
+
+Resources Scanned : 35
+Collectors        : 5
+Execution Time    : 0.78s
+Status            : Issues Detected

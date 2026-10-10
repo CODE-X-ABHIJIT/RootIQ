@@ -1,23 +1,27 @@
-from rootiq.engine.result import EngineResult
+
+from rootiq.engine.validation_engine import ValidationEngine
 
 
 class ValidateOrchestrator:
+    """Coordinates read-only Kubernetes validation."""
 
     name = "ValidateOrchestrator"
 
-    def run(self, *args, **kwargs):
+    def __init__(self):
+        self.engine = ValidationEngine()
 
-        result = EngineResult(
-            engine=self.name
+    def run(
+        self,
+        context="kind-finops-lab",
+        namespace="default",
+        cluster_wide=True,
+    ):
+        result = self.engine.run(
+            context=context,
+            namespace=namespace,
+            cluster_wide=cluster_wide,
         )
 
-        result.summary = {
-            "status": "Not Implemented"
-        }
-
-        result.add_log(
-            "info",
-            "Validation engine is not implemented yet."
-        )
-
-        
+        # Keep the orchestrator name in the CLI response.
+        result.engine = self.name
+        return result

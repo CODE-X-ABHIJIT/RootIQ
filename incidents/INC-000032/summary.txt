@@ -1,0 +1,17 @@
+Incident : INC-000032
+Engine   : InspectOrchestrator
+Generated: 2026-10-10 06:46:19
+
+Issue Summary
+-------------
+31 Total Issues
+ • Critical : 5
+ • High     : 10
+ • Medium   : 3
+ • Low      : 13
+ • Info     : 0
+
+Resources Scanned : 39
+Collectors        : 5
+Execution Time    : 0.75s
+Status            : Issues Detected

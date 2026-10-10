@@ -1,0 +1,25 @@
+{
+    "incident": "INC-000033",
+    "generated_at": "2026-10-10T10:00:12.880188",
+    "total_actions": 1,
+    "successful_actions": 1,
+    "failed_actions": 0,
+    "actions": [
+        {
+            "action": "Update container image",
+            "resource": {
+                "kind": "Deployment",
+                "name": "repair-image-test",
+                "namespace": "rootiq-lab"
+            },
+            "command": "kubectl set image deployment/repair-image-test nginx=nginx:latest -n rootiq-lab",
+            "rollback": "kubectl rollout undo deployment/repair-image-test -n rootiq-lab",
+            "risk": "HIGH",
+            "success": true,
+            "return_code": 0,
+            "stdout": "deployment.apps/repair-image-test image updated",
+            "stderr": "",
+            "execution_time": 1.438
+        }
+    ]
+}
